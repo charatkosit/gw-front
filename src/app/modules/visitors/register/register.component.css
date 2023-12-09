@@ -1,0 +1,9 @@
+.col-4 {
+    display: flex; /* เปิดใช้งาน flexbox */
+    justify-content: space-between; /* จัดให้ปุ่มอยู่ห่างกัน */
+  }
+  
+  .btn-primary, .btn-secondary {
+    margin: 0 10px; /* เพิ่มระยะห่างระหว่างปุ่ม */
+  }
+  

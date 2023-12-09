@@ -8,8 +8,14 @@ import { Component, OnInit } from '@angular/core';
 export class MenuComponent implements OnInit {
 
   constructor() { }
-
+  
+  selectedMenu = '';
+  
   ngOnInit(): void {
+  }
+
+  setSelectedMenu(menu:string){
+    this.selectedMenu = menu;
   }
 
 }
