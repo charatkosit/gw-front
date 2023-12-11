@@ -8,6 +8,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ContentComponent } from './components/content/content.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { VisitorsModule } from './modules/visitors/visitors.module';
+
 
 
 
@@ -20,7 +22,7 @@ import { FooterComponent } from './components/footer/footer.component';
     FooterComponent
   ],
   imports: [
-    
+    VisitorsModule,
     BrowserModule,
     HttpClientModule,
     FormsModule,

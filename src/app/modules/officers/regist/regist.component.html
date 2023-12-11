@@ -1,0 +1,291 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-1 thai-text">ลงทะเบียนพนักงาน</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a routerLink="/dashboard">หน้าหลัก</a></li>
+
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">พนักงาน</h3>
+                            </div>
+                            <div class="card">
+                                <div class="card-body register-card-body">
+                                    <form #registerForm="ngForm" (submit)="onSubmit()">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="ชื่อ"
+                                                [(ngModel)]="user.firstName" name="firstName" required>
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <span class="fas fa-user"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="นามสกุล"
+                                                [(ngModel)]="user.lastName" name="lastName" required>
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <span class="fas fa-user"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="โทรศัพท์"
+                                                [(ngModel)]="user.phone" name="phone" required>
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <span class="fas fa-phone"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="รหัสพนักงาน"
+                                                [(ngModel)]="user.idOfficer" name="idCard" required>
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <span class="fas fa-phone"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- ต่อด้วยช่องนามสกุล, บัตรประชาชน -->
+
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="หมายเลขบัตรอนุญาต"
+                                                [(ngModel)]="user.token" name="token" required>
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <span class="fas fa-credit-card"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="อนุญาตไปชั้น"
+                                                [(ngModel)]="user.multiSelectFloor" name="multiSelectFloor" required>
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <span class="fas fa-credit-card"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                            <!-- สร้างคอลัมน์ที่ 1 -->
+                                            <div class="col-md-3">
+                                                <!-- สร้าง checkboxes ในคอลัมน์นี้ -->
+                                                <div class="form-group">
+                                                    <!-- สร้างแต่ละ checkbox พร้อม label -->
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox1" id="checkbox1" [(ngModel)]="user.multiSelectFloor"  (change)="updateMultiSelectFloor()">
+                                                            1</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox2" id="checkbox2" [(ngModel)]="user.multiSelectFloor" (change)="updateMultiSelectFloor()">
+                                                            2</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox3" id="checkbox3" [(ngModel)]="user.multiSelectFloor" (change)="updateMultiSelectFloor()">
+                                                            3</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox4" id="checkbox4" [(ngModel)]="user.multiSelectFloor" (change)="updateMultiSelectFloor()">
+                                                            4</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox5" id="checkbox5" [(ngModel)]="user.multiSelectFloor" (change)="updateMultiSelectFloor()">
+                                                            5</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox6" id="checkbox6">
+                                                            6</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox7" id="checkbox7">
+                                                            7</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox8" id="checkbox8">
+                                                            8</label>
+                                                    </div>
+                                                    <!-- ทำซ้ำสำหรับ checkboxes ที่เหลือในคอลัมน์นี้ -->
+                                                    <!-- ... -->
+                                                </div>
+                                            </div>
+
+                                            <!-- สร้างคอลัมน์ที่ 2 -->
+                                            <div class="col-md-3">
+                                                <!-- สร้าง checkboxes ในคอลัมน์นี้ -->
+                                                <div class="form-group">
+                                                    <!-- สร้างแต่ละ checkbox พร้อม label -->
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox9" id="checkbox9">
+                                                            9</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox10" id="checkbox10">
+                                                            10</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox11" id="checkbox11">
+                                                            11</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox12" id="checkbox12">
+                                                            12</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox13" id="checkbox13">
+                                                            13</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox14" id="checkbox14">
+                                                            14</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox15" id="checkbox15">
+                                                            15</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox16" id="checkbox16">
+                                                            16</label>
+                                                    </div>
+                                                    <!-- ทำซ้ำสำหรับ checkboxes ที่เหลือในคอลัมน์นี้ -->
+                                                    <!-- ... -->
+                                                </div>
+                                            </div>
+                                            <!-- สร้างคอลัมน์ที่ 3 -->
+                                            <div class="col-md-3">
+                                                <!-- สร้าง checkboxes ในคอลัมน์นี้ -->
+                                                <div class="form-group">
+                                                    <!-- สร้างแต่ละ checkbox พร้อม label -->
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox17" id="checkbox17">
+                                                            17</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox18" id="checkbox18">
+                                                            18</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox19" id="checkbox19">
+                                                            19</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox20" id="checkbox20">
+                                                            20</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox21" id="checkbox21">
+                                                            21</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox22" id="checkbox22">
+                                                            22</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox23" id="checkbox23">
+                                                            23</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox24" id="checkbox24">
+                                                            24</label>
+                                                    </div>
+                                                    <!-- ทำซ้ำสำหรับ checkboxes ที่เหลือในคอลัมน์นี้ -->
+                                                    <!-- ... -->
+                                                </div>
+                                            </div>
+                                            <!-- สร้างคอลัมน์ที่ 4 -->
+                                            <div class="col-md-3">
+                                                <!-- สร้าง checkboxes ในคอลัมน์นี้ -->
+                                                <div class="form-group">
+                                                    <!-- สร้างแต่ละ checkbox พร้อม label -->
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox25" id="checkbox25">
+                                                            25</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox26" id="checkbox26">
+                                                            26</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox27" id="checkbox27">
+                                                            27</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox28" id="checkbox28">
+                                                            28</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox29" id="checkbox29">
+                                                            29</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox30" id="checkbox30">
+                                                            30</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox31" id="checkbox31">
+                                                            31</label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" name="checkbox32" id="checkbox32">
+                                                            32</label>
+                                                    </div>
+                                                    <!-- ทำซ้ำสำหรับ checkboxes ที่เหลือในคอลัมน์นี้ -->
+                                                    <!-- ... -->
+                                                </div>
+                                            </div>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-4 d-flex justify-content-between">
+                                                <button type="submit" class="btn btn-primary btn-block"
+                                                    [disabled]="!registerForm.valid">ลงทะเบียน</button>
+                                                <button type="button" class="btn btn-danger"
+                                                    (click)="resetForm()">รีเซต</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+    </section>
+    <!-- /.content -->
+
+
+</div>
+<!-- /.content-wrapper -->

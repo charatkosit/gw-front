@@ -14,4 +14,8 @@ export class VisitorService {
   getData():Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl)
   }
+
+  getCount():Observable<any>{
+    return this.http.get<any>('http://localhost:3000/api/visitors/count')
+   }
 }

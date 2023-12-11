@@ -56,18 +56,9 @@
           </a>
         </li>
 
-        <li class="nav-item" (click)="setSelectedMenu('menu3')">
-          <a routerLink="/officers/register" class="nav-link" [ngClass]="{'active': selectedMenu === 'menu3'}">
-            <i class="nav-icon fas fa-th"></i>
-            <p>
-              ลงทะเบียนพนักงาน
-              <!-- <span class="right badge badge-danger">New</span> -->
-            </p>
-          </a>
-        </li>
 
-        <li class="nav-item" (click)="setSelectedMenu('menu4')">
-          <a routerLink="/visitors/visitor-list" class="nav-link" [ngClass]="{'active': selectedMenu === 'menu4'}">
+        <li class="nav-item" (click)="setSelectedMenu('menu3')">
+          <a routerLink="/visitors/visitor-list" class="nav-link" [ngClass]="{'active': selectedMenu === 'menu3'}">
             <i class="nav-icon fas fa-th"></i>
             <p>
               รายชื่อผู้มาติดต่อ
@@ -75,11 +66,35 @@
             </p>
           </a>
         </li>
+        <li class="nav-header"></li>
+        <li class="nav-header">OFFFICER</li>
+        <li class="nav-item" (click)="setSelectedMenu('menu4')">
+          <a routerLink="/officers/regist" class="nav-link" [ngClass]="{'active': selectedMenu === 'menu4'}">
+            <i class="nav-icon fas fa-th"></i>
+            <p>
+              ลงทะเบียนพนักงาน
+              <!-- <span class="right badge badge-danger">New</span> -->
+            </p>
+          </a>
+        </li>
+        
         <li class="nav-item" (click)="setSelectedMenu('menu5')">
           <a routerLink="/officers/officer-list" class="nav-link" [ngClass]="{'active': selectedMenu === 'menu5'}">
             <i class="nav-icon fas fa-th"></i>
             <p>
               รายชื่อพนักงาน
+
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-header"></li>
+        <li class="nav-header">SETUP</li>
+        <li class="nav-item" (click)="setSelectedMenu('menu6')">
+          <a routerLink="/visitors/visitor-list" class="nav-link" [ngClass]="{'active': selectedMenu === 'menu6'}">
+            <i class="nav-icon fas fa-th"></i>
+            <p>
+              ตั้งค่า
 
             </p>
           </a>
