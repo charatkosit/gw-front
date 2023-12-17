@@ -13,6 +13,8 @@ import { VisitorsModule } from './modules/visitors/visitors.module';
 
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +24,7 @@ import { VisitorsModule } from './modules/visitors/visitors.module';
     FooterComponent
   ],
   imports: [
+  
     VisitorsModule,
     BrowserModule,
     HttpClientModule,

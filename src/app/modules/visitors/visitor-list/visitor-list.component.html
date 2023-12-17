@@ -28,9 +28,10 @@
                         <div class="card-header">
                             <p>visitor-list works!</p>
                         </div>
-                        
+
                         <div class="card-body table-responsive p-0">
                             <table class="table table-hover text-nowrap">
+                            <!-- <table datatable [dtOptions]="dtOptions" class="row-border hover"> -->
                                 <tr>
                                     <th>ชื่อ</th>
                                     <th>นามสกุล</th>
@@ -40,8 +41,6 @@
                                     <th>ติดต่อชั้น</th>
                                     <th>เวลา-เข้า</th>
                                     <th>เวลา-ออก</th>
-    
-                                    *
                                 </tr>
                                 <tr *ngFor="let item of data">
                                     <td>{{ item.firstName }}</td>
@@ -55,7 +54,7 @@
                                 </tr>
                             </table>
                         </div>
-                    </div>    
+                    </div>
 
                 </div>
             </div>

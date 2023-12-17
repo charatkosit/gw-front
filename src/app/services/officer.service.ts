@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class OfficerService {
 
-  private apiUrl = 'http://localhost:3000/api/officers/'
+  private apiUrl = '/api/officers/'
 
   constructor(
     private http: HttpClient,
@@ -19,12 +19,12 @@ export class OfficerService {
   }
 
   getCount(): Observable<any> {
-    return this.http.get<any>('http://localhost:3000/api/officers/count')
+    return this.http.get<any>('/api/officers/count')
   }
 
   delete(id: number) {
     // กำหนด URL ที่คุณต้องการส่งคำขอ DELETE
-    const url = 'http://localhost:3000/api/officers/' + id;
+    const url = 'api/officers/' + id;
 
     // สร้างคำขอ DELETE ไปยัง URL
     fetch(url, {

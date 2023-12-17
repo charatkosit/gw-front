@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class VisitorService {
 
-  private apiUrl = 'http://localhost:3000/api/visitors/'
+  private apiUrl = '/api/visitors/'
 
   constructor(private http:HttpClient) { }
 
@@ -16,6 +16,6 @@ export class VisitorService {
   }
 
   getCount():Observable<any>{
-    return this.http.get<any>('http://localhost:3000/api/visitors/count')
+    return this.http.get<any>('/api/visitors/count')
    }
 }

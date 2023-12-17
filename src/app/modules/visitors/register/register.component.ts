@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     // ทำการส่งข้อมูล
-    const url ='http://127.0.0.1:3000/api/visitors'
+    const url ='/api/visitors'
     this.http.post(url, this.user).subscribe(
       response => {
         console.log(response);

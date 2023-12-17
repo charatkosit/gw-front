@@ -1,0 +1,23 @@
+{
+    "/apiauth/*": {
+      "target": "http://18.138.212.29:3100",
+      "secure": false,
+      "logLevel": "debug",
+      "changeOrigin": "true"
+    },
+  
+    "/logs/*": {
+      "target": "http://13.212.179.171:3200",
+      "secure": false,
+      "logLevel": "debug",
+      "changeOrigin": "true"
+    },
+
+    "/api/*": {
+        "target": "http://127.0.0.1:3000",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": "true"
+      }
+    
+  }

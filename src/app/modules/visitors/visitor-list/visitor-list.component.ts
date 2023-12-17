@@ -8,13 +8,24 @@ import { VisitorService } from 'src/app/services/visitor.service';
 })
 export class VisitorListComponent implements OnInit {
   data: any[] =  [];
+  // dtOptions: DataTables.Settings = {};
+
   constructor(private visitorService: VisitorService) { }
 
   ngOnInit(): void {
+    // this.dtOptions = {
+    //   pagingType: 'full_numbers',
+    //   pageLength: 10,
+    //   processing: true
+    //   // คุณสามารถเพิ่มตัวเลือกอื่นๆ ตามต้องการ
+    // };
     this.visitorService.getData().subscribe(data => {
       this.data = data;
       console.log(data)
     })
   }
+
+
+
 
 }
