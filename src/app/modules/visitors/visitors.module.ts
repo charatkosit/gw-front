@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { VisitorsRoutingModule } from './visitors-routing.module';
 import { VisitorListComponent } from './visitor-list/visitor-list.component';
 import { RegistComponent } from './regist/regist.component';
-// import { DataTablesModule } from 'angular-datatables';
+
 
 
 
@@ -16,8 +16,6 @@ import { RegistComponent } from './regist/regist.component';
     RegistComponent
   ],
   imports: [
-    // DataTablesModule,
-
     FormsModule,
     CommonModule,
     VisitorsRoutingModule,

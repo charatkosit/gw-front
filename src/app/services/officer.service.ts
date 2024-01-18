@@ -18,7 +18,7 @@ export class OfficerService {
     return this.http.get<any[]>(this.apiUrl)
   }
 
-  getCount(): Observable<any> {
+  getOfficerCount(): Observable<any> {
     return this.http.get<any>('/api/officers/count')
   }
 

@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { GeneralsService } from 'src/app/services/generals.service';
+
 
 @Component({
   selector: 'app-regist',
@@ -18,7 +20,9 @@ export class RegistComponent implements OnInit {
     
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private generalService : GeneralsService) { }
 
   ngOnInit(): void {
   }
@@ -57,6 +61,7 @@ isChecked(floor: number): boolean {
       }
     );
     // console.log(JSON.stringify(this.user))
+    this.generalService.onAlert();
   }
 
   resetForm() {
@@ -69,4 +74,6 @@ isChecked(floor: number): boolean {
       multiSelectFloor:''
     };
   }
+
+
 }

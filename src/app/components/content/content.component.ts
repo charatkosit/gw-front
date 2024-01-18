@@ -22,7 +22,7 @@ export class ContentComponent implements OnInit {
       console.log(data)
     })
 
-    this.officerService.getCount().subscribe(data => {
+    this.officerService.getOfficerCount().subscribe(data => {
       this.officerCount = data;
       console.log(data)
     })

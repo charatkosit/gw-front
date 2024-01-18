@@ -1,3 +1,11 @@
 button {
     margin-right: 10px; /* เพิ่มระยะห่างด้านขวาของปุ่ม */
 }
+
+.button-container .btn {
+    margin-right: 10px;
+}
+
+.button-container .btn:last-child {
+    margin-right: 0;
+}

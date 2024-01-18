@@ -13,6 +13,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "lodash"
+            ],
             "outputPath": "dist/dest-front",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -23,15 +26,13 @@
               "src/assets"
             ],
             "styles": [
-
               "src/styles.css",
               "node_modules/datatables.net-dt/css/jquery.dataTables.css"
-
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
               "node_modules/datatables.net/js/jquery.dataTables.js"
-              ]
+            ]
           },
           "configurations": {
             "production": {

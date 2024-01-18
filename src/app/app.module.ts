@@ -9,6 +9,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { ContentComponent } from './components/content/content.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { VisitorsModule } from './modules/visitors/visitors.module';
+// import { DataTablesModule } from 'angular-datatables';
 
 
 
@@ -24,7 +25,7 @@ import { VisitorsModule } from './modules/visitors/visitors.module';
     FooterComponent
   ],
   imports: [
-  
+    // DataTablesModule,
     VisitorsModule,
     BrowserModule,
     HttpClientModule,
