@@ -1,0 +1,307 @@
+<!-- SELECT2 EXAMPLE -->
+<div class="card card-default">
+    <div class="card-header">
+        <div class="row justify-content-between">
+            <div>
+                <button type="button" class="btn btn-block btn-outline-primary">ลูกค้าเก่า ค้นหา</button>
+            </div>
+
+            <div class="row">
+                <div id="button">
+                    <button type="button" class="btn btn-block btn-primary disabled">บันทึก</button>
+                </div>
+                <div id="button">
+                    <button type="button"  class="btn btn-block btn-warning disabled">ล้างข้อมูล</button>
+                </div>
+
+                <div class="card-tools">
+
+                    <button type="button" class="btn btn-tool" disabled="true" data-card-widget="collapse"><i
+                            class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i
+                            class="fas fa-times"></i></button>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">ทะเบียนรถ</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="เลขทะเบียนรถ">
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                    <label>แบรนด์</label>
+                    <select class="form-control select2" style="width: 100%;">
+                        <option selected="selected"></option>
+                        <option>Toyota</option>
+                        <option>Honda</option>
+                        <option>Mazda</option>
+                        <option>Suzuki</option>
+                        <option>Mitsubishi</option>
+                        <option>Isuzu</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">เลขเครื่อง</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="เลขเครื่อง">
+                </div>
+
+            </div>
+            <!-- /.col -->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>จังหวัด</label>
+                    <select class="form-control select2" style="width: 100%;">
+                        <option selected="selected"></option>
+                        <option>กรุงเทพฯ</option>
+                        <option>นนทบุรี</option>
+                        <option>สมุทรปราการ</option>
+                        <option>ปทุมธานี</option>
+                        <option>นครปฐม</option>
+                        <option>ชลบุรี</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">รุ่น</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="รุ่น">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">เลขตัวถัง</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="เลขตัวถัง">
+                </div>
+
+            </div>
+            <!-- /.col -->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>ประเภทรถ</label>
+                    <select class="form-control select2" style="width: 100%;" data-placeholder="เลือกประเภทรถ">
+                        <option selected="selected"></option>
+                        <option>รถเก๋ง</option>
+                        <option>รถตู้</option>
+                        <option>รถ Taxi</option>
+                        <option>SUV</option>
+                        <option>กระบะ</option>
+                        <option>รถ Van</option>
+                    </select>
+                </div>
+
+                <!-- /.form-group -->
+                <div class="form-group">
+                    <label>สี</label>
+                    <select class="form-control select2" style="width: 100%;">
+                        <option selected="selected"></option>
+                        <option>ขาว</option>
+                        <option>ดำ</option>
+                        <option>บรอนด์ ทอง</option>
+                        <option>บรอนด์ เงิน</option>
+                        <option>แดง</option>
+                        <option>เขียว-เหลือง</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="distanceMeasure">เลขไมล์รถ</label>
+                    <input type="text" class="form-control is-invalid" id="distanceMeasure" placeholder="เลขไมล์รถ">
+                </div>
+
+
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <h5>ผู้นำรถมาส่ง</h5>
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">ชื่อ</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="ชื่อ">
+                </div>
+                <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+            <div class="col-12 col-sm-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">โทรศัพท์</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="โทรศัพท์">
+                </div>
+                <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+        </div>
+
+
+        <h5>อาการเสีย</h5>
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <div class="form-group">
+                    <label>อาการเสีย</label>
+                    <textarea class="form-control" rows="5" placeholder="อาการเสีย"></textarea>
+                </div>
+                <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+            <div class="col-12 col-sm-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">ตัวเลือก</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="ตัวเลือก">
+                </div>
+                <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.card-body -->
+    <!-- <div class="card-footer">
+        Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and information about
+        the plugin.
+    </div> -->
+</div>
+<!-- /.card -->
+
+
+<!-- SELECT2 EXAMPLE -->
+<div class="card card-default">
+    <div class="card-header">
+        <div class="row justify-content-between">
+            <div class="row">
+                <h3 class="card-title">รายละเอียด รถ</h3>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" id="la1" for="exampleCheck1"> ไม่ใช้งาน</label>
+                </div>
+            </div>
+
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                        class="fas fa-minus"></i></button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove"><i
+                        class="fas fa-times"></i></button>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Minimal</label>
+                    <select class="form-control select2" style="width: 100%;">
+                        <option selected="selected">Alabama</option>
+                        <option>Alaska</option>
+                        <option>California</option>
+                        <option>Delaware</option>
+                        <option>Tennessee</option>
+                        <option>Texas</option>
+                        <option>Washington</option>
+                    </select>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                    <label>Disabled</label>
+                    <select class="form-control select2" disabled="disabled" style="width: 100%;">
+                        <option selected="selected">Alabama</option>
+                        <option>Alaska</option>
+                        <option>California</option>
+                        <option>Delaware</option>
+                        <option>Tennessee</option>
+                        <option>Texas</option>
+                        <option>Washington</option>
+                    </select>
+                </div>
+                <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Multiple</label>
+                    <select class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                        <option>Alabama</option>
+                        <option>Alaska</option>
+                        <option>California</option>
+                        <option>Delaware</option>
+                        <option>Tennessee</option>
+                        <option>Texas</option>
+                        <option>Washington</option>
+                    </select>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                    <label>Disabled Result</label>
+                    <select class="form-control select2" style="width: 100%;">
+                        <option selected="selected">Alabama</option>
+                        <option>Alaska</option>
+                        <option disabled="disabled">California (disabled)</option>
+                        <option>Delaware</option>
+                        <option>Tennessee</option>
+                        <option>Texas</option>
+                        <option>Washington</option>
+                    </select>
+                </div>
+                <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <h5>Custom Color Variants</h5>
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <div class="form-group">
+                    <label>Minimal (.select2-danger)</label>
+                    <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger"
+                        style="width: 100%;">
+                        <option selected="selected">Alabama</option>
+                        <option>Alaska</option>
+                        <option>California</option>
+                        <option>Delaware</option>
+                        <option>Tennessee</option>
+                        <option>Texas</option>
+                        <option>Washington</option>
+                    </select>
+                </div>
+                <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+            <div class="col-12 col-sm-6">
+                <div class="form-group">
+                    <label>Multiple (.select2-purple)</label>
+                    <div class="select2-purple">
+                        <select class="select2" multiple="multiple" data-placeholder="Select a State"
+                            data-dropdown-css-class="select2-purple" style="width: 100%;">
+                            <option>Alabama</option>
+                            <option>Alaska</option>
+                            <option>California</option>
+                            <option>Delaware</option>
+                            <option>Tennessee</option>
+                            <option>Texas</option>
+                            <option>Washington</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.card-body -->
+    <!-- <div class="card-footer">
+        Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and information about
+        the plugin.
+    </div> -->
+</div>
+<!-- /.card -->
