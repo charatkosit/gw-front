@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PosRoutingModule } from './pos-routing.module';
 import { MainComponent } from './main/main.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 
 @NgModule({
@@ -10,6 +11,7 @@ import { MainComponent } from './main/main.component';
     MainComponent
   ],
   imports: [
+    CarouselModule,
     CommonModule,
     PosRoutingModule
   ]

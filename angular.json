@@ -16,7 +16,7 @@
             "allowedCommonJsDependencies": [
               "lodash"
             ],
-            "outputPath": "dist/dest-front",
+            "outputPath": "dist/gw-front",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -28,14 +28,15 @@
             "styles": [
               "src/styles.css",
               "node_modules/select2/dist/css/select2.min.css",
-              "node_modules/datatables.net-dt/css/jquery.dataTables.css"
+              "node_modules/datatables.net-dt/css/jquery.dataTables.css",
+              "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css",
+              "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/select2/dist/js/select2.min.js",
               "node_modules/datatables.net/js/jquery.dataTables.js",
               "node_modules/jquery/dist/jquery.min.js"
-             
             ]
           },
           "configurations": {

@@ -1,6 +1,6 @@
 {
   "name": "gw-front",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -27,6 +27,7 @@
     "datatables.net-dt": "^1.13.8",
     "fullcalendar": "^6.1.13",
     "jquery": "^3.7.1",
+    "ngx-owl-carousel-o": "^15.0.0",
     "rxjs": "~7.5.0",
     "select2": "^4.1.0-rc.0",
     "sweetalert2": "^11.6.13",
