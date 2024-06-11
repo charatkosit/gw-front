@@ -90,4 +90,83 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  
+  <div class="Container">
+    <div class="table-responsive">
+      <!-- <table
+        (matSortChange)="sortData($event)"  
+        matSort
+        matSortActive="Sno"
+        matSortDirection="asc"
+        matSortDisableClear
+        class="table"
+        id="printTable"
+      > -->
+      <table class="table" id="printTable">
+        <thead>
+          <tr>
+            <th>
+              <label class="checkboxs" (click)="selectAll(initChecked)">
+                <input type="checkbox"  />
+                <span class="checkmarks"></span>
+              </label>
+            </th>
+            <th mat-sort-header="ProductName">Product Name</th>
+            <th mat-sort-header="SKU">SKU</th>
+            <th mat-sort-header="Category">Category</th>
+            <th mat-sort-header="Brand">Brand</th>
+            <th mat-sort-header="price">price</th>
+            <th mat-sort-header="Unit">Unit</th>
+            <th mat-sort-header="Qty">Qty</th>
+            <th mat-sort-header="CreatedBy">Created By</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let products of tableData; let i = index">
+            <td>
+              <label class="checkboxs">
+                <input type="checkbox"  />
+                <span class="checkmarks"></span>
+              </label>
+            </td>
+            <td class="productimgname">
+              <a href="javascript:void(0);" class="product-img">
+                <img [src]="products.img" alt="product" />
+              </a>
+              <a href="javascript:void(0);">{{ products.ProductName }}</a>
+            </td>
+            <td>{{ products.SKU }}</td>
+            <td>{{ products.Category }}</td>
+            <td>{{ products.Brand }}</td>
+            <td>{{ products.price }}</td>
+            <td>{{ products.Unit }}</td>
+            <td>{{ products.Qty }}</td>
+            <td>{{ products.CreatedBy }}</td>
+            <td>
+              <a class="me-3" >
+                <img src="assets/img/icons/eye.svg" alt="img" />
+              </a>
+              <a class="me-3">
+                <img src="assets/img/icons/edit.svg" alt="img" />
+              </a>
+
+              <a
+                (click)="deleteBtn()"
+                class="confirm-text"
+                href="javascript:void(0);"
+              >
+                <img src="assets/img/icons/delete.svg" alt="img" />
+              </a>
+            </td>
+          </tr>
+          <tr *ngIf="tableData.length === 0">
+            <td colspan="12">
+              <h5 class="no-record">No matching records found</h5>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <app-custom-pagination></app-custom-pagination> -->
+    </div>
+
+  </div>

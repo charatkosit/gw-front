@@ -8,6 +8,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ContentComponent } from './components/content/content.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { MatSortModule } from '@angular/material/sort';
 
 // import { DataTablesModule } from 'angular-datatables';
 
@@ -30,6 +31,7 @@ import { FooterComponent } from './components/footer/footer.component';
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    MatSortModule,
     AppRoutingModule
   ],
   providers: [],
