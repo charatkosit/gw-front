@@ -15,14 +15,14 @@
         <img src="assets/dist/img/owl.png" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">Alexander Pierce</a>
+        <a href="#" class="d-block">อู่บอย เซอร์วิส</a>
       </div>
     </div>
 
     <!-- SidebarSearch Form -->
     <div class="form-inline">
       <div class="input-group" data-widget="sidebar-search">
-        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control form-control-sidebar" type="search" placeholder="ทะเบียนรถ หรือ เบอร์โทร" aria-label="Search">
         <div class="input-group-append">
           <button class="btn btn-sidebar">
             <i class="fas fa-search fa-fw"></i>
@@ -34,115 +34,124 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <!-- Add icons to the links using the .nav-icon class
-                   with font-awesome or any other icon font library -->
 
-        <li class="nav-item" (click)="setSelectedMenu('menu1')">
-          <a routerLink="/dashboard" class="nav-link" [ngClass]="{'active': selectedMenu === 'menu1'}">
-            <i class="nav-icon fas fa-th"></i>
+        <!-- ส่วนนี้แสดงเมื่อ login ด้วย sale -->
+        <app-menu-sale *ngIf="isSale"></app-menu-sale>
+
+        <!-- ส่วนนี้แสดงเมื่อ login ด้วย member -->
+        <app-menu-member *ngIf="isMember"></app-menu-member>
+
+        <!-- ส่วนนี้แสดงเมื่อ login ด้วย Dev -->
+        <app-menu-dev *ngIf="isDev"></app-menu-dev>
+
+        <!-- ส่วนนี้แสดงเมื่อ login ด้วย Admin1 -->
+        <li *ngIf="isAdmin" class="nav-item" [ngClass]="{'menu-open': openMenu === 'admin1'}"
+          (click)="setOpenMenu('admin1')">
+          <a class="nav-link" [ngClass]="{'active': selectedMenu === 'admin1'}">
+            <i class="nav-icon fas fa-copy"></i>
             <p>
-             หน้าหลัก
-              <!-- <span class="right badge badge-danger">New</span> -->
+              ตั้งค่า
+              <i class="fas fa-angle-left right"></i>
+              <!-- <span class="badge badge-info right">6</span> -->
             </p>
           </a>
+
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a routerLink="/profile" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>โปรไฟล์</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/changepwd" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>เปลี่ยนรหัสผ่าน</p>
+              </a>
+            </li>
+          </ul>
         </li>
-        <li class="nav-item" (click)="setSelectedMenu('menu2')">
-          <a routerLink="/garage/main" class="nav-link" [ngClass]="{'active': selectedMenu === 'menu2'}">
-            <i class="nav-icon fas fa-th"></i>
+
+        <!-- ส่วนนี้แสดงเมื่อ login ด้วย Admin2 -->
+        <li *ngIf="isAdmin" class="nav-item" [ngClass]="{'menu-open': openMenu === 'admin2'}"
+          (click)="setOpenMenu('admin2')">
+          <a class="nav-link" [ngClass]="{'active': selectedMenu === 'admin2'}">
+            <i class="nav-icon fas fa-copy"></i>
             <p>
-               หน้าร้าน
-              <!-- <span class="right badge badge-danger">New</span> -->
+              Administrator
+              <i class="fas fa-angle-left right"></i>
+              <!-- <span class="badge badge-info right">6</span> -->
             </p>
           </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a routerLink="/log-back" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Log-Back</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/log-auth" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Log-Auth</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/member-list" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>สมาชิก</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/changepwd" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>เปลี่ยนรหัสผ่าน</p>
+              </a>
+            </li>
+          </ul>
         </li>
 
-        <li class="nav-item" (click)="setSelectedMenu('menu3')">
-          <a routerLink="/repair/main" class="nav-link" [ngClass]="{'active': selectedMenu === 'menu3'}">
-            <i class="nav-icon fas fa-th"></i>
+        <!-- ส่วนนี้แสดงเมื่อ login ด้วย Admin3 -->
+        <li *ngIf="isAdmin" class="nav-item" [ngClass]="{'menu-open': openMenu === 'admin3'}"
+          (click)="setOpenMenu('admin3')">
+          <a class="nav-link" [ngClass]="{'active': selectedMenu === 'admin3'}">
+            <i class="nav-icon fas fa-copy"></i>
             <p>
-              งานซ่อม
-              <!-- <span class="right badge badge-danger">New</span> -->
+              ทดสอบ Feature ใหม่
+              <i class="fas fa-angle-left right"></i>
+              <!-- <span class="badge badge-info right">6</span> -->
             </p>
           </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a routerLink="/part-list-new" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>ค้นหาสินค้า</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/log-auth" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Log-Auth</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/member-list" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>สมาชิก</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/changepwd" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>เปลี่ยนรหัสผ่าน</p>
+              </a>
+            </li>
+          </ul>
         </li>
 
-
-        <li class="nav-item" (click)="setSelectedMenu('menu4')">
-          <a routerLink="/stock/main" class="nav-link" [ngClass]="{'active': selectedMenu === 'menu4'}">
-            <i class="nav-icon fas fa-th"></i>
-            <p>
-             มินิสต๊อก
-
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-item" (click)="setSelectedMenu('menu5')">
-          <a routerLink="/pos/main" class="nav-link" [ngClass]="{'active': selectedMenu === 'menu5'}">
-            <i class="nav-icon fas fa-th"></i>
-            <p>
-             POS
-
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-header"></li>
-        <li class="nav-header">OFFFICER</li>
-        <li class="nav-item" (click)="setSelectedMenu('menu6')">
-          <a routerLink="/finances/main" class="nav-link" [ngClass]="{'active': selectedMenu === 'menu6'}">
-            <i class="nav-icon fas fa-th"></i>
-            <p>
-             การเงิน
-              <!-- <span class="right badge badge-danger">New</span> -->
-            </p>
-          </a>
-        </li>
-        
-        <li class="nav-item" (click)="setSelectedMenu('menu7')">
-          <a routerLink="/stock/main" class="nav-link" [ngClass]="{'active': selectedMenu === 'menu7'}">
-            <i class="nav-icon fas fa-th"></i>
-            <p>
-           สต๊อกสินค้า
-
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-item" (click)="setSelectedMenu('menu8')">
-          <a routerLink="/expense/main" class="nav-link" [ngClass]="{'active': selectedMenu === 'menu8'}">
-            <i class="nav-icon fas fa-th"></i>
-            <p>
-          ค่าใช้จ่าย
-
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-item" (click)="setSelectedMenu('menu9')">
-          <a routerLink="/reports/main" class="nav-link" [ngClass]="{'active': selectedMenu === 'menu9'}">
-            <i class="nav-icon fas fa-th"></i>
-            <p>
-          รายงาน
-
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-header"></li>
-        <li class="nav-header">ตั้งค่า</li>
-        <li class="nav-item" (click)="setSelectedMenu('menu110')">
-          <a routerLink="/expense/main" class="nav-link" [ngClass]="{'active': selectedMenu === 'menu10'}">
-            <i class="nav-icon fas fa-th"></i>
-            <p>
-             ระบบ
-
-            </p>
-          </a>
-        </li>
       </ul>
     </nav>
-    <!-- /.sidebar-menu -->
   </div>
   <!-- /.sidebar -->
 </aside>

@@ -5,6 +5,7 @@ import { StockRoutingModule } from './stock-routing.module';
 import { ProductsComponent } from './products/products.component';
 import { MainComponent } from './main/main.component';
 import { PreOrderComponent } from './pre-order/pre-order.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { PreOrderComponent } from './pre-order/pre-order.component';
     PreOrderComponent
   ],
   imports: [
+    ReactiveFormsModule,
     CommonModule,
     StockRoutingModule
   ]

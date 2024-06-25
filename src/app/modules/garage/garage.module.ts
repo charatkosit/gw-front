@@ -10,7 +10,9 @@ import { MainComponent } from './main/main.component';
 import { CustomerComponent } from './customer/customer.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { PromotionComponent } from './promotion/promotion.component'; // a plugin
+import { PromotionComponent } from './promotion/promotion.component';
+import { SearchComponent } from './search/search.component'; // a plugin
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 // FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -27,10 +29,13 @@ import { PromotionComponent } from './promotion/promotion.component'; // a plugi
     PickupCarComponent,
     MainComponent,
     CustomerComponent,
-    PromotionComponent
+    PromotionComponent,
+    SearchComponent
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     FullCalendarModule,
     GarageRoutingModule
   ]

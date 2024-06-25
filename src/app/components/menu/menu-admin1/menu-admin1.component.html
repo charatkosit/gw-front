@@ -1,0 +1,93 @@
+<!-- <div *ngIf="isDev"> -->
+    <li class="nav-item" (click)="setSelectedMenu('menu1')">
+        <a routerLink="/dashboard"  class="nav-link"
+          [ngClass]="{'active': selectedMenu === 'menu1'}">
+          <i class="fas fa-chart-pie nav-icon"></i>
+          <p>
+            รายงาน
+          </p>
+        </a>
+      </li>
+  
+      <li class="nav-item" (click)="setSelectedMenu('menu2')">
+        <a routerLink="/promotion"  class="nav-link"
+          [ngClass]="{'active': selectedMenu === 'menu2'}">
+          <i class="fas fa-bullhorn"></i>
+          <p>
+            โปรโมชั่น  <span class="right badge badge-success">มิถุนายน 67</span>
+          </p>
+        </a>
+       
+      </li>
+  
+      <li class="nav-item" (click)="setSelectedMenu('menu3')">
+        <a routerLink="/part-list-new" class="nav-link"
+          [ngClass]="{'active': selectedMenu === 'menu3'}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            ค้นหาสินค้า
+            <!-- <span class="right badge badge-danger">New</span> -->
+          </p>
+        </a>
+      </li>
+  
+  
+      <li class="nav-item" (click)="setSelectedMenu('menu4')">
+        <a routerLink="/check-discount-new"  class="nav-link"
+          [ngClass]="{'active': selectedMenu === 'menu4'}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            ตรวจสอบ ส่วนลด ใหม่
+            
+          </p>
+        </a>
+      </li>
+  
+
+  
+      <li class="nav-item" (click)="setSelectedMenu('menu6')">
+        <a routerLink="/invoice-list"  class="nav-link"
+          [ngClass]="{'active': selectedMenu === 'menu6'}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            ใบกำกับภาษี
+            <!-- <span class="right badge badge-danger">New</span> -->
+          </p>
+        </a>
+      </li>
+  
+      <li class="nav-item" (click)="setSelectedMenu('menu7')">
+        <a routerLink="/cn-list"  class="nav-link"
+          [ngClass]="{'active': selectedMenu === 'menu7'}">
+          <i class="nav-icon fas fa-tags"></i>
+          <p>
+            ใบลดหนี้
+            <!-- <span class="right badge badge-danger">New</span> -->
+          </p>
+        </a>
+      </li>
+  
+      <li class="nav-item" (click)="setSelectedMenu('menu8')">
+        <a routerLink="/delivery"  class="nav-link"
+          [ngClass]="{'active': selectedMenu === 'menu8'}">
+          <i class="nav-icon fas fa-truck"></i>
+          <p>
+            จัดส่ง
+            <!-- <span class="right badge badge-danger">New</span> -->
+          </p>
+        </a>
+      </li>
+  
+  
+  
+      <li class="nav-item" (click)="setSelectedMenu('menu9')">
+        <a routerLink="/part-list-new-b" class="nav-link"
+          [ngClass]="{'active': selectedMenu === 'menu9'}">
+          <i class="nav-icon fas fa-truck"></i>
+          <p>
+            ค้นหาสินค้า ใหม่ B
+            <!-- <span class="right badge badge-danger">New</span> -->
+          </p>
+        </a>
+      </li>
+    <!-- </div> -->
