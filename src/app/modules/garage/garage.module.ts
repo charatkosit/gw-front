@@ -13,6 +13,15 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import { PromotionComponent } from './promotion/promotion.component';
 import { SearchComponent } from './search/search.component'; // a plugin
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CustomerListComponent } from './customer-list/customer-list.component';
+import { CarListComponent } from './car-list/car-list.component';
+import { OrderListComponent } from './order-list/order-list.component';
+import { OrderDetailListComponent } from './order-detail-list/order-detail-list.component';
+import { OrderDetailEditComponent } from './order-detail-edit/order-detail-edit.component';
+import { OrderEditComponent } from './order-edit/order-edit.component';
+import { CarEditComponent } from './car-edit/car-edit.component';
+import { CustomerEditComponent } from './customer-edit/customer-edit.component';
+import { GetOrderComponent } from './get-order/get-order.component';
 
 
 // FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -30,7 +39,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MainComponent,
     CustomerComponent,
     PromotionComponent,
-    SearchComponent
+    SearchComponent,
+    CustomerListComponent,
+    CarListComponent,
+    OrderListComponent,
+    OrderDetailListComponent,
+    OrderDetailEditComponent,
+    OrderEditComponent,
+    CarEditComponent,
+    CustomerEditComponent,
+    GetOrderComponent
   ],
   imports: [
     CommonModule,

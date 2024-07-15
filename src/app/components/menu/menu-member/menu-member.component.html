@@ -13,7 +13,7 @@
         <a routerLink="/garage/main"  class="nav-link"
           [ngClass]="{'active': selectedMenu === 'menu2'}">
           <i class="fas fa-bullhorn"></i>
-          <p>รับงาน</p>
+          <p>รับงาน Mem</p>
         </a>
   
       </li>
@@ -26,7 +26,45 @@
         </a>
       </li>
   
+      <li class="nav-item" (click)="setSelectedMenu('menu4')">
+        <a routerLink="/garage/car-list" class="nav-link"
+          [ngClass]="{'active': selectedMenu === 'menu4'}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>รถ</p>
+        </a>
+      </li>
   
+
+      <li class="nav-item" (click)="setSelectedMenu('menu5')">
+        <a routerLink="/garage/customer-list" class="nav-link"
+          [ngClass]="{'active': selectedMenu === 'menu5'}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>ลูกค้า</p>
+        </a>
+      </li>
+
+      <li class="nav-item" (click)="setSelectedMenu('menu6')">
+        <a routerLink="/garage/order-list" class="nav-link"
+          [ngClass]="{'active': selectedMenu === 'menu6'}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>Order</p>
+        </a>
+      </li>
  
+      <li class="nav-item" (click)="setSelectedMenu('menu7')">
+        <a routerLink="/garage/order-detail-list" class="nav-link"
+          [ngClass]="{'active': selectedMenu === 'menu7'}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>Order Detail</p>
+        </a>
+      </li>
+
+      <li class="nav-item" (click)="setSelectedMenu('menu8')">
+        <a routerLink="/garage/get-order" class="nav-link"
+          [ngClass]="{'active': selectedMenu === 'menu8'}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>Get Order (customer ->car)</p>
+        </a>
+      </li>
     <!-- </div> -->
   

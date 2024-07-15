@@ -1,0 +1,113 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-1 thai-text">รถ</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a routerLink="/dashboard">หน้าหลัก</a></li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <button class="circle-button" data-toggle="modal" data-target="#carModal">+</button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="carModal" tabindex="-1" role="dialog" aria-labelledby="carModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="carModalLabel">เพิ่มรถ</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form [formGroup]="carForm" (ngSubmit)="onSubmit()">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="model">รุ่น</label>
+                                                                <input type="text" class="form-control" id="model"
+                                                                    formControlName="model" placeholder="รุ่น">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="color">สี</label>
+                                                                <input type="text" class="form-control" id="color"
+                                                                    formControlName="color" placeholder="สี">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="brand">แบรนด์</label>
+                                                                <input type="text" class="form-control" id="brand"
+                                                                    formControlName="brand" placeholder="แบรนด์">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="licensePlate">รถทะเบียน</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="licensePlate" formControlName="licensePlate"
+                                                                    placeholder="รถทะเบียน">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="year">รถรุ่นปี</label>
+                                                                <input type="text" class="form-control" id="year"
+                                                                    formControlName="year" placeholder="รุ่นปี">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">เพิ่มรถ</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="example1" class="table table-bordered table-striped"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Sidebar -->
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">เมนู</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item"><a routerLink="/menu1">เมนู 1</a></li>
+                                <li class="list-group-item"><a routerLink="/menu2">เมนู 2</a></li>
+                                <li class="list-group-item"><a routerLink="/menu3">เมนู 3</a></li>
+                                <!-- Add more menu items as needed -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
