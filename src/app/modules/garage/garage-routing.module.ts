@@ -8,6 +8,7 @@ import { CustomerListComponent } from './customer-list/customer-list.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrderDetailListComponent } from './order-detail-list/order-detail-list.component';
 import { GetOrderComponent } from './get-order/get-order.component';
+import { TimelineComponent } from './timeline/timeline.component';
 
 const routes: Routes = [
   { path: '' ,
@@ -21,6 +22,7 @@ const routes: Routes = [
     { path: "order-list",         component: OrderListComponent},
     { path: "order-detail-list",  component: OrderDetailListComponent},
     { path: "get-order",          component: GetOrderComponent},
+    { path: "timeline",          component: TimelineComponent},
     { path: '',           redirectTo: 'main', pathMatch: 'full'}
   ]
 }

@@ -6,12 +6,14 @@ import { mazda } from './epcBrand/mazda';
 import { isuzu } from './epcBrand/isuzu';
 import { crossRef} from './crossRef/crossRef';
 import { ApiEpcDetails } from '../interfaces/ApiEpcDetails';
+import { newOrderDto } from '../interfaces/newOrderDto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShareService {
-
+ 
+  memberId = 'A-004';
   constructor() { }
 
   epcData!: ApiEpcDetails;
@@ -19,4 +21,26 @@ export class ShareService {
       imgList : string[]  = [ ...toyota, ...mg, ...honda, ...mazda, ...isuzu];
 
       crossRef: any[] = [...crossRef]
+
+
+      preOrder: newOrderDto = {
+        memberId: this.memberId,
+        customer: {
+          name: '',
+          phone: '',
+          address: ''
+        },
+        car: {
+          model: '',
+          brand: '',
+          year: 0,
+          color: '',
+          licensePlate: ''
+        },
+        order: {
+          sympthom: '',
+          description: '',
+          km: 0
+        }
+      }
 }

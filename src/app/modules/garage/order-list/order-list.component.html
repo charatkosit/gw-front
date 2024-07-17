@@ -25,42 +25,11 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
-                        <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="sympthom">อาการเสีย</label>
-                                        <input type="text" class="form-control" id="sympthom" formControlName="sympthom"
-                                            placeholder="อาการเสีย">
-                                    </div>
-                                    <!-- /.form-group -->
-                                </div>
-                                <!-- /.col -->
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="description">รายละเอียด</label>
-                                        <input type="text" class="form-control" id="description" 
-                                        formControlName="description" placeholder="รายละเอียด">
-                                    </div>
-                                </div>
-                                <!-- /.col -->
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="km">Km ที่เข้ารับบริการ</label>
-                                        <input type="text" class="form-control" id="km" formControlName="km"
-                                         placeholder="Km ที่เข้ารับบริการ">
-                                    </div>
-
-                                    <div>
-                                        <button type="submit" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#modal-lg">
-                                            รับรถ
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </form>
+                        <button class="circle-button" data-toggle="modal" data-target="#carModal">+</button>
+                        <!-- Modal -->
+                        <app-order-create-modal (formSubmitted)="onSubmitCreate($event)"></app-order-create-modal>
+                        <!-- <app-order-detail-modal ()="onSubmitAddSparePart($event)"></app-order-detail-modal>   -->
+                      
                     </div>
                 </div>
             </div>
@@ -75,7 +44,7 @@
 
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="example2" class="table table-bordered table-striped"></table>
+                                <table id="example1" class="table table-bordered table-striped"></table>
                             </div>
                         </div>
                     </div>

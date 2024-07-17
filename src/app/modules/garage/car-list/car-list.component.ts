@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Route, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CarTableService } from 'src/app/services/car-table.service';
+import { OrderTableService } from 'src/app/services/order-table.service';
+import { SweetalertService } from 'src/app/services/sweetalert.service';
+import Swal from 'sweetalert2';
 declare var $: any;
 
 @Component({
@@ -11,21 +15,18 @@ declare var $: any;
 })
 export class CarListComponent {
 
-  carForm!: FormGroup;
   constructor(
     private car: CarTableService,
+    private order: OrderTableService,
     private modalService: NgbModal,
-    private fb: FormBuilder,
-  ) {
-    this.carForm = this.fb.group({
-      model: ['', Validators.required],
-      brand: ['', Validators.required],
-      year: [''],
-      color: [''],
-      licensePlate: ['', Validators.required],
-    })
-  }
+    private route: Router,
+  ) { }
+
   data: any[] = [];
+  showCarProfileModal = false;
+  showModal = false;
+  modalData: any;
+  modalEditData: any;
   memberId = 'A-004';
 
 
@@ -61,33 +62,54 @@ export class CarListComponent {
           { data: 'brand', title: 'แบรนด์', className: "text-center" },
           { data: 'year', title: 'ปี', className: "text-center" },
           { data: 'color', title: 'สี', className: "text-center" },
-          { data: 'licensePlate', title: 'ทะเบียน', className: "text-center" },
+          {
+            data: 'licensePlate',
+            title: 'ทะเบียน',
+            className: "text-center",
+            render: function (data: any, type: any, row: any) {
+              return `${data} <span class="right badge badge-success badge-click" data-id="${row.id}">2</span>`;
+            }
+          },
           {
             title: 'สถานะ',
             className: 'text-center',
             data: null,
             render: function (data: any, type: any, row: any) {
-              console.log(`row is ${JSON.stringify(row.token)}`);
-              if (row.checkOut == null) {
-                return '<button class="btn btn-warning btn-returnCard" data-token="' + row.token + '">เลือก</button>';
-              } else {
-                return '<button class="btn btn-default btn-returnCard" data-token="' + row.token + '" disabled>คืนแล้ว</button>';
-              }
-            }
+              console.log(`row is ${JSON.stringify(row.id)}`);
+              return `<button class="btn btn-primary btn-editCar" data-id="${row.id}">แก้ไข</button>
+                      <button class="btn btn-danger  btn-deleteCar" data-id="${row.id}">ลบ</button>`
+             }
           },
         ]
       });
-      // $(document).on('click', '.btn-returnCard', () => {
-      //   var token = $(event?.target).data('token');
-      //   console.log(`when btn-retrunCard click: ${token}`);
-      //   this.onCheckOut(token);
-
-      // });
+      $(document).on('click', '.badge-click', (event:any) => {
+        var carId = $(event.target).data('id');
+        console.log(`Badge clicked: ${carId}`);
+        this.onShowCarProfile(carId); // Call the desired function with carId
+      });
+    
+      $(document).on('click', '.btn-profileCar', (event: any) => {
+        var carId = $(event.target).data('id');
+        console.log(`when profileCar click: ${carId}`);
+        this.onShowCarProfile(carId);
+      });
+      $(document).on('click', '.btn-editCar', (event: any) => {
+        var carId = $(event.target).data('id');
+        console.log(`when editCar click: ${carId}`);
+        this.onEditCar(carId);
+      });
+      $(document).on('click', '.btn-deleteCar', (event: any) => {
+        var carId = $(event.target).data('id');
+        console.log(`when delete click: ${carId}`);
+        this.onDeleteCarAlert(carId);
+      });
+      
     });
   }
 
 
   private loadData(): void {
+    // load Car data
     this.car.findAll(this.memberId).subscribe(data => {
       this.data = data;
       console.log(`data is ${JSON.stringify(this.data)}`);
@@ -96,6 +118,9 @@ export class CarListComponent {
       table.rows.add(this.data);
       table.draw();
     });
+
+    // แต่ละคัน มีประวัติในการรับงาน เท่าไร
+    // นำ carId ไปหาจำนวน  ที่order มี carId นี้
   }
 
   ngOnDestroy(): void {
@@ -123,40 +148,106 @@ export class CarListComponent {
   }
   //-------------------------------
 
-  onSubmit() {
-    const data = this.carForm.value;
-    console.log(`data carForm: ${JSON.stringify(data)}`)
-    if (this.carForm.valid) {
+  onDeleteCarAlert(carId: number) {
 
-      const data = this.carForm.value;
-      console.log(`data carForm: ${JSON.stringify(data)}`)
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'me-2 btn btn-danger'
+      },
+      buttonsStyling: false
+    })
 
-      const carData = {
-        model: this.carForm.get('model')?.value,
-        brand: this.carForm.get('brand')?.value,
-        year: this.carForm.get('year')?.value,
-        color: this.carForm.get('color')?.value,
-        licensePlate: this.carForm.get('licensePlate')?.value,
-        memberId: this.memberId
-      };
+    swalWithBootstrapButtons.fire({
+      title: 'ต้องการลบ ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'ใช่ ลบ',
+      cancelButtonText: 'ยกเลิก',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.car.delete(carId).subscribe({
+          next: response => {
+            console.log('Car deleted successfully', response);
+            swalWithBootstrapButtons.fire('รายการถูกลบแล้ว',)
+            this.reloadDataTable();
+          },
+          error: error => {
+            console.error('Error deleting car', error);
+            swalWithBootstrapButtons.fire('ไม่สามารถ ลบได้', 'มีการใช้รายการนี้ ในการรับงาน')
+          }
+        });
 
-      this.car.create(carData).subscribe({
-        next: response => {
-          console.log('Car created successfully', response);
-          this.reloadDataTable();
-          // Close the modal
-         this.modalService.dismissAll();
-        }, 
-        error: error => {
-          console.error('Error creating car', error);
-        }
-      });
-    }
-
-
+      }
+    })
   }
 
+  onShowCarProfile(carId: number) {
+    this.showCarProfileModal = true
+    this.order.findByCarId(carId, this.memberId).subscribe({
+      next: (data) => {
+        console.log(`data is ${JSON.stringify(data)}`);
+        this.modalData = data;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
 
+  onEditCar(carId: number) {
+     this.car.findById(carId, this.memberId).subscribe({  
+      next: (data) => {
+        console.log(`data @onEditCar is ${JSON.stringify(data)}`);
+        this.modalEditData = data;
+      },
+      error: (error) => {
+        console.log(error);
+      } 
+    });
+  }
+
+  onTimeline(carId: number) {
+    console.log(`@Timeline carId: ${carId}`);
+    this.route.navigate(['/garage/timeline']);
+  }
+  //-------------------------------
+
+  onSubmitCreate(carForm: FormGroup) {
+
+    console.log(`data carForm: ${JSON.stringify(carForm.value)}`);
+    const carData = {
+      model: carForm.value.model,
+      brand: carForm.value.brand,
+      year: carForm.value.year,
+      color: carForm.value.color,
+      licensePlate: carForm.value.licensePlate,
+      memberId: this.memberId
+    };
+    console.log(`carData1: ${JSON.stringify(carData)}`);
+    this.car.create(carData).subscribe({
+      next: response => {
+        console.log('Car created successfully', response);
+        this.reloadDataTable();
+        // Close the modal
+        this.modalService.dismissAll();
+      },
+      error: error => {
+        console.error('Error creating car', error);
+      }
+    });
+  }
+
+  onSubmitEdit(carForm: FormGroup) {
+  }
+  //------------------------------------
+
+
+  closeModal() {
+    this.showCarProfileModal = false;
+  }
+  //------------------------------------
   createCar() {
     const carData = {
       model: 'Model S',
@@ -211,14 +302,4 @@ export class CarListComponent {
   }
 
 
-  deleteCar(id: number) {
-    this.car.delete(id).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
-  }
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { F } from '@fullcalendar/core/internal-common';
 import { CarTableService } from 'src/app/services/car-table.service';
+import { OrderTableService } from 'src/app/services/order-table.service';
 declare var $: any;
 
 @Component({
@@ -16,7 +17,7 @@ export class GetOrderComponent {
   getOrderForm!: FormGroup;
 
   constructor(
-    private car: CarTableService,
+    private order: OrderTableService,
     private fb: FormBuilder,
   ) {
     this.getOrderForm = this.fb.group({
@@ -34,7 +35,7 @@ export class GetOrderComponent {
   }
 
   private loadData(): void {
-    this.car.findAll(this.memberId).subscribe(data => {
+    this.order.findAll(this.memberId).subscribe(data => {
       this.data = data;
       console.log(`data is ${JSON.stringify(this.data)}`);
 
@@ -59,11 +60,12 @@ export class GetOrderComponent {
           order: [[6, 'desc']], // เรียงลำดับตามเวลาเข้า
           columns: [
             { data: 'id', title: 'id', className: "text-center" },
-            { data: 'model', title: 'รุ่น', className: "text-center" },
-            { data: 'brand', title: 'แบรนด์', className: "text-center" },
-            { data: 'year', title: 'ปี', className: "text-center" },
-            { data: 'color', title: 'สี', className: "text-center" },
-            { data: 'licensePlate', title: 'ทะเบียน', className: "text-center" },
+            { data: 'car.licensePlate', title: 'ทะเบียน', className: "text-center" },
+            { data: 'car.brand', title: 'แบรนด์', className: "text-center" },
+            { data: 'customer.name', title: 'ลูกค้า', className: "text-center" },
+            { data: 'sympthom', title: 'อาการเสีย', className: "text-center" },
+            { data: 'description', title: 'รายละเอียด', className: "text-center" },
+            { data: 'km', title: 'KM', className: "text-center" },
             {
               title: 'สถานะ',
               className: 'text-center',
@@ -103,7 +105,7 @@ export class GetOrderComponent {
   }
 
   private reloadDataTable(): void {
-    this.car.findAll(this.memberId).subscribe(data => {
+    this.order.findAll(this.memberId).subscribe(data => {
       this.data = data;
       var table = $('#example1').DataTable();
       table.clear();

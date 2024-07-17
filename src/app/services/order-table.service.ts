@@ -17,7 +17,7 @@ export class OrderTableService {
 
  create(memberId:string, orderData:any):Observable<any> {
   const headers = new HttpHeaders( { 'Content-Type': 'application/json' } );
-  return this.http.post<any>(`/api/order?memberId=${memberId}`,orderData,{headers : headers});
+  return this.http.post<any>(`/api/batch?memberId=${memberId}`,orderData,{headers : headers});
  } 
 
  findAll(memberId:string):Observable<any[]> {
@@ -30,6 +30,19 @@ export class OrderTableService {
      .set('id',id.toString())
     .set('memberId',memberId)
    return this.http.get<any>('api/order/findById',{ params });
+ }
+
+ findByCarId(carId:number, memberId:string):Observable<any> {
+  let params = new HttpParams()
+     .set('carId',carId.toString())
+    .set('memberId',memberId)
+   return this.http.get<any>('api/order/findByCarId',{ params });
+ }
+ findByCustomerId(customerId:number, memberId:string):Observable<any> {
+  let params = new HttpParams()
+     .set('customerId',customerId.toString())
+    .set('memberId',memberId)
+   return this.http.get<any>('api/order/findByCustomerId',{ params });
  }
 
   updateOrder(id:number ,orderData:any):Observable<any> {

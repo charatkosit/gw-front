@@ -1,0 +1,93 @@
+<div class="modal fade" id="carModal" tabindex="-1" role="dialog" aria-labelledby="carModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="carModalLabel">เพิ่มใบรับงาน</h5>
+                <button type="button" class="btn btn-primary">ลูกค้าเก่า</button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="name">ลูกค้า-ชื่อ</label>
+                                <input type="text" class="form-control" id="name" formControlName="name" placeholder="ชื่อ">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">ลูกค้า-โทรศัพท์</label>
+                                <input type="text" class="form-control" id="phone" formControlName="phone" placeholder="โทรศัพท์">
+                            </div>
+                            <div class="form-group">
+                                <label for="address">ลูกค้า-ที่อยู่</label>
+                                <input type="text" class="form-control" id="address" formControlName="address" placeholder="ที่อยู่">
+                            </div>
+                            <div class="form-group">
+                                <label for="brand">รถ-แบรนด์</label>
+                                <select class="form-control" id="brand" formControlName="brand">
+                                    <option value="">เลือกแบรนด์</option>
+                                    <option value="Toyota">Toyota</option>
+                                    <option value="Honda">Honda</option>
+                                    <option value="Mitsubishi">Mitsubishi</option>
+                                    <option value="Nissan">Nissan</option>
+                                    <option value="Isuzu">Isuzu</option>
+                                    <option value="Ford">Ford</option>
+                                    <option value="Chevrolet">Chevrolet</option>
+                                    <option value="Mazda">Mazda</option>
+                                    <option value="Suzuki">Suzuki</option>
+                                    <option value="Mercedes-Benz">Mercedes-Benz</option>
+                                    <option value="BMW">BMW</option>
+                                    <option value="Audi">Audi</option>
+                                    <option value="Volvo">Volvo</option>
+                                    <option value="Peugeot">Peugeot</option>
+                                    <option value="Volkswagen">Volkswagen</option>
+                                    <option value="Subaru">Subaru</option>
+                                    <option value="Kia">Kia</option>
+                                    <option value="Hyundai">Hyundai</option>
+                                    <option value="">อื่นๆ</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="model">รถ-รุ่น</label>
+                                <input type="text" class="form-control" id="model" formControlName="model" placeholder="รุ่น">
+                            </div>
+                            <div class="form-group">
+                                <label for="year">รถ-ปี</label>
+                                <input type="text" class="form-control" id="year" formControlName="year" placeholder="ปีรถ">
+                            </div>
+                            <div class="form-group">
+                                <label for="color">รถ-สี</label>
+                                <input type="text" class="form-control" id="color" formControlName="color" placeholder="สี">
+                            </div>
+                            <div class="form-group">
+                                <label for="licensePlate">รถ-ทะเบียน</label>
+                                <input type="text" class="form-control" id="licensePlate" formControlName="licensePlate" placeholder="ทะเบียนรถ">
+                            </div>
+                            <div class="form-group">
+                                <label for="sympthom">อาการเสีย</label>
+                                <input type="text" class="form-control" id="sympthom" formControlName="sympthom" placeholder="อาการเสีย">
+                            </div>
+                            <div class="form-group">
+                                <label for="description">รายละเอียด</label>
+                                <input type="text" class="form-control" id="description" formControlName="description" placeholder="รายละเอียด">
+                            </div>
+                            <div class="form-group">
+                                <label for="km">Km ที่เข้ารับบริการ</label>
+                                <input type="text" class="form-control" id="km" formControlName="km" placeholder="Km ที่เข้ารับบริการ">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modal-lg">รับรถ</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
