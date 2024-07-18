@@ -1,0 +1,33 @@
+<div class="modal" *ngIf="showOrderStatusModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" (click)="onEditSubmit()" class="btn btn-primary">
+                 บันทึก
+            </button>
+            <button type="button" (click)="close()" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="updateStatusForm" >
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="name">แก้ไข</label>
+                            <input type="text" class="form-control" id="name" formControlName="name"
+                               placeholder="วิธีการแก้ไข">
+                        </div>
+                        <div class="form-group">
+                            <label for="status">สถานะ</label>
+                            <input type="text" class="form-control" id="status" formControlName="status"
+                               placeholder="สถานะ">
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

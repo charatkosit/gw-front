@@ -27,11 +27,17 @@
                                 <button class="circle-button" data-toggle="modal" data-target="#carModal">+</button>
                                 <!-- Modal -->
                                 <app-car-create-modal (formSubmitted)="onSubmitCreate($event)"></app-car-create-modal>
-                                <app-car-edit-modal (formEditSubmitted)="onSubmitEdit($event)"></app-car-edit-modal> 
-                                <app-car-profile-modal *ngIf="showCarProfileModal" 
-                                                        [data]="modalData" 
+                                <app-car-edit-modal   (formEditSubmitted) ="onEditSubmit($event)"
+                                                    [data] ="modalEditData"
+                                                    [showCarEditModal]="showCarEditModal"
+                                                    (closeModal)="closeCarEditModal()">
+                                </app-car-edit-modal>
+
+                                <app-car-profile-modal  [data]="modalData" 
                                                         [showCarProfileModal]="showCarProfileModal" 
-                                                        (close)="closeModal()">
+                                                        (close)="closeModal()"
+                                                        (refreshData)="getData($event)"
+                                                        >
                                 </app-car-profile-modal>
 
                             </div>

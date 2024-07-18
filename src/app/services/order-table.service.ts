@@ -20,6 +20,17 @@ export class OrderTableService {
   return this.http.post<any>(`/api/batch?memberId=${memberId}`,orderData,{headers : headers});
  } 
 
+ createFast(memberId:string, orderData:any):Observable<any> {
+  const headers = new HttpHeaders( { 'Content-Type': 'application/json' } );
+  return this.http.post<any>(`/api/order?memberId=${memberId}`,orderData,{headers : headers});
+ }
+
+
+ findAllToday(memberId:string):Observable<any[]> {
+  const params = new HttpParams().set('memberId', memberId);
+   return this.http.get<any[]>(`/api/order`,{params})
+ }
+
  findAll(memberId:string):Observable<any[]> {
   const params = new HttpParams().set('memberId', memberId);
    return this.http.get<any[]>(`/api/order/findAll`,{params})

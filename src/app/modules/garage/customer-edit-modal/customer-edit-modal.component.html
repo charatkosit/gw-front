@@ -1,0 +1,37 @@
+<div class="modal" *ngIf="showCustomerEditModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" (click)="onEditSubmit()" class="btn btn-primary">
+                 บันทึก
+            </button>
+            <button type="button" (click)="close()" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button> {{data.id}}
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="customerForm" >
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="name">ลูกค้า</label>
+                            <input type="text" class="form-control" id="name" formControlName="name"
+                              [(ngModel)]="data.name" placeholder="ชื่อลูกค้า">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">ที่อยู่</label>
+                            <input type="text" class="form-control" id="address" formControlName="address"
+                            [(ngModel)]="data.address"   placeholder="ที่อยู่">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">โทรศัพท์</label>
+                            <input type="text" class="form-control" id="phone" formControlName="phone"
+                            [(ngModel)]="data.phone"  placeholder="โทรศัพท์">
+                        </div>
+
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

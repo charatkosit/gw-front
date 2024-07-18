@@ -23,6 +23,7 @@ export class CarListComponent {
   ) { }
 
   data: any[] = [];
+  showCarEditModal = false; 
   showCarProfileModal = false;
   showModal = false;
   modalData: any;
@@ -183,7 +184,23 @@ export class CarListComponent {
     })
   }
 
+
+  //---------------ก่อนไป modal----------------
   onShowCarProfile(carId: number) {
+    this.showCarProfileModal  = true
+    this.order.findByCarId(carId, this.memberId).subscribe({
+      next: (data) => {
+        console.log(`data is ${JSON.stringify(data)}`);
+        this.modalData = data;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
+  // modal ทำการเรียกข้อมูลใหม่อีกครั้ง
+  getData(carId: number){
     this.showCarProfileModal = true
     this.order.findByCarId(carId, this.memberId).subscribe({
       next: (data) => {
@@ -196,7 +213,10 @@ export class CarListComponent {
     });
   }
 
+
   onEditCar(carId: number) {
+    this.showCarEditModal = true;
+    console.log(`@onEditCar sent showCarEditModal: ${this.showCarEditModal}`);
      this.car.findById(carId, this.memberId).subscribe({  
       next: (data) => {
         console.log(`data @onEditCar is ${JSON.stringify(data)}`);
@@ -212,8 +232,8 @@ export class CarListComponent {
     console.log(`@Timeline carId: ${carId}`);
     this.route.navigate(['/garage/timeline']);
   }
-  //-------------------------------
 
+  //------------กลับมาจาก modal------------------------
   onSubmitCreate(carForm: FormGroup) {
 
     console.log(`data carForm: ${JSON.stringify(carForm.value)}`);
@@ -239,15 +259,36 @@ export class CarListComponent {
     });
   }
 
-  onSubmitEdit(carForm: FormGroup) {
+  onEditSubmit(carForm: FormGroup) {
+    const carEditData = {
+      model: carForm.value.model,
+      brand: carForm.value.brand,
+      year: carForm.value.year,
+      color: carForm.value.color,
+      licensePlate: carForm.value.licensePlate
+    } 
+    console.log(`data carForm is ${JSON.stringify(carEditData)}`);
+    this.car.update(carForm.value.carId, carEditData).subscribe({
+      next: response => {
+        console.log('Car updated successfully', response);
+        this.reloadDataTable();
+        this.showCarEditModal = false;
+      },
+      error: error => {
+        console.error('Error updating car', error);
+      }
+    });
+
   }
-  //------------------------------------
 
-
+  
+  closeCarEditModal(){
+    this.showCarEditModal = false;
+    }
   closeModal() {
     this.showCarProfileModal = false;
   }
-  //------------------------------------
+  //----------------ไม่ได้ใช้--------------------
   createCar() {
     const carData = {
       model: 'Model S',

@@ -22,7 +22,10 @@ export class CustomerListComponent {
 
   data: any[] = [];
   showCustomerProfileModal = false;
+  showCustomerEditModal = false;
   showModal = false;
+
+  modalEditData: any;
   modalData: any;
   memberId = 'A-004';
 
@@ -80,6 +83,11 @@ export class CustomerListComponent {
         console.log(`when profileCustomer click: ${customerId}`);
         this.onShowCustomerProfile(customerId);
       });
+      $(document).on('click', '.btn-editCustomer', (event: any) => {
+        var customerId = $(event.target).data('id');
+        console.log(`when editCustomer click: ${customerId}`);
+        this.onShowEditCustomer(customerId);
+      });
       $(document).on('click', '.btn-deleteCustomer', (event: any) => {
         var customerId = $(event.target).data('id');
         console.log(`when delete click: ${customerId}`);
@@ -100,7 +108,6 @@ export class CustomerListComponent {
 
     });
   }
-
 
   ngOnDestroy(): void {
     try {
@@ -175,8 +182,38 @@ export class CustomerListComponent {
     });
   }
 
-  //-------------------------------
+  onShowEditCustomer(customerId: number) {
+    this.customer.findById(customerId, this.memberId).subscribe({
+      next: (data) => {
+        this.modalEditData = data;
+        this.showCustomerEditModal = true;
+        console.log(`modalEditData is ${JSON.stringify(data)}`);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
 
+  }
+  //-------------------------------
+ // modal ทำการเรียกข้อมูลใหม่อีกครั้ง
+  getData(customerId: number){
+    this.order.findByCustomerId(customerId, this.memberId).subscribe({
+      next: (data) => {
+        this.modalData = data;
+        this.showCustomerProfileModal = true;
+        console.log(`modalData is ${JSON.stringify(data)}`);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
+
+
+  //---เชื่อมกับ modal-----------------
+  
   onSubmitCreate(customerForm: FormGroup) {
     console.log(`data customerForm: ${JSON.stringify(customerForm.value)}`)
     const customerData = {
@@ -201,11 +238,18 @@ export class CustomerListComponent {
   onSubmitEdit(customerForm: FormGroup) {
   }
 
-  closeModal() {
+
+
+closeModal() {
     this.showCustomerProfileModal = false;
   }
 
+closeCustomerEditModal(){
+  this.showCustomerEditModal = false;
+}
 
+
+//---------------ไม่ได้ใช้งาน-----------------------
   getCustomerList(memberId: string) {
     this.customer.findAll(memberId).subscribe({
       next: (data) => {

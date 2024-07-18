@@ -16,7 +16,6 @@ import { CarListComponent } from './car-list/car-list.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrderDetailListComponent } from './order-detail-list/order-detail-list.component';
 import { GetOrderComponent } from './get-order/get-order.component';
-import { CarEditModalComponent } from './car-edit-modal/car-edit-modal.component';
 import { CarProfileModalComponent } from './car-profile-modal/car-profile-modal.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { OrderDetailModalComponent } from './order-detail-modal/order-detail-modal.component';
@@ -27,6 +26,10 @@ import { OrderEditModalComponent } from './order-edit-modal/order-edit-modal.com
 import { OrderCreateModalComponent } from './order-create-modal/order-create-modal.component';
 import { CarCreateModalComponent } from './car-create-modal/car-create-modal.component';
 import { OrderdetailComponent } from './orderdetail/orderdetail.component';
+import { CustomDatePipe } from 'src/app/pipe/custom-date.pipe';
+import { OrderAddpartModalComponent } from './order-addpart-modal/order-addpart-modal.component';
+import { CarEditModalComponent } from './car-edit-modal/car-edit-modal.component';
+import { OrderStatusModalComponent } from './order-status-modal/order-status-modal.component';
 
 
 // FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -36,7 +39,7 @@ import { OrderdetailComponent } from './orderdetail/orderdetail.component';
 
 @NgModule({
   declarations: [
-  
+    // CustomDatePipe,
     OrderComponent,
     SearchLPComponent,
     CalendarComponent,
@@ -49,7 +52,6 @@ import { OrderdetailComponent } from './orderdetail/orderdetail.component';
     OrderListComponent,
     OrderDetailListComponent,
     GetOrderComponent,
-    CarEditModalComponent,
     CarProfileModalComponent,
     TimelineComponent,
     OrderDetailModalComponent,
@@ -59,7 +61,10 @@ import { OrderdetailComponent } from './orderdetail/orderdetail.component';
     OrderEditModalComponent,
     OrderCreateModalComponent,
     CarCreateModalComponent,
-    OrderdetailComponent
+    OrderdetailComponent,
+    OrderAddpartModalComponent,
+    CarEditModalComponent,
+    OrderStatusModalComponent
   ],
   imports: [
     CommonModule,
@@ -67,6 +72,7 @@ import { OrderdetailComponent } from './orderdetail/orderdetail.component';
     ReactiveFormsModule,
     FullCalendarModule,
     GarageRoutingModule
-  ]
+  ],
+  // exports: [CustomDatePipe]
 })
 export class GarageModule { }

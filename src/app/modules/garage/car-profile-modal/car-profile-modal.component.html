@@ -7,15 +7,16 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
+
+
         <div class="modal-body">
             <div class="row" *ngIf="data && data.length > 0">
                 <div class="col-6">
-                    <div class="card card-default" style="width: 18rem;">
+                    <div class="card card-default"  >
                         <div class="card-header">
                             <h3 class="card-title thai-text">รถ</h3>
                         </div>
                         <div class="card-body">
-
                             <p class="card-text">รหัส: {{data[0].car.id}}</p>
                             <p class="card-text">ยี่ห้อ: {{data[0].car.brand}}</p>
                             <p class="card-text">รุ่น: {{data[0].car.model}}</p>
@@ -24,7 +25,7 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="card" style="width: 18rem;">
+                    <div class="card card-default">
                         <div class="card-header">
                             <h3 class="card-title thai-text">ลูกค้า</h3>
                         </div>
@@ -41,35 +42,49 @@
 
 
             <div class="card" *ngIf="data && data.length > 0">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <button class="circle-button" data-toggle="modal" (click)="openCreateOrderModal()"
+                        data-target="#createOrderModal">+</button>
                     <h3 class="card-title">ประวัติ</h3>
                 </div>
+
                 <!-- /.card-header -->
                 <div class="card-body p-0">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th style="width: 10px">id</th>
-                                <th class="text-center">อาการเสีย</th>
-                                <th>Progress</th>
-                                <th style="width: 40px">สถานะ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{data[0].id}}</td>
-                                <td>{{data[0].sympthom}}</td>
-                                <td>
-                                    <div class="progress progress-xs">
-                                        <div class="progress-bar progress-bar-danger" style="width: 55%">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10px">id</th>
+                                    <th class="text-center">อาการเสีย</th>
+                                    <th>Progress</th>
+                                    <th style="width: 40px">สถานะ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let order of data">
+                                    <td>{{order.id}}</td>
+                                    <td>{{order.sympthom}}</td>
+                                    <td>
+                                        <div class="progress progress-xs">
+                                            <div class="progress-bar progress-bar-danger" style="width: 55%">
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td><span class="badge bg-danger">{{data[0].status}}</span></td>
-                            </tr>
-                          
-                        </tbody>
-                    </table>
+                                    </td>
+                                    <td>
+                                        <span [ngClass]="{
+                                            'badge badge-success': order.status === 'closed',
+                                            'badge badge-danger': order.status === 'open',
+                                            'badge badge-warning': order.status !== 'closed' && order.status !== 'open'
+                                        }">
+                                            {{order.status}}
+                                        </span>
+                                    </td>
+                                </tr>
+    
+                            </tbody>
+                        </table>
+                    </div>
+                   
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -78,30 +93,35 @@
     </div>
 </div>
 
-<!-- /.modal-dialog -->
-
-<!-- <div class="modal" *ngIf="showCarProfileModal">
-    <div class="modal-content">
-      <span class="close" (click)="closeModal()">&times;</span>
-
-      
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">Car Information</h5>
-          <p class="card-text"><strong>Car:</strong></p>
-          <p class="card-text">ยี่ห้อ: {{data[0].car.brand}}</p>
-          <p class="card-text">รุ่น: {{data[0].car.model}}</p>
-          <p class="card-text">ทะเบียน: {{data[0].car.licensePlate}}</p>
-          <hr>
-          <p class="card-text"><strong>ใบรับงาน:</strong> {{ data[0].id }}</p>
-          <p class="card-text"><strong>อาการเสีย:</strong> {{ data[0].sympthom }}</p>
-          <p class="card-text"><strong>รายละเอียด:</strong> {{ data[0].description }}</p>
-          <p class="card-text"><strong>Km เข้ารับบริการ:</strong> {{ data[0].km }}</p>
-          <p class="card-text"><strong>สถานะ:</strong> {{ data[0].status }}</p>
-          <p class="card-text"><strong>ปิดงานเมื่อ:</strong> {{ data[0].dateOut }}</p>
+<!-- ------------------------- -->
+<!-- New Modal -->
+<div class="modal modal-1" *ngIf="showCreateOrderModal">
+    <div class="modal-content modal-content-1">
+        <div class="modal-header">
+            <h5 class="modal-title">Create Order</h5>
+            <button type="button" class="close" (click)="closeCreateOrderModal()" data-dismiss="modal"
+                aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-      </div>
-
+        <div class="modal-body">
+            <form (ngSubmit)="submitOrder()">
+                <div class="form-group">
+                    <label for="sympthom">อาการเสีย</label>
+                    <input type="text" class="form-control" id="sympthom" [(ngModel)]="newOrder.sympthom"
+                        name="sympthom">
+                </div>
+                <div class="form-group">
+                    <label for="description">รายละเอียด</label>
+                    <input type="text" class="form-control" id="description" [(ngModel)]="newOrder.description"
+                        name="description">
+                </div>
+                <div class="form-group">
+                    <label for="km">Km ที่เข้ารับบริการ</label>
+                    <input type="text" class="form-control" id="km" [(ngModel)]="newOrder.km" name="km">
+                </div>
+                <button type="submit" class="btn btn-primary">บันทึก</button>
+            </form>
+        </div>
     </div>
-    
-  </div> -->
+</div>

@@ -14,9 +14,9 @@ export class OrderDetailTableService {
 
   constructor(private http:HttpClient) { }
 
- createOrderDetail(orderDetailData:any):Observable<any> {
+ create(memberId:string,orderDetailData:any):Observable<any> {
   const headers = new HttpHeaders( { 'Content-Type': 'application/json' } );
-  return this.http.post<any>(`/api/order-detail?memberId=${this.memberId}`,orderDetailData,{headers : headers});
+  return this.http.post<any>(`/api/order-detail?memberId=${memberId}`,orderDetailData,{headers : headers});
  } 
 
  getOrderDetailById(id:number):Observable<any> {

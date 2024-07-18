@@ -28,8 +28,18 @@
                         <button class="circle-button" data-toggle="modal" data-target="#carModal">+</button>
                         <!-- Modal -->
                         <app-order-create-modal (formSubmitted)="onSubmitCreate($event)"></app-order-create-modal>
-                        <!-- <app-order-detail-modal ()="onSubmitAddSparePart($event)"></app-order-detail-modal>   -->
-                      
+                        <app-order-addpart-modal (formSubmitted)="onSubmitAddPart($event)"
+                                                 [data] = "modalAddpartData" 
+                                                [showOrderAddpartModal]="showOrderAddpartModal"
+                                                 (closeModal)="closeModal()">
+                        </app-order-addpart-modal>
+                        <app-order-status-modal 
+                                                [data] = "modalStatusData"  
+                                                [showOrderStatusModal]="showOrderStatusModal" 
+                                                (closeModal)="closeStatusModal()">
+
+                        </app-order-status-modal>
+
                     </div>
                 </div>
             </div>
@@ -44,6 +54,13 @@
 
                         <div class="card-body">
                             <div class="table-responsive">
+                                <div class="form-group d-flex justify-content-end">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="customSwitch1"
+                                        checked (change)="onCheckboxChange($event)">
+                                        <label class="custom-control-label" for="customSwitch1">Today</label>
+                                    </div>
+                                </div>
                                 <table id="example1" class="table table-bordered table-striped"></table>
                             </div>
                         </div>
