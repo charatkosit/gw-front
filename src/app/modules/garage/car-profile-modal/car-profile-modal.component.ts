@@ -10,8 +10,11 @@ export class CarProfileModalComponent {
 
 
   @Input() data: any[]=[];
+
   @Input() showCarProfileModal = false;
+
   @Output() close = new EventEmitter<void>();
+  
   @Output() refreshData = new EventEmitter<number>();  
 
   showCreateOrderModal = false;
@@ -48,7 +51,8 @@ export class CarProfileModalComponent {
         description : this.newOrder.description,
         km : +this.newOrder.km,
         customerId : this.data[0].customer.id,
-        carId : this.data[0].car.id
+        carId : this.data[0].car.id,
+        status : 'open'
     }
     
     console.log(`preOrderData: ${JSON.stringify(preOrderData)}`);

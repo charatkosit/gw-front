@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,9 +7,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./customer-create-modal.component.css']
 })
 export class CustomerCreateModalComponent {
- 
+  @Input() showCustomerCreateModal = false;
   @Output()  formSubmitted = new EventEmitter<FormGroup>();
-
+  @Output()  closeModal = new EventEmitter<void>();
 
 
   customerForm!: FormGroup;
@@ -29,5 +29,10 @@ export class CustomerCreateModalComponent {
       this.formSubmitted.emit(this.customerForm);
     }
     
+  }
+
+  close(){
+    this.showCustomerCreateModal = false;
+    this.closeModal.emit();
   }
 }

@@ -1,6 +1,6 @@
 .circle-button {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     background-color: #4CAF50; /* Green background */
     border: none;
     border-radius: 50%;
@@ -16,3 +16,4 @@
 .circle-button:hover {
     background-color: #45a049; /* Darker green on hover */
 }
+

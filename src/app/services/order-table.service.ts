@@ -56,7 +56,7 @@ export class OrderTableService {
    return this.http.get<any>('api/order/findByCustomerId',{ params });
  }
 
-  updateOrder(id:number ,orderData:any):Observable<any> {
+  update(id:number ,orderData:any):Observable<any> {
     const headers = new HttpHeaders( { 'Content-Type': 'application/json' } );
     return this.http.patch<any>(`/api/order/${id}`,orderData, {headers : headers});
   }

@@ -2,35 +2,20 @@
 
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">Extra Large Modal</h5>
             <button type="button" class="close" (click)="closeModal()" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
             <div class="row" *ngIf="data && data.length > 0">
-                <div class="col-6">
+                <div class="col-12">
                     <div class="card card-default" style="width: 18rem;">
-                        <div class="card-header">
-                            <h3 class="card-title thai-text">รถ</h3>
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                
+                            <h3 class="card-title thai-text mb-0">ลูกค้า</h3>
+                            <h6> รหัส: {{data[0].customer.id}}</h6>
                         </div>
                         <div class="card-body">
-
-                            <p class="card-text">รหัส: {{data[0].car.id}}</p>
-                            <p class="card-text">ยี่ห้อ: {{data[0].car.brand}}</p>
-                            <p class="card-text">รุ่น: {{data[0].car.model}}</p>
-                            <p class="card-text">ทะเบียน: {{data[0].car.licensePlate}}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-header">
-                            <h3 class="card-title thai-text">ลูกค้า</h3>
-                        </div>
-                        <div class="card-body">
-
-                            <p class="card-tex"> รหัส: {{data[0].customer.id}}</p>
                             <p class="card-text">ลูกค้า: {{data[0].customer.name}}</p>
                             <p class="card-text">ที่อยู่: {{data[0].customer.address}}</p>
                             <p class="card-text">โทรศัพท์: {{data[0].customer.address}}</p>
@@ -41,7 +26,38 @@
 
 
             <div class="card" *ngIf="data && data.length > 0">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <button class="circle-button-yellow" data-toggle="modal" data-target="#test3Modal">+</button>
+                    <h3 class="card-title">รถ</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 10px">id</th>
+                                <th class="text-center">ยี่ห้อ</th>
+                                <th class="text-center">รุ่น</th>
+                                <th style="width: 40px">ทะเบียน</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{data[0].car.id}}</td>
+                                <td>{{data[0].car.brand}}</td>
+                                <td>{{data[0].car.model}}</td>                                
+                                <td>{{data[0].car.licensePlate}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+
+            <div class="card" *ngIf="data && data.length > 0">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    
                     <h3 class="card-title">ประวัติ</h3>
                 </div>
                 <!-- /.card-header -->
@@ -51,7 +67,7 @@
                             <tr>
                                 <th style="width: 10px">id</th>
                                 <th class="text-center">อาการเสีย</th>
-                                <th>Progress</th>
+                                <th>KM.</th>
                                 <th style="width: 40px">สถานะ</th>
                             </tr>
                         </thead>
@@ -59,15 +75,10 @@
                             <tr>
                                 <td>{{data[0].id}}</td>
                                 <td>{{data[0].sympthom}}</td>
-                                <td>
-                                    <div class="progress progress-xs">
-                                        <div class="progress-bar progress-bar-danger" style="width: 55%">
-                                        </div>
-                                    </div>
-                                </td>
+                                <td>{{data[0].km}}</td>
                                 <td><span class="badge bg-danger">{{data[0].status}}</span></td>
                             </tr>
-                          
+
                         </tbody>
                     </table>
                 </div>

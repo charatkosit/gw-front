@@ -3,7 +3,7 @@
         <div class="modal-header">
             <button type="button" (click)="onEditSubmit()" class="btn btn-primary">
                  บันทึก
-            </button>
+            </button> {{data}}
             <button type="button" (click)="close()" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -13,8 +13,8 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="form-group">
-                            <label for="name">แก้ไข</label>
-                            <input type="text" class="form-control" id="name" formControlName="name"
+                            <label for="solution">แก้ไข</label>
+                            <input type="text" class="form-control" id="solution" formControlName="solution"
                                placeholder="วิธีการแก้ไข">
                         </div>
                         <div class="form-group">

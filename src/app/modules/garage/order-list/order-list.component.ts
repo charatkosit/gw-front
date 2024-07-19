@@ -176,6 +176,7 @@ export class OrderListComponent {
 
   orderStatus(orderId: number) {
     this.showOrderStatusModal = true;
+    this.modalStatusData = orderId;
     console.log(`orderStatus orderId is: ${orderId}`);
   }
   //---------------มาจาก modal----------------
@@ -241,6 +242,22 @@ export class OrderListComponent {
   
   }
   onSubmitStatus(updateStatusForm: FormGroup) {
+    const updateStatusData ={
+      status: updateStatusForm.value.status,
+      solution: updateStatusForm.value.solution
+   
+    }
+     const orderId = updateStatusForm.value.orderId;
+    this.order.update(+orderId,updateStatusData).subscribe({
+      next: response => {
+        console.log('order updated successfully', response);
+        this.reloadDataTable();
+        this.showOrderStatusModal = false;
+      },
+      error: error => {
+        console.error('Error updating order', error);
+      }
+    });
 
   }
 

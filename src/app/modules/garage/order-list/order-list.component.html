@@ -33,7 +33,7 @@
                                                 [showOrderAddpartModal]="showOrderAddpartModal"
                                                  (closeModal)="closeModal()">
                         </app-order-addpart-modal>
-                        <app-order-status-modal 
+                        <app-order-status-modal (formEditSubmitted)="onSubmitStatus($event)"
                                                 [data] = "modalStatusData"  
                                                 [showOrderStatusModal]="showOrderStatusModal" 
                                                 (closeModal)="closeStatusModal()">

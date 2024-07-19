@@ -22,6 +22,7 @@ export class OrderStatusModalComponent {
     this.updateStatusForm = this.fb.group({
        status: ['', Validators.required],
        solution: [''],
+       orderId: [''],
          
    
     })
@@ -31,8 +32,15 @@ export class OrderStatusModalComponent {
     this.showOrderStatusModal = false;
     this.closeModal.emit();
   }
+  
   onEditSubmit(){
-
+    if(this.updateStatusForm.valid){
+      this.updateStatusForm.value.orderId = this.data;
+       
+      const data = this.updateStatusForm.value;
+      console.log(`data updateStatusForm is ${JSON.stringify(data)}`);
+      this.formEditSubmitted.emit(this.updateStatusForm);
+    }
   }
 
 }

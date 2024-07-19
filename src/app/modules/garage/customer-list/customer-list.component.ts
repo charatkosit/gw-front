@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { render } from '@fullcalendar/core/preact';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CustomerTableService } from 'src/app/services/customer-table.service';
 import { OrderTableService } from 'src/app/services/order-table.service';
@@ -21,10 +22,13 @@ export class CustomerListComponent {
   ) { }
 
   data: any[] = [];
+  showOrderCreateModal = false;
+  showCustomerCreateModal = false;
   showCustomerProfileModal = false;
   showCustomerEditModal = false;
   showModal = false;
 
+  modalCreateOrderData: any;
   modalEditData: any;
   modalData: any;
   memberId = 'A-004';
@@ -61,7 +65,15 @@ export class CustomerListComponent {
         // order: [[6, 'desc']], // เรียงลำดับตามเวลาเข้า
         columns: [
           { data: 'id', title: 'id', className: "text-center" },
-          { data: 'name', title: 'ชื่อ', className: "text-center" },
+          // { data: 'name', title: 'ชื่อ', className: "text-center" },
+          {
+            data: 'name',
+            title: 'ชื่อ',
+            className: "text-center",
+            render: function (data: any, type: any, row: any) {
+              return `<button class="btn btn-block btn-outline-primary btn-xs btn-profileCustomer" data-id="${row.id}">${data}</button>`;
+            }
+          },
           { data: 'phone', title: 'โทรศัพท์', className: "text-center" },
           { data: 'address', title: 'ที่อยู่', className: "text-center" },
           {
@@ -70,13 +82,18 @@ export class CustomerListComponent {
             data: null,
             render: function (data: any, type: any, row: any) {
               console.log(`row is ${JSON.stringify(row.id)}`);
-                return `<button class="btn btn-warning btn-profileCustomer" data-id="${row.id}">ประวัติ</button>
-                        <button class="btn btn-primary btn-editCustomer" data-id="${row.id}">แก้ไข</button>
-                        <button class="btn btn-danger btn-deleteCustomer" data-id="${row.id}">ลบ</button>`;
+              return `<button class="btn btn-sm btn-info btn-createOrder" data-id="${row.id}">รับงาน</button>
+                        <button class="btn btn-sm btn-primary btn-editCustomer" data-id="${row.id}">แก้ไข</button>
+                        <button class="btn btn-sm btn-danger btn-deleteCustomer" data-id="${row.id}">ลบ</button>`;
 
             }
           },
         ]
+      });
+      $(document).on('click', '.btn-createOrder', (event: any) => {
+        var customerId = $(event.target).data('id');
+        console.log(`when addCar click: ${customerId}`);
+        this.onShowOrderCreate(customerId);
       });
       $(document).on('click', '.btn-profileCustomer', (event: any) => {
         var customerId = $(event.target).data('id');
@@ -132,7 +149,7 @@ export class CustomerListComponent {
       table.draw();
     });
   }
-  //-------------------------------
+  //-----------ก่อนไปยัง modal--------------------
   onDeleteCustomerAlert(customerId: number) {
 
     const swalWithBootstrapButtons = Swal.mixin({
@@ -168,6 +185,19 @@ export class CustomerListComponent {
     })
   }
 
+  onShowOrderCreate(customerId: number) {
+    this.customer.findById(customerId, this.memberId).subscribe({
+      next: (data) => {
+        this.modalCreateOrderData = data;
+        this.showOrderCreateModal = true;
+        console.log(`modalEditData is ${JSON.stringify(data)}`);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
   onShowCustomerProfile(customerId: number) {
 
     this.order.findByCustomerId(customerId, this.memberId).subscribe({
@@ -195,9 +225,13 @@ export class CustomerListComponent {
     });
 
   }
+
+  onCreateCustomer() {
+    this.showCustomerCreateModal = true;
+  }
   //-------------------------------
- // modal ทำการเรียกข้อมูลใหม่อีกครั้ง
-  getData(customerId: number){
+  // modal ทำการเรียกข้อมูลใหม่อีกครั้ง
+  getData(customerId: number) {
     this.order.findByCustomerId(customerId, this.memberId).subscribe({
       next: (data) => {
         this.modalData = data;
@@ -212,8 +246,8 @@ export class CustomerListComponent {
 
 
 
-  //---เชื่อมกับ modal-----------------
-  
+  //---กลับมาจาก modal-----------------
+
   onSubmitCreate(customerForm: FormGroup) {
     console.log(`data customerForm: ${JSON.stringify(customerForm.value)}`)
     const customerData = {
@@ -240,16 +274,23 @@ export class CustomerListComponent {
 
 
 
-closeModal() {
+  closeModal() {
     this.showCustomerProfileModal = false;
   }
 
-closeCustomerEditModal(){
-  this.showCustomerEditModal = false;
-}
+  closeCustomerEditModal() {
+    this.showCustomerEditModal = false;
+  }
 
+  closeCustomerCreateModal() {
+    this.showCustomerCreateModal = false;
+  }
 
-//---------------ไม่ได้ใช้งาน-----------------------
+  closeOrderCreateModal() {
+    this.showOrderCreateModal = false;
+  }
+
+  //---------------ไม่ได้ใช้งาน-----------------------
   getCustomerList(memberId: string) {
     this.customer.findAll(memberId).subscribe({
       next: (data) => {

@@ -30,6 +30,7 @@ import { CustomDatePipe } from 'src/app/pipe/custom-date.pipe';
 import { OrderAddpartModalComponent } from './order-addpart-modal/order-addpart-modal.component';
 import { CarEditModalComponent } from './car-edit-modal/car-edit-modal.component';
 import { OrderStatusModalComponent } from './order-status-modal/order-status-modal.component';
+import { CustomerOrderCreateModalComponent } from './customer-order-create-modal/customer-order-create-modal.component';
 
 
 // FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -64,7 +65,8 @@ import { OrderStatusModalComponent } from './order-status-modal/order-status-mod
     OrderdetailComponent,
     OrderAddpartModalComponent,
     CarEditModalComponent,
-    OrderStatusModalComponent
+    OrderStatusModalComponent,
+    CustomerOrderCreateModalComponent
   ],
   imports: [
     CommonModule,

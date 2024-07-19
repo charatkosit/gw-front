@@ -24,9 +24,12 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
-                                <button class="circle-button" data-toggle="modal" data-target="#customerModal">+</button>
+                                <button class="circle-button" data-toggle="modal" (click)="onCreateCustomer()" data-target="#customerModal">+</button>
                                 <!-- Modal -->
-                                <app-customer-create-modal (formSubmitted)="onSubmitCreate($event)">
+                                <app-customer-create-modal (formSubmitted)="onSubmitCreate($event)"
+                                                           [showCustomerCreateModal]="showCustomerCreateModal" 
+                                                           (close)="closeCustomerCreateModal()"
+                                                            >
                                 </app-customer-create-modal>
 
                                 <app-customer-edit-modal (formEditSubmitted)="onSubmitEdit($event)"
@@ -42,6 +45,13 @@
                                                         (close)="closeModal()"
                                                          >
                                 </app-customer-profile-modal>
+                                <app-customer-order-create-modal 
+                                                                [data]="modalCreateOrderData"
+                                                                [showOrderCreateModal]="showOrderCreateModal"
+                                                                (close)="closeOrderCreateModal()"
+                                                                >
+                                </app-customer-order-create-modal>
+
 
                             </div>
                         </div>
