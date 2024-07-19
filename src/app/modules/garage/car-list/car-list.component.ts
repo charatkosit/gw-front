@@ -55,6 +55,10 @@ export class CarListComponent {
           }
         },
         stateSave: true,
+        scrollX: false, // Disable horizontal scroll
+        autoWidth: false, // Disable automatic column width calculation
+        lengthChange: false, // ไม่แสดงช่องเลือก แสดงแถว 10,25,50,100
+        pageLength: 25, //   แสดง 25 แถวตายตัว
         data: this.data,
         order: [[6, 'desc']], // เรียงลำดับตามเวลาเข้า
         columns: [
@@ -63,12 +67,18 @@ export class CarListComponent {
           { data: 'brand', title: 'แบรนด์', className: "text-center" },
           { data: 'year', title: 'ปี', className: "text-center" },
           { data: 'color', title: 'สี', className: "text-center" },
+          // { data: 'countOrder', title: 'ใบรับงาน', className: "text-center" },
           {
             data: 'licensePlate',
             title: 'ทะเบียน',
             className: "text-center",
             render: function (data: any, type: any, row: any) {
-              return `${data} <span class="right badge badge-success badge-click" data-id="${row.id}">2</span>`;
+              if(row.countOrder>0){
+                return `${data} <span class="right badge badge-success badge-click" data-id="${row.id}">${row.countOrder}</span>`;
+              }else{
+                return `${data} <span class="right badge badge-secondary badge-click" data-id="${row.id}">${row.countOrder}</span>`;
+              }
+              
             }
           },
           {

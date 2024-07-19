@@ -56,7 +56,8 @@ export class OrderListComponent {
         language: {
           lengthMenu: 'แสดง _MENU_ แถว',
           zeroRecords: 'ไม่พบข้อมูล',
-          info: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+          // info: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
+          info: '',
           infoEmpty: 'ไม่มีข้อมูลที่ต้องการแสดง',
           infoFiltered: '(กรองจากทั้งหมด _MAX_ แถว)',
           search: 'ค้นหา:',
@@ -68,6 +69,10 @@ export class OrderListComponent {
           }
         },
         stateSave: true,
+        scrollX: false, // Disable horizontal scroll
+        autoWidth: false, // Disable automatic column width calculation
+        lengthChange: false, // ไม่แสดงช่องเลือก แสดงแถว 10,25,50,100
+        pageLength: 25, //   แสดง 25 แถวตายตัว
         data: this.data,
         // order: [[6, 'desc']], // เรียงลำดับตามเวลาเข้า
         columns: [
@@ -77,7 +82,20 @@ export class OrderListComponent {
           { data: 'car.brand', title: 'แบรนด์', className: "text-center" },
           { data: 'car.licensePlate', title: 'ทะเบียน', className: "text-center" },
           { data: 'customer.name', title: 'ลูกค้า', className: "text-center" },
-          { data: 'sympthom', title: 'อาการเสีย', className: "text-center" },
+          // { data: 'sympthom', title: 'อาการเสีย', className: "text-center" },
+          { 
+            data: 'sympthom', 
+            title: 'อาการเสีย', 
+            className: "text-center",
+            render: function (data: any, type: any, row: any) {
+              if (row.countOrderDetail > 0) {
+                return `${data}<span class="right badge badge-warning badge-orderDetail" data-id="${row.id}">${row.countOrderDetail}</span>`;
+              } else {
+                return `${data}`;
+
+              }
+            } 
+          },
           { data: 'description', title: 'รายละเอียด', className: "text-center" },
           { data: 'km', title: 'รับบริการ (Km)', className: "text-center" },
           { data: 'dateIn', title: 'วันที่เข้า', className: "text-center" },
@@ -105,6 +123,11 @@ export class OrderListComponent {
             }
           },
         ]
+      });
+      $(document).on('click', '.badge-orderDetail', (event: any) => {
+        var orderId = $(event.target).data('id');
+        console.log(`when badge-orderDetail click orderId is: ${orderId}`);
+        this.orderDetail(orderId);
       });
       $(document).on('click', '.badge-click', (event: any) => {
         var orderId = $(event.target).data('id');
@@ -178,6 +201,11 @@ export class OrderListComponent {
     this.showOrderStatusModal = true;
     this.modalStatusData = orderId;
     console.log(`orderStatus orderId is: ${orderId}`);
+  }
+
+  orderDetail(orderId: number){
+      
+    console.log(`orderDetail orderId is : ${orderId}`)
   }
   //---------------มาจาก modal----------------
 

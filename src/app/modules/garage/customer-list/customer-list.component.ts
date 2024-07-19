@@ -61,6 +61,10 @@ export class CustomerListComponent {
           }
         },
         stateSave: true,
+        scrollX: false, // Disable horizontal scroll
+        autoWidth: false, // Disable automatic column width calculation
+        lengthChange: false, // ไม่แสดงช่องเลือก แสดงแถว 10,25,50,100
+        pageLength: 25, //   แสดง 25 แถวตายตัว
         data: this.data,
         // order: [[6, 'desc']], // เรียงลำดับตามเวลาเข้า
         columns: [

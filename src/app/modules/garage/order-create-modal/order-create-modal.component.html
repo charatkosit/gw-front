@@ -27,28 +27,11 @@
                             <div class="form-group">
                                 <label for="brand">รถ-แบรนด์</label>
                                 <select class="form-control" id="brand" formControlName="brand">
-                                    <option value="">เลือกแบรนด์</option>
-                                    <option value="Toyota">Toyota</option>
-                                    <option value="Honda">Honda</option>
-                                    <option value="Mitsubishi">Mitsubishi</option>
-                                    <option value="Nissan">Nissan</option>
-                                    <option value="Isuzu">Isuzu</option>
-                                    <option value="Ford">Ford</option>
-                                    <option value="Chevrolet">Chevrolet</option>
-                                    <option value="Mazda">Mazda</option>
-                                    <option value="Suzuki">Suzuki</option>
-                                    <option value="Mercedes-Benz">Mercedes-Benz</option>
-                                    <option value="BMW">BMW</option>
-                                    <option value="Audi">Audi</option>
-                                    <option value="Volvo">Volvo</option>
-                                    <option value="Peugeot">Peugeot</option>
-                                    <option value="Volkswagen">Volkswagen</option>
-                                    <option value="Subaru">Subaru</option>
-                                    <option value="Kia">Kia</option>
-                                    <option value="Hyundai">Hyundai</option>
-                                    <option value="">อื่นๆ</option>
+                                  <option value="">เลือกแบรนด์</option>
+                                  <option *ngFor="let brand of brands" [value]="brand">{{ brand }}</option>
                                 </select>
-                            </div>
+                              </div>
+                              
                             <div class="form-group">
                                 <label for="model">รถ-รุ่น</label>
                                 <input type="text" class="form-control" id="model" formControlName="model" placeholder="รุ่น">

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BrandService } from 'src/app/services/brand.service';
 
 @Component({
   selector: 'app-order-create-modal',
@@ -11,8 +12,13 @@ export class OrderCreateModalComponent {
 
   orderForm!: FormGroup;
   memberId = 'A-004';
+  brands: string[] = [];
  
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private brand:BrandService
+
+  ) {
     this.orderForm = this.fb.group({
       memberId: this.memberId,
       name: ['', Validators.required],
@@ -29,7 +35,11 @@ export class OrderCreateModalComponent {
     })
   }
 
-
+ ngOnInit():void{
+   this.brand.getBrand().subscribe((data:string[])=>{
+    this.brands =data
+   })
+ }
 
   onSubmit() {
     const data = this.orderForm.value;

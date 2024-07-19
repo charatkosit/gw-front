@@ -74,3 +74,9 @@
 .circle-button-yellow:hover {
   background-color: hsl(50, 89%, 48%); /* Darker green on hover */
 }
+
+.modal-header {
+  padding: 5px 15px; /* Adjust these values as needed */
+  margin: 0; /* Adjust if there is any margin */
+  height: auto; /* Adjust the height if necessary */
+}
