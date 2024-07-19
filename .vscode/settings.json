@@ -18,5 +18,6 @@
         "titleBar.inactiveBackground": "#ffa50099",
         "titleBar.inactiveForeground": "#15202b99"
     },
-    "peacock.color": "#FFA500"
+    "peacock.color": "#FFA500",
+    "terminal.integrated.defaultProfile.windows": "Command Prompt"
 }
