@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BrandService } from 'src/app/services/brand.service';
 
 @Component({
   selector: 'app-car-create-modal',
@@ -10,8 +11,11 @@ export class CarCreateModalComponent {
   @Output()  formSubmitted = new EventEmitter<FormGroup>();
 
   carForm!: FormGroup;
+  brands: string[]=[];
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
+    private brand:BrandService
   ) {
     this.carForm = this.fb.group({
       model: ['', Validators.required],
@@ -19,6 +23,12 @@ export class CarCreateModalComponent {
       year: [''],
       color: [''],
       licensePlate: ['', Validators.required],
+    })
+  }
+
+  ngOnInit(){
+    this.brand.getBrand().subscribe((data:string[])=>{
+      this.brands = data
     })
   }
 

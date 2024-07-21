@@ -76,7 +76,7 @@ export class CarListComponent {
               if(row.countOrder>0){
                 return `${data} <span class="right badge badge-success badge-click" data-id="${row.id}">${row.countOrder}</span>`;
               }else{
-                return `${data} <span class="right badge badge-secondary badge-click" data-id="${row.id}">${row.countOrder}</span>`;
+                return `${data}`;
               }
               
             }
@@ -87,12 +87,19 @@ export class CarListComponent {
             data: null,
             render: function (data: any, type: any, row: any) {
               console.log(`row is ${JSON.stringify(row.id)}`);
-              return `<button class="btn btn-primary btn-editCar" data-id="${row.id}">แก้ไข</button>
-                      <button class="btn btn-danger  btn-deleteCar" data-id="${row.id}">ลบ</button>`
+              return `<button class="btn btn-success btn-sm btn-addOrder" data-id="${row.id}">รับงาน</button>
+                      <button class="btn btn-primary btn-sm btn-editCar" data-id="${row.id}">แก้ไข</button>
+                      <button class="btn btn-danger  btn-sm btn-deleteCar" data-id="${row.id}">ลบ</button>`
              }
           },
         ]
       });
+      $(document).on('click', '.btn-addOrder', (event:any) => {
+        var carId = $(event.target).data('id');
+        console.log(`btn-addOrder clicked: ${carId}`);
+        // this.onShowCarProfile(carId); // Call the desired function with carId
+      });
+
       $(document).on('click', '.badge-click', (event:any) => {
         var carId = $(event.target).data('id');
         console.log(`Badge clicked: ${carId}`);

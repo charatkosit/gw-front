@@ -86,7 +86,7 @@ export class CustomerListComponent {
             data: null,
             render: function (data: any, type: any, row: any) {
               console.log(`row is ${JSON.stringify(row.id)}`);
-              return `<button class="btn btn-sm btn-info btn-createOrder" data-id="${row.id}">รับงาน</button>
+              return `<button class="btn btn-sm btn-success btn-createOrder" data-id="${row.id}">รับงาน</button>
                         <button class="btn btn-sm btn-primary btn-editCustomer" data-id="${row.id}">แก้ไข</button>
                         <button class="btn btn-sm btn-danger btn-deleteCustomer" data-id="${row.id}">ลบ</button>`;
 

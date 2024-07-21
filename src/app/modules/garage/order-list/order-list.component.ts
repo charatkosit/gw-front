@@ -40,7 +40,8 @@ export class OrderListComponent {
       licensePlate: ['', Validators.required],
       sympthom: ['', Validators.required],
       description: [''],
-      km: ['']
+      km: [''],
+      status:['']
     })
   }
 
@@ -79,7 +80,7 @@ export class OrderListComponent {
           { data: 'id', title: 'id', className: "text-center" },
           // { data: 'car.id', title: 'car-id', className: "text-center" },
           // { data: 'customer.id', title: 'cus-id', className: "text-center" },
-          { data: 'car.brand', title: 'แบรนด์', className: "text-center" },
+          // { data: 'car.brand', title: 'แบรนด์', className: "text-center" },
           { data: 'car.licensePlate', title: 'ทะเบียน', className: "text-center" },
           { data: 'customer.name', title: 'ลูกค้า', className: "text-center" },
           // { data: 'sympthom', title: 'อาการเสีย', className: "text-center" },
@@ -96,7 +97,7 @@ export class OrderListComponent {
               }
             } 
           },
-          { data: 'description', title: 'รายละเอียด', className: "text-center" },
+          // { data: 'description', title: 'รายละเอียด', className: "text-center" },
           { data: 'km', title: 'รับบริการ (Km)', className: "text-center" },
           { data: 'dateIn', title: 'วันที่เข้า', className: "text-center" },
           {
@@ -234,7 +235,8 @@ export class OrderListComponent {
       order: {
         sympthom: orderForm.value.sympthom,
         description: orderForm.value.description,
-        km: orderForm.value.km
+        km: orderForm.value.km,
+        status: orderForm.value.status
       }
 
     };

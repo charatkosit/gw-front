@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BrandService } from 'src/app/services/brand.service';
 
@@ -7,7 +7,7 @@ import { BrandService } from 'src/app/services/brand.service';
   templateUrl: './order-create-modal.component.html',
   styleUrls: ['./order-create-modal.component.css']
 })
-export class OrderCreateModalComponent {
+export class OrderCreateModalComponent implements OnInit {
   @Output() formSubmitted = new EventEmitter<FormGroup>();
 
   orderForm!: FormGroup;
@@ -31,7 +31,8 @@ export class OrderCreateModalComponent {
       licensePlate: ['', Validators.required],
       sympthom: ['', Validators.required],
       description: [''],
-      km: ['']
+      km: [''],
+      status:['open']
     })
   }
 
@@ -44,6 +45,7 @@ export class OrderCreateModalComponent {
   onSubmit() {
     const data = this.orderForm.value;
     console.log(`data orderForm: ${JSON.stringify(data)}`)
+  
     if (this.orderForm.valid) {
        this.formSubmitted.emit(this.orderForm);
     }

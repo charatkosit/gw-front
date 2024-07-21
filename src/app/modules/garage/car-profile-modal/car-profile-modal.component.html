@@ -58,6 +58,7 @@
                                     <th class="text-center">อาการเสีย</th>
                                     <th class="text-center">รายละเอียด</th>
                                     <th class="text-center">KM.</th>
+                                    <th class="text-center">รับบริการเมื่อ</th>
                                     <th style="width: 40px">สถานะ</th>
                                 </tr>
                             </thead>
@@ -67,6 +68,7 @@
                                     <td>{{order.sympthom}}</td>
                                     <td>{{order.description}}</td>          
                                     <td>{{order.km}}</td>
+                                    <td>{{order.dateIn}}</td>
                                     <td>
                                         <span [ngClass]="{
                                             'badge badge-success': order.status === 'closed',
