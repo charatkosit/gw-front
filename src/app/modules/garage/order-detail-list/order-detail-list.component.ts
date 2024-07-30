@@ -63,6 +63,8 @@ export class OrderDetailListComponent {
         },
         stateSave: true,
         info: false,
+        search: false,
+        paginate: false,
         scrollX: false, // Disable horizontal scroll
         autoWidth: false, // Disable automatic column width calculation
         lengthChange: false, // ไม่แสดงช่องเลือก แสดงแถว 10,25,50,100
@@ -71,8 +73,8 @@ export class OrderDetailListComponent {
         order: [[6, 'desc']], // เรียงลำดับตามเวลาเข้า
         columns: [
           { data: 'id', title: 'id', className: "text-center" },
-          { data: 'partnumber', title: 'รหัสสินค้า', className: "text-center" },
-          { data: 'name', title: 'สินค้า', className: "text-center" },
+          { data: 'partnumber', title: 'รหัสสินค้า', className: "text-left" },
+          { data: 'name', title: 'สินค้า', className: "text-left" },
           { data: 'price', title: 'ราคา', className: "text-center" },
           { data: 'qty', title: 'จำนวน', className: "text-center" },
           { data: 'total', title: 'รวม', className: "text-center" },

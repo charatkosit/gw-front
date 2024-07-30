@@ -57,6 +57,7 @@ export class CarListComponent {
             previous: 'ก่อนหน้า'
           }
         },
+        info: false,
         stateSave: true,
         scrollX: false, // Disable horizontal scroll
         autoWidth: false, // Disable automatic column width calculation

@@ -62,8 +62,7 @@ export class OrderListComponent {
         language: {
           lengthMenu: 'แสดง _MENU_ แถว',
           zeroRecords: 'ไม่พบข้อมูล',
-          // info: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
-          info: '',
+          info: 'แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว',
           infoEmpty: 'ไม่มีข้อมูลที่ต้องการแสดง',
           infoFiltered: '(กรองจากทั้งหมด _MAX_ แถว)',
           search: 'ค้นหา:',
@@ -74,6 +73,7 @@ export class OrderListComponent {
             previous: 'ก่อนหน้า'
           }
         },
+        info: false,
         stateSave: true,
         scrollX: false, // Disable horizontal scroll
         autoWidth: false, // Disable automatic column width calculation
@@ -92,7 +92,7 @@ export class OrderListComponent {
           { 
             data: 'sympthom', 
             title: 'อาการเสีย', 
-            className: "text-center",
+            className: "text-left",
             render: function (data: any, type: any, row: any) {
               if (row.countOrderDetail > 0) {
                 return `${data}<span class="right badge badge-warning badge-orderDetail" data-id="${row.id}">${row.countOrderDetail}</span>`;
