@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { newOrderDto } from 'src/app/interfaces/newOrderDto';
 import { OrderDetailTableService } from 'src/app/services/order-detail-table.service';
 import { OrderTableService } from 'src/app/services/order-table.service';
+import { ShareService } from 'src/app/services/share.service';
 declare var $: any;
 
 @Component({
@@ -24,7 +26,9 @@ export class OrderListComponent {
 
   constructor(
     private order: OrderTableService,
+    private share: ShareService,
     private orderdetail: OrderDetailTableService,
+    private router: Router,
     private fb: FormBuilder,
 
   ) {
@@ -46,7 +50,8 @@ export class OrderListComponent {
   }
 
   ngOnInit(): void {
-    this.loadDataToday();
+    // this.loadDataToday();
+    this.loadData();
     this.initializeDataTable();
   }
 
@@ -73,7 +78,7 @@ export class OrderListComponent {
         scrollX: false, // Disable horizontal scroll
         autoWidth: false, // Disable automatic column width calculation
         lengthChange: false, // ไม่แสดงช่องเลือก แสดงแถว 10,25,50,100
-        pageLength: 25, //   แสดง 25 แถวตายตัว
+        pageLength: 15, //   แสดง 15 แถวตายตัว
         data: this.data,
         // order: [[6, 'desc']], // เรียงลำดับตามเวลาเข้า
         columns: [
@@ -114,12 +119,12 @@ export class OrderListComponent {
             }
           },
           {
-            title: 'กิจกรรม',
+            title: 'จัดการ',
             className: 'text-center',
             data: null,
             render: function (data: any, type: any, row: any) {
               console.log(`row is ${JSON.stringify(row.token)}`);
-              return `<button class="btn btn-warning btn-addOrderDetail" data-id="${row.id}">เพิ่มอะไหล่</button>`;
+              return `<button class="btn btn-sm btn-warning btn-viewOrderDetail" data-id="${row.id}">รายละเอียด</button>`;
 
             }
           },
@@ -135,11 +140,15 @@ export class OrderListComponent {
         console.log(`when badge click orderId is: ${orderId}`);
         this.orderStatus(orderId);
       });
-      $(document).on('click', '.btn-addOrderDetail', (event: any) => {
+      $(document).on('click', '.btn-viewOrderDetail', (event: any) => {
         var orderId = $(event.target).data('id');
-        console.log(`when addOrderDetail click orderId is: ${orderId}`);
-        this.orderAddpart(orderId);
+        console.log(`when viewOrderDetail click orderId is: ${orderId}`);
+        
+        //ส่งค่าไปให้ orderDetail-list ผ่าน shareService
+        this.share.orderId  = orderId;
+        this.router.navigate(['/garage/order-detail-list'])
       });
+
     });
   }
 
@@ -192,6 +201,9 @@ export class OrderListComponent {
 
 
   //----------------ก่อนไป modal----------------
+
+  
+
   orderAddpart(orderId: number) {
     this.showOrderAddpartModal = true;
     this.modalAddpartData = orderId;  
@@ -253,24 +265,7 @@ export class OrderListComponent {
     });
   }
 
-  onSubmitAddPart(orderAddpartForm: FormGroup) {
-    
-    //extract from values
-    const orderAddpartData =orderAddpartForm.value;
- 
 
-    console.log(`From orderModal onSubmitAddPart, ${JSON.stringify(orderAddpartForm.value)}`);
-    this.orderdetail.create(this.memberId,orderAddpartData).subscribe({
-      next: response => {
-        this.showOrderAddpartModal = false;
-        console.log('orderdetail created successfully', response);
-      },
-      error: error => {
-        console.error('Error creating orderdetail', error);
-      }
-    });
-  
-  }
   onSubmitStatus(updateStatusForm: FormGroup) {
     const updateStatusData ={
       status: updateStatusForm.value.status,
@@ -316,6 +311,7 @@ export class OrderListComponent {
     console.log('Checkbox is unchecked. Running today function...');
     // Add your today function logic here
   }
+
   createOrder() {
     const orderData = {
       sympthom: 'Model S',

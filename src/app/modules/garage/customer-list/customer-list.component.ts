@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { render } from '@fullcalendar/core/preact';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CustomerTableService } from 'src/app/services/customer-table.service';
 import { OrderTableService } from 'src/app/services/order-table.service';
+import { ShareService } from 'src/app/services/share.service';
 import Swal from 'sweetalert2';
 declare var $: any;
 
@@ -19,9 +21,12 @@ export class CustomerListComponent {
     private customer: CustomerTableService,
     private modalService: NgbModal,
     private order: OrderTableService,
+    private router: Router,
+    private share: ShareService
   ) { }
 
   data: any[] = [];
+  customerId!:number;
   showOrderCreateModal = false;
   showCustomerCreateModal = false;
   showCustomerProfileModal = false;
@@ -64,29 +69,31 @@ export class CustomerListComponent {
         scrollX: false, // Disable horizontal scroll
         autoWidth: false, // Disable automatic column width calculation
         lengthChange: false, // ไม่แสดงช่องเลือก แสดงแถว 10,25,50,100
-        pageLength: 25, //   แสดง 25 แถวตายตัว
+        pageLength: 15, //   แสดง 15 แถวตายตัว
         data: this.data,
         // order: [[6, 'desc']], // เรียงลำดับตามเวลาเข้า
         columns: [
           { data: 'id', title: 'id', className: "text-center" },
-          // { data: 'name', title: 'ชื่อ', className: "text-center" },
-          {
-            data: 'name',
-            title: 'ชื่อ',
-            className: "text-center",
-            render: function (data: any, type: any, row: any) {
-              return `<button class="btn btn-block btn-outline-primary btn-xs btn-profileCustomer" data-id="${row.id}">${data}</button>`;
-            }
-          },
+          { data: 'name', title: 'ชื่อ', className: "text-center" },
           { data: 'phone', title: 'โทรศัพท์', className: "text-center" },
           { data: 'address', title: 'ที่อยู่', className: "text-center" },
+          // {
+          //   data: 'countOrder',
+          //   title: 'จน.ใบงาน',
+          //   className: "text-center",
+          //   render: function (data: any, type: any, row: any) {
+          //     return `<button class="btn btn-primary-outline btn-xs btn-profileCustomer" data-id="${row.id}">${data}</button>`;
+          //   }
+          // },
+          { data: 'countCar', title: 'จน.รถ', className: 'text-center' },
           {
-            title: 'สถานะ',
+            title: 'จัดการ',
             className: 'text-center',
             data: null,
             render: function (data: any, type: any, row: any) {
               console.log(`row is ${JSON.stringify(row.id)}`);
-              return `<button class="btn btn-sm btn-success btn-createOrder" data-id="${row.id}">รับงาน</button>
+              return ` <button class="btn btn-sm btn-warning btn-profileCustomer" data-id="${row.id}">ประวัติ</button>
+                        <button class="btn btn-sm btn-success btn-createOrder" data-id="${row.id}">รับงาน</button>
                         <button class="btn btn-sm btn-primary btn-editCustomer" data-id="${row.id}">แก้ไข</button>
                         <button class="btn btn-sm btn-danger btn-deleteCustomer" data-id="${row.id}">ลบ</button>`;
 
@@ -102,7 +109,11 @@ export class CustomerListComponent {
       $(document).on('click', '.btn-profileCustomer', (event: any) => {
         var customerId = $(event.target).data('id');
         console.log(`when profileCustomer click: ${customerId}`);
-        this.onShowCustomerProfile(customerId);
+        // this.onShowCustomerProfile(customerId);
+        //ส่งค่าไปให้ orderDetail-list ผ่าน shareService
+        this.share.customerId = customerId;
+        this.router.navigate(['/garage/customer-profile'])
+
       });
       $(document).on('click', '.btn-editCustomer', (event: any) => {
         var customerId = $(event.target).data('id');
@@ -274,6 +285,23 @@ export class CustomerListComponent {
   }
 
   onSubmitEdit(customerForm: FormGroup) {
+    const customerEditData = {
+      name: customerForm.value.name,
+      address: customerForm.value.address,
+      phone: customerForm.value.phone,
+
+    }
+    console.log(`data customerForm is ${JSON.stringify(customerEditData)}`);
+    this.customer.update(customerForm.value.customerId, customerEditData).subscribe({
+      next: response => {
+        console.log('Customer updated successfully', response);
+        this.reloadDataTable();
+        this.showCustomerEditModal = false;
+      },
+      error: error => {
+        console.error('Error updating customer', error);
+      }
+    });
   }
 
 
@@ -294,50 +322,6 @@ export class CustomerListComponent {
     this.showOrderCreateModal = false;
   }
 
-  //---------------ไม่ได้ใช้งาน-----------------------
-  getCustomerList(memberId: string) {
-    this.customer.findAll(memberId).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
-  }
 
-  getCustomerById(id: number, memberId: string) {
-    this.customer.findById(id, memberId).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
-  }
-
-  updateCustomer(id: number, customerData: any) {
-    this.customer.update(id, customerData).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
-  }
-
-
-  deleteCustomer(id: number) {
-    this.customer.delete(id).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
-  }
 
 }

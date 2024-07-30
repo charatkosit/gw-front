@@ -13,8 +13,15 @@
       "changeOrigin": "true"
     },
 
+    "/api/v1/products/*": {
+      "target": "http://47.128.14.59:3000",
+      "secure": false,
+      "logLevel": "debug",
+      "changeOrigin": "true"
+    },
+
     "/api/*": {
-        "target": "http://127.0.0.1:3000",
+        "target": "http://18.143.198.228:3000",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": "true"

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BrandService } from 'src/app/services/brand.service';
 
@@ -8,7 +8,11 @@ import { BrandService } from 'src/app/services/brand.service';
   styleUrls: ['./car-create-modal.component.css']
 })
 export class CarCreateModalComponent {
+  @Input()   showCarCreateModal = false;
+  @Output()  close = new EventEmitter<void>();
+
   @Output()  formSubmitted = new EventEmitter<FormGroup>();
+
 
   carForm!: FormGroup;
   brands: string[]=[];
@@ -26,19 +30,32 @@ export class CarCreateModalComponent {
     })
   }
 
+  closeModal(){
+     this.showCarCreateModal = false;
+     this.close.emit();
+  }
+
   ngOnInit(){
     this.brand.getBrand().subscribe((data:string[])=>{
       this.brands = data
     })
   }
 
-  onSubmit() {
+  submitCreate() {
     const data = this.carForm.value;
     console.log(`data carForm is ${JSON.stringify(data)}`);
     if (this.carForm.valid) {
+      this.closeModal();
       console.log(`data carForm is valid ${JSON.stringify(data)}`);
-      this.formSubmitted.emit(this.carForm);
+      this.onRefreshData();
+
     }
     
+  }
+
+  onRefreshData(){
+    // this.closeModal();
+    this.formSubmitted.emit(this.carForm)
+   
   }
 }

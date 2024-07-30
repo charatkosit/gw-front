@@ -14,19 +14,25 @@
       <form [formGroup]="orderCreateForm" (ngSubmit)="submitOrderCreate()">
         <div class="card card-primary card-outline">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h3 class="card-title">ข้อมูลลูกค้า</h3>
+            <h3 class="card-title">ข้อมูลรถ</h3>
           </div>
           <div class="card-body">
-            <div class="d-flex justify-content-between">
-              <div>
-                {{data.name}}
-              </div>
-              <div>
-                {{data.phone}}
-              </div>
+            <div>
+                <div class="d-flex justify-content-between"> 
+                    <h6>{{data.customers[0].name}}</h6>
+                    <h6>{{data.customers[0].phone}}</h6>
+                </div>
+                <div class="d-flex justify-content-between"> 
+                    <h6>{{data.brand}}</h6>
+                    <h6>{{data.licensePlate}}</h6>
+                </div>
             </div>
 
 
+            <!-- <select class="form-control" id="customerId" formControlName="customerId" placeholder="เลือก">
+              <option *ngFor="let customer of data.customers" [value]="customer.id">{{ customer.name }}</option>
+            </select> -->
+ 
           </div>
 
         </div>
@@ -41,12 +47,6 @@
 
             <div class="row">
               <div class="col-12">
-                <div class="form-group">
-                  <label for="carId">ทะเบียน</label>
-                  <select class="form-control" id="carId" formControlName="carId" placeholder="เลือก รถ">
-                    <option *ngFor="let car of data.cars" [value]="car.id">{{ car.licensePlate }}</option>
-                  </select>
-                </div>
                 <div class="form-group">
                   <label for="sympthom">อาการเสีย</label>
                   <input type="text" class="form-control" id="sympthom" formControlName="sympthom"

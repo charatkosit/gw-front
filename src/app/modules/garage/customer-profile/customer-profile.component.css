@@ -1,0 +1,16 @@
+.row.invoice-info {
+    display: flex;
+  }
+  
+.equal-height {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card {
+    padding: 15px; /* ปรับขนาด padding ตามความเหมาะสม */
+}
+
+  

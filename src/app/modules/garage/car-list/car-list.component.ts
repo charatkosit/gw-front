@@ -25,9 +25,12 @@ export class CarListComponent {
   data: any[] = [];
   showCarEditModal = false; 
   showCarProfileModal = false;
+  showCarCreateModal = false;
+  showOrderCreateModal = false;
   showModal = false;
   modalData: any;
   modalEditData: any;
+  modalCreateOrderData: any;
   memberId = 'A-004';
 
 
@@ -58,7 +61,7 @@ export class CarListComponent {
         scrollX: false, // Disable horizontal scroll
         autoWidth: false, // Disable automatic column width calculation
         lengthChange: false, // ไม่แสดงช่องเลือก แสดงแถว 10,25,50,100
-        pageLength: 25, //   แสดง 25 แถวตายตัว
+        pageLength: 15, //   แสดง 15 แถวตายตัว
         data: this.data,
         order: [[6, 'desc']], // เรียงลำดับตามเวลาเข้า
         columns: [
@@ -67,14 +70,14 @@ export class CarListComponent {
           { data: 'brand', title: 'แบรนด์', className: "text-center" },
           { data: 'year', title: 'ปี', className: "text-center" },
           { data: 'color', title: 'สี', className: "text-center" },
-          // { data: 'countOrder', title: 'ใบรับงาน', className: "text-center" },
+          { data: 'licensePlate', title: 'ทะเบียน', className: "text-center" },
           {
-            data: 'licensePlate',
-            title: 'ทะเบียน',
+            data: 'countOrder',
+            title: 'ใบงาน',
             className: "text-center",
             render: function (data: any, type: any, row: any) {
               if(row.countOrder>0){
-                return `${data} <span class="right badge badge-success badge-click" data-id="${row.id}">${row.countOrder}</span>`;
+                return `<span class="right badge badge-warning badge-click" data-id="${row.id}">${row.countOrder}</span>`;
               }else{
                 return `${data}`;
               }
@@ -82,22 +85,22 @@ export class CarListComponent {
             }
           },
           {
-            title: 'สถานะ',
+            title: 'จัดการ',
             className: 'text-center',
             data: null,
             render: function (data: any, type: any, row: any) {
-              console.log(`row is ${JSON.stringify(row.id)}`);
-              return `<button class="btn btn-success btn-sm btn-addOrder" data-id="${row.id}">รับงาน</button>
+              // console.log(`row is ${JSON.stringify(row.id)}`);
+              return `<button class="btn btn-success btn-sm btn-createOrder" data-id="${row.id}">รับงาน</button>
                       <button class="btn btn-primary btn-sm btn-editCar" data-id="${row.id}">แก้ไข</button>
                       <button class="btn btn-danger  btn-sm btn-deleteCar" data-id="${row.id}">ลบ</button>`
              }
           },
         ]
       });
-      $(document).on('click', '.btn-addOrder', (event:any) => {
+      $(document).on('click', '.btn-createOrder', (event:any) => {
         var carId = $(event.target).data('id');
-        console.log(`btn-addOrder clicked: ${carId}`);
-        // this.onShowCarProfile(carId); // Call the desired function with carId
+        console.log(`btn-createOrder clicked: ${carId}`);
+        this.onShowOrderCreate(carId); // Call the desired function with carId
       });
 
       $(document).on('click', '.badge-click', (event:any) => {
@@ -203,6 +206,21 @@ export class CarListComponent {
 
 
   //---------------ก่อนไป modal----------------
+  onShowOrderCreate(carId:number){
+    this.car.findById(carId, this.memberId).subscribe({
+      next: (data) => {
+        this.modalCreateOrderData = data;
+        this.showOrderCreateModal = true;
+        console.log(`modalData is ${JSON.stringify(data)}`);
+      },
+      error: (error) => {
+        console.log(`${JSON.stringify(error)}`);
+      }
+    });
+
+
+  }
+
   onShowCarProfile(carId: number) {
     this.showCarProfileModal  = true
     this.order.findByCarId(carId, this.memberId).subscribe({
@@ -230,6 +248,7 @@ export class CarListComponent {
     });
   }
 
+  
 
   onEditCar(carId: number) {
     this.showCarEditModal = true;
@@ -250,6 +269,9 @@ export class CarListComponent {
     this.route.navigate(['/garage/timeline']);
   }
 
+  onCreateCar(){
+    this.showCarCreateModal = true;
+  }
   //------------กลับมาจาก modal------------------------
   onSubmitCreate(carForm: FormGroup) {
 
@@ -267,8 +289,9 @@ export class CarListComponent {
       next: response => {
         console.log('Car created successfully', response);
         this.reloadDataTable();
+        this.showCarCreateModal = false;
         // Close the modal
-        this.modalService.dismissAll();
+        // this.modalService.dismissAll();
       },
       error: error => {
         console.error('Error creating car', error);
@@ -305,59 +328,12 @@ export class CarListComponent {
   closeModal() {
     this.showCarProfileModal = false;
   }
-  //----------------ไม่ได้ใช้--------------------
-  createCar() {
-    const carData = {
-      model: 'Model S',
-      brand: 'Tesla',
-      year: 2022,
-      color: 'Red',
-      licensePlate: 'ABC-1234',
-      memberId: 'A-004'
-    };
-
-    this.car.create(carData).subscribe({
-      next: response => {
-        console.log('Car created successfully', response);
-      },
-      error: error => {
-        console.error('Error creating car', error);
-      }
-    });
+  closeCreateModal(){
+    this.showCarCreateModal = false;
   }
 
-  getCarList(memberId: string) {
-    this.car.findAll(memberId).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
+  closeOrderCreateModal() {
+    this.showOrderCreateModal = false;
   }
-
-  getCarById(id: number, memberId: string) {
-    this.car.findById(id, memberId).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
-  }
-
-  updateCar(id: number, carData: any) {
-    this.car.update(id, carData).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
-  }
-
 
 }

@@ -36,11 +36,11 @@ export class OrderTableService {
    return this.http.get<any[]>(`/api/order/findAll`,{params})
  }
 
- findById(id:number, memberId:string):Observable<any> {
+ findOne(id:number, memberId:string):Observable<any> {
   let params = new HttpParams()
      .set('id',id.toString())
     .set('memberId',memberId)
-   return this.http.get<any>('api/order/findById',{ params });
+   return this.http.get<any>('api/order/findOne',{ params });
  }
 
  findByCarId(carId:number, memberId:string):Observable<any> {

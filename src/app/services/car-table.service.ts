@@ -26,13 +26,22 @@ export class CarTableService {
    return this.http.get<any[]>('/api/car/findAll',{params})
  }
 
- findById(id:number, memberId:string):Observable<any> {
+ findById(carId:number, memberId:string):Observable<any> {
   let params = new HttpParams()
-     .set('id',id.toString())
+     .set('carId',carId.toString())
     .set('memberId',memberId)
    return this.http.get<any>('api/car/findById',{ params });
  }
 
+ findCarsBycustomerId(customerId:number,memberId:string):Observable<any[]>{
+  const params = new HttpParams()
+     .set('customerId',customerId.toString())
+     .set('memberId', memberId)
+
+     console.log(`params : ${params}`)
+  return this.http.get<any[]>('/api/car/findCarsByCustomerId',{ params })
+
+ }
   update(id:number ,carData:any):Observable<any> {
     const headers = new HttpHeaders( { 'Content-Type': 'application/json' } );
     return this.http.patch<any>(`/api/car/${id}`,carData, {headers : headers});

@@ -1,45 +1,159 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-1 thai-text">รถ</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a routerLink="/dashboard">หน้าหลัก</a></li>
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-1 thai-text">รายละเอียดใบงาน</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a routerLink="/dashboard">หน้าหลัก</a></li>
 
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
 
-    <!-- Main content -->
-    <section class="content">
-
-        
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
+  <!-- Main content -->
+  <section class="content">
 
 
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="example1" class="table table-bordered table-striped"></table>
-                            </div>
-                        </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              {{orderId}}
+              <button type="button" (click)="close()" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button> 
+            </div>
+            <div class="card-body">
+
+              <div class="row invoice-info">
+                <div class="col-sm-4">
+                  <div class="card">
+                    <div class="d-flex justify-content-between"><strong>รหัสลูกค้า</strong>
+                      <div>{{orderData.customer.id}}</div>
                     </div>
+                    <div class="d-flex justify-content-between"><strong>ลูกค้า</strong>
+                      <div>{{orderData.customer.name}}</div>
+                    </div>
+                    <div class="d-flex justify-content-between"><strong>ที่อยู่</strong>
+                      <div>{{orderData.customer.address}}</div>
+                    </div>
+                    <div class="d-flex justify-content-between"><strong>โทรศัพท์</strong>
+                      <div>{{orderData.customer.phone}}</div>
+                    </div>
+  
+                  </div>
 
                 </div>
+                <div class="col-sm-4">
+                  <div class="card">
+                    <div class="d-flex justify-content-between"><strong>อาการเสีย</strong>
+                      <div>{{orderData.sympthom}}</div>
+                    </div>
+                    <div class="d-flex justify-content-between"><strong>รายละเอียด</strong>
+                      <div>{{orderData.description}}</div>
+                    </div>
+                    <div class="d-flex justify-content-between"><strong>Km.เข้าบริการ</strong>
+                      <div>{{orderData.km}}</div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-sm-4">
+                  <div class="card">
+                    <div class="d-flex justify-content-between"><strong>ทะเบียน</strong>
+                      <div>{{orderData.car.licensePlate}}</div>
+                    </div>
+                    <div class="d-flex justify-content-between"><strong>แบรนด์</strong>
+                      <div>{{orderData.car.brand}}</div>
+                    </div>
+                    <div class="d-flex justify-content-between"><strong>รุ่น</strong>
+                      <div>{{orderData.car.model}}</div>
+                    </div>
+                    <div class="d-flex justify-content-between"><strong>ปี</strong>
+                      <div>{{orderData.car.year}}</div>
+                    </div>
+                    <div class="d-flex justify-content-between"><strong>สี</strong>
+                      <div>{{orderData.car.color}}</div>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+              <app-order-detail-edit-status-modal [showEditStatusModal]="showEditStatusModal"
+                (closeModal)="closeEditStatusModal()" [data]="modalEditStatusData"
+                (formEditSubmitted)="onEditStatusSubmit($event)">
+              </app-order-detail-edit-status-modal>
+              <app-order-addpart-modal [showOrderAddpartModal]="showOrderAddpartModal"
+                (formSubmitted)="onSubmitAddPart($event)" [data]="modalAddpartData"
+                (closeModal)="closeOrderAddpartModal()">
+              </app-order-addpart-modal>
+
+              <app-update-part-modal [showEditPartModal]="showEditPartModal"
+                                     (formEditSubmitted)="onSubmitEditPart($event)" 
+                                     [data]="modalEditPartData"
+                                     (closeModal)="closeEditPartModal()">
+              </app-update-part-modal>
             </div>
+          </div>
         </div>
-    </section>
-    <!-- /.content -->
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h6>สรุปการซ่อม</h6>
+            </div>
+            <div class="card-body">
+              <div class="d-flex justify-content-between"><strong>วันที่เข้า</strong>
+                <div>{{orderData.dateIn}}</div>
+              </div>
+              <div class="d-flex justify-content-between"><strong>แก้ไข</strong>
+                <div>{{orderData.solution}}</div>
+              </div>
+              <div class="d-flex justify-content-between"><strong>สถานะ</strong>
+                <div>{{orderData.status}}</div>
+              </div>
+              <div class="d-flex justify-content-between"><strong>ปิดงานเมื่อ</strong>
+                <div>{{orderData.dateOut}}</div>
+              </div>
+              <div class="d-flex justify-content-between"><strong>ราคารวม</strong>
+                <div>{{sumTotal}}</div>
+              </div>
+              <div class="d-flex justify-content-end">
+                <button class="btn btn-sm btn-warning" (click)="onEditStatus()">ปิดงาน</button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <button class="circle-button" data-toggle="modal" (click)="onAddpart()"
+                data-target="#customerModal">+</button>
+            </div>
+
+
+            <div class="card-body">
+              <div class="table-responsive">
+                <table id="example1" class="table table-bordered table-striped"></table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
 
 
 </div>

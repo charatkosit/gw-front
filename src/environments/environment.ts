@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  memberId: 'A-001',
+  memberId: 'A-004',
   release:' 0.1.3'
 };
 

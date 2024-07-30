@@ -1,58 +1,65 @@
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-1 thai-text">รถ</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a routerLink="/dashboard">หน้าหลัก</a></li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-1 thai-text">รถ</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a routerLink="/dashboard">หน้าหลัก</a></li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
 
-    <!-- Main content -->
-    <section class="content">
-        <div class="container">
+  <!-- Main content -->
+  <section class="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-body">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <button class="circle-button" data-toggle="modal" data-target="#carModal">+</button>
-                                <!-- Modal -->
-                                <app-car-create-modal (formSubmitted)="onSubmitCreate($event)"></app-car-create-modal>
-                                <app-car-edit-modal   (formEditSubmitted) ="onEditSubmit($event)"
-                                                    [data] ="modalEditData"
-                                                    [showCarEditModal]="showCarEditModal"
-                                                    (closeModal)="closeCarEditModal()">
-                                </app-car-edit-modal>
+              <div class="col-12">
+                <button class="circle-button" (click)="onCreateCar()" data-toggle="modal"
+                  data-target="#carModal">+</button>
+                <!-- Modal -->
+                <app-car-create-modal (formSubmitted)="onSubmitCreate($event)" 
+                                      [showCarCreateModal]="showCarCreateModal"
+                                      (close)="closeCreateModal()">
+                </app-car-create-modal>
+                <app-car-edit-modal (formEditSubmitted)="onEditSubmit($event)" 
+                                    [data]="modalEditData"
+                                    [showCarEditModal]="showCarEditModal" 
+                                    (close)="closeCarEditModal()">
+                </app-car-edit-modal>
 
-                                <app-car-profile-modal  [data]="modalData" 
-                                                        [showCarProfileModal]="showCarProfileModal" 
-                                                        (close)="closeModal()"
-                                                        (refreshData)="getData($event)"
-                                                        >
-                                </app-car-profile-modal>
+                <app-car-profile-modal (refreshData)="getData($event)" 
+                                       [data]="modalData"
+                                       [showCarProfileModal]="showCarProfileModal" 
+                                       (close)="closeModal()">
+                </app-car-profile-modal>
+                <app-car-order-create-modal [data]="modalCreateOrderData" 
+                                            [showOrderCreateModal]="showOrderCreateModal"
+                                            (close)="closeOrderCreateModal()">
+                </app-car-order-create-modal>
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="example1" class="table table-bordered table-striped"></table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table id="example1" class="table table-bordered table-striped"></table>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
-    <!-- /.content -->
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
 </div>

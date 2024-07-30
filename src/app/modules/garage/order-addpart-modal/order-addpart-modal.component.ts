@@ -49,6 +49,9 @@ export class OrderAddpartModalComponent {
     this.showOrderAddpartModal = false;
     this.closeModal.emit();
   }
+
+
+  
   // closeOrderAddpartModal(){
   //   this.close.emit();
   //   console.log('closeOrderAddpartModal');

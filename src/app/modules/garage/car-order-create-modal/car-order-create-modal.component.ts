@@ -1,25 +1,22 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Route, Router } from '@angular/router';
-import { br, co } from '@fullcalendar/core/internal-common';
-import { parseTwoDigitYear } from 'moment';
-import { Car, CustomerData } from 'src/app/interfaces/customerData';
+import { Router } from '@angular/router';
 import { OrderTableService } from 'src/app/services/order-table.service';
 
 @Component({
-  selector: 'app-customer-order-create-modal',
-  templateUrl: './customer-order-create-modal.component.html',
-  styleUrls: ['./customer-order-create-modal.component.css']
+  selector: 'app-car-order-create-modal',
+  templateUrl: './car-order-create-modal.component.html',
+  styleUrls: ['./car-order-create-modal.component.css']
 })
-export class CustomerOrderCreateModalComponent{
+export class CarOrderCreateModalComponent {
 
-  @Input() data!: CustomerData;
+  @Input() data!: any;
   @Input() showOrderCreateModal = false;
   @Output() close = new EventEmitter<void>();
 
 
   orderCreateForm!: FormGroup;
-  cars: Car[]= [];
+  // cars: Car[]= [];
 
 
   constructor(private fb: FormBuilder,
@@ -27,7 +24,7 @@ export class CustomerOrderCreateModalComponent{
     private router: Router
    
   ) {
-    console.log(`data @customerOrderCreateModal is ${JSON.stringify(this.data)}`);
+    console.log(`data @carOrderCreateModal is ${JSON.stringify(this.data)}`);
     this.orderCreateForm = this.fb.group({
       sympthom: ['', Validators.required],
       description: [''],
@@ -47,8 +44,8 @@ submitOrderCreate(){
     description: this.orderCreateForm.value.description,
     km: +this.orderCreateForm.value.km,
     status: 'open',
-    customerId: this.data.id,
-    carId: +this.orderCreateForm.value.carId
+    customerId: +this.data.customers[0].id,
+    carId: +this.data.id
   }
   console.log(`prepOrderCreateForm: ${JSON.stringify(prepOrderCreateForm)}`)
   if(this.orderCreateForm.valid){

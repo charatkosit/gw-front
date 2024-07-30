@@ -23,6 +23,8 @@ export class CustomerEditModalComponent {
       name: ['', Validators.required],
       address: [''],
       phone: ['', Validators.required],
+      customerId:['']
+ 
       
    
     })
@@ -35,6 +37,7 @@ export class CustomerEditModalComponent {
 
   onEditSubmit() {
     const data = this.customerForm.value;
+    this.customerForm.value.customerId = this.data.id
     console.log(`data customerForm is ${JSON.stringify(data)}`);
     if (this.customerForm.valid) {
       console.log(`data carForm is valid ${JSON.stringify(data)}`);

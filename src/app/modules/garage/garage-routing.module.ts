@@ -9,6 +9,8 @@ import { OrderListComponent } from './order-list/order-list.component';
 import { OrderDetailListComponent } from './order-detail-list/order-detail-list.component';
 import { GetOrderComponent } from './get-order/get-order.component';
 import { TimelineComponent } from './timeline/timeline.component';
+import { SearchLPComponent } from './search-lp/search-lp.component';
+import { CustomerProfileComponent } from './customer-profile/customer-profile.component';
 
 const routes: Routes = [
   { path: '' ,
@@ -19,10 +21,11 @@ const routes: Routes = [
     { path: "search",    component: SearchComponent},
     { path: "car-list",  component: CarListComponent},
     { path: "customer-list",      component: CustomerListComponent},
+    { path: "customer-profile",   component: CustomerProfileComponent},
     { path: "order-list",         component: OrderListComponent},
     { path: "order-detail-list",  component: OrderDetailListComponent},
-    { path: "get-order",          component: GetOrderComponent},
-    { path: "timeline",          component: TimelineComponent},
+    { path: "search-lp",          component: SearchLPComponent},
+    { path: "timeline",           component: TimelineComponent},
     { path: '',           redirectTo: 'main', pathMatch: 'full'}
   ]
 }

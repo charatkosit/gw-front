@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-search-lp',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class SearchLPComponent {
 
+searchForm! : FormGroup
+totalFound! : number;
 }

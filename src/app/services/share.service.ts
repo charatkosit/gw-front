@@ -14,6 +14,12 @@ import { newOrderDto } from '../interfaces/newOrderDto';
 export class ShareService {
  
   memberId = 'A-004';
+
+  //สำหรับส่งค่า จาก  order ไปยัง orderDetail
+  orderId!:number;
+  //สำหรับส่งค่า จาก  customer ไปยัง customerProfile
+  customerId!:number;
+
   constructor() { }
 
   epcData!: ApiEpcDetails;

@@ -26,7 +26,8 @@
                             <div class="col-12">
                                 <button class="circle-button" data-toggle="modal" (click)="onCreateCustomer()" data-target="#customerModal">+</button>
                                 <!-- Modal -->
-                                <app-customer-create-modal (formSubmitted)="onSubmitCreate($event)"
+                                <app-customer-create-modal *ngIf="showCustomerCreateModal" 
+                                                           (formSubmitted)="onSubmitCreate($event)"
                                                            [showCustomerCreateModal]="showCustomerCreateModal" 
                                                            (close)="closeCustomerCreateModal()"
                                                             >
