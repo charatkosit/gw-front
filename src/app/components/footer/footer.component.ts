@@ -20,7 +20,7 @@ export class FooterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.auth.getBackRev().subscribe( res => {
+    this.auth.getBackVersion().subscribe( res => {
       this.showBack = res.version
       console.log(`back is: ${JSON.stringify(res)}`)
       console.log(`showBack: ${this.showBack}`)

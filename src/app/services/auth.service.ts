@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class AuthService {
 
   constructor(private http:HttpClient) { }
-  getBackRev() {
+  getBackVersion() {
     return this.http.get<any>('api/auth/version', { responseType: 'json' })
   }
 
