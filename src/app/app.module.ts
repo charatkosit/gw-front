@@ -15,6 +15,7 @@ import { MenuMemberComponent } from './components/menu/menu-member/menu-member.c
 import { MenuAdmin1Component } from './components/menu/menu-admin1/menu-admin1.component';
 import { MenuSaleComponent } from './components/menu/menu-sale/menu-sale.component';
 import { CustomDatePipe } from './pipe/custom-date.pipe';
+import { AuthModule } from './modules/auth/auth.module';
 
 
 
@@ -37,6 +38,7 @@ import { CustomDatePipe } from './pipe/custom-date.pipe';
     CustomDatePipe
   ],
   imports: [
+    AuthModule,
     FormsModule,
     CommonModule,
     BrowserModule,

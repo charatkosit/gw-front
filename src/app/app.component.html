@@ -1,4 +1,4 @@
-<app-header></app-header>
-<app-menu></app-menu>
+<app-header *ngIf="loginStatus | async"></app-header>
+<app-menu *ngIf="loginStatus | async"></app-menu>
 <router-outlet></router-outlet>
-<app-footer></app-footer>
+<app-footer *ngIf="loginStatus | async"></app-footer>
