@@ -31,10 +31,10 @@
                                       [showCarCreateModal]="showCarCreateModal"
                                       (close)="closeCreateModal()">
                 </app-car-create-modal>
-                <app-car-edit-modal (formEditSubmitted)="onEditSubmit($event)" 
+                <app-car-edit-modal (formEditSubmitted)="onEditSubmit($event)"     
                                     [data]="modalEditData"
                                     [showCarEditModal]="showCarEditModal" 
-                                    (close)="closeCarEditModal()">
+                                    (closeModal)="closeCarEditModal()">
                 </app-car-edit-modal>
 
                 <app-car-profile-modal (refreshData)="getData($event)" 

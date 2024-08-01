@@ -24,10 +24,7 @@ export class CustomerEditModalComponent {
       address: [''],
       phone: ['', Validators.required],
       customerId:['']
- 
-      
-   
-    })
+     })
   }
 
   close(){

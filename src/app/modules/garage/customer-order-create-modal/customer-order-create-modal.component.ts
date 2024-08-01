@@ -4,6 +4,7 @@ import { Route, Router } from '@angular/router';
 import { br, co } from '@fullcalendar/core/internal-common';
 import { parseTwoDigitYear } from 'moment';
 import { Car, CustomerData } from 'src/app/interfaces/customerData';
+import { BrandService } from 'src/app/services/brand.service';
 import { OrderTableService } from 'src/app/services/order-table.service';
 
 @Component({
@@ -17,13 +18,15 @@ export class CustomerOrderCreateModalComponent{
   @Input() showOrderCreateModal = false;
   @Output() close = new EventEmitter<void>();
 
-
+  showAddCarForm = false;
   orderCreateForm!: FormGroup;
   cars: Car[]= [];
+  brands: string[]=[];
 
 
   constructor(private fb: FormBuilder,
     private order: OrderTableService,
+    private brand:BrandService,
     private router: Router
    
   ) {
@@ -34,11 +37,20 @@ export class CustomerOrderCreateModalComponent{
       km: [''],
       status: [''],
       customerId: [''],
-      carId:['']
+      carId:[''],
+      new_licensePlate:[''],
+      new_brand:[''],
+      new_model:[''],
+      new_year:[''],
+      new_color:['']
     })
   }
   
-
+  ngOnInit(){
+    this.brand.getBrand().subscribe((data:string[])=>{
+      this.brands = data
+    })
+  }
 
  
 submitOrderCreate(){
@@ -75,5 +87,10 @@ onRefreshData(){
 
   closeModal() {
     this.close.emit();
+  }
+
+
+  showToggleAddCar(){
+    this.showAddCarForm = !this.showAddCarForm;
   }
 }

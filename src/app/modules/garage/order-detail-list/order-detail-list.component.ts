@@ -84,7 +84,7 @@ export class OrderDetailListComponent {
             data: null,
             render: function (data: any, type: any, row: any) {
               console.log(`row is ${JSON.stringify(row.token)}`);
-              return `  <button class="btn btn-sm btn-primary btn-editPart" data-id="${row.id}">แก้ไข</button>
+              return `<button class="btn btn-sm btn-primary btn-editPart" data-id="${row.id}">แก้ไข</button>
                       <button class="btn btn-sm btn-danger btn-delete" data-id="${row.id}">ลบ</button>`;
             }
           },
@@ -98,7 +98,7 @@ export class OrderDetailListComponent {
       $(document).on('click', '.btn-editPart', (event: any) => {
         var orderdetailId = $(event.target).data('id');
         console.log(`when editPart click: ${orderdetailId}`);
-        this.onEditPart(orderdetailId);
+        this.onShowEditPart(orderdetailId);
       });
     });
   }
@@ -211,11 +211,13 @@ export class OrderDetailListComponent {
     this.modalEditStatusData = { orderId: this.orderId }
   }
  
-  onEditPart(orderdetailId:number){
-    this.showEditPartModal = true;
+  onShowEditPart(orderdetailId:number){
     this.orderDetail.getOrderDetailById(orderdetailId).subscribe({
       next:(data)=>{
+        this.modalEditPartData = data;
+        this.showEditPartModal = true;
         console.log(`data is :${JSON.stringify(data)}`);
+        console.log(`showEditPartModal: ${this.showEditPartModal}`)
       
         this.modalEditPartData = data;
       },
@@ -240,17 +242,30 @@ export class OrderDetailListComponent {
   }
 
   onSubmitEditPart(editPartForm: FormGroup){
-     const editPartData ={
+    const id = editPartForm.value.id; 
+    const editPartData ={
         partnumber : editPartForm.value.partnumber,
         name:        editPartForm.value.name,
-        price:       editPartForm.value.price,
-        qty:         editPartForm.value.qty
+        price:       +editPartForm.value.price,
+        qty:         +editPartForm.value.qty,
+ 
      }
+     console.log(`editPartData :${JSON.stringify(editPartData)}`)
+     this.orderDetail.update(id,editPartData).subscribe({
+      next:(data)=>{
+         console.log(` Part updated successfully :${data}`);
+         this.reloadDataTable();
+         this.showEditPartModal = false;    
+      },
+      error:(error)=>{
+         console.log(`error: ${error}`)
+      }
+     });
 
   }
 
 
-  onEditStatusSubmit(updateStatusForm: FormGroup) {
+  onSubmitEditStatus(updateStatusForm: FormGroup) {
     const updateStatusData = {
       status: updateStatusForm.value.status,
       solution: updateStatusForm.value.solution

@@ -89,19 +89,23 @@
                 </div>
               </div>
               <app-order-detail-edit-status-modal [showEditStatusModal]="showEditStatusModal"
-                (closeModal)="closeEditStatusModal()" [data]="modalEditStatusData"
-                (formEditSubmitted)="onEditStatusSubmit($event)">
+                                                  (closeModal)="closeEditStatusModal()" 
+                                                  [data]="modalEditStatusData"
+                                                  (formEditSubmitted)="onSubmitEditStatus($event)">
               </app-order-detail-edit-status-modal>
+
+              <app-order-detail-edit-part-modal [showEditPartModal]="showEditPartModal"
+                                                (closeModal)="closeEditPartModal()" 
+                                                [data]="modalEditPartData"
+                                                (formEditSubmitted)="onSubmitEditPart($event)">
+            </app-order-detail-edit-part-modal>
+
               <app-order-addpart-modal [showOrderAddpartModal]="showOrderAddpartModal"
                 (formSubmitted)="onSubmitAddPart($event)" [data]="modalAddpartData"
                 (closeModal)="closeOrderAddpartModal()">
               </app-order-addpart-modal>
 
-              <app-update-part-modal [showEditPartModal]="showEditPartModal"
-                                     (formEditSubmitted)="onSubmitEditPart($event)" 
-                                     [data]="modalEditPartData"
-                                     (closeModal)="closeEditPartModal()">
-              </app-update-part-modal>
+         
             </div>
           </div>
         </div>

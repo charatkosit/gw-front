@@ -32,16 +32,61 @@
         </div>
 
         <div class="card card-success card-outline">
-          <div class="card-header d-flex justify-content-between align-items-center">
+          <div class="card-header d-flex justify-content-between">
 
             <h3 class="card-title">ใบรับงาน</h3>
+
           </div>
           <!-- /.card-header -->
           <div class="card-body">
 
             <div class="row">
               <div class="col-12">
-                <div class="form-group">
+                <div><button class="btn btn-sm btn-success mb-3" (click)="showToggleAddCar()">เพิ่มรถ</button></div>
+                <div *ngIf="showAddCarForm" class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="new_licensePlate">ทะเบียนรถ</label>
+                          <input type="text" class="form-control" id="new_licensePlate"
+                            formControlName="new_licensePlate" placeholder="ทะเบียน">
+                        </div>
+                        <div class="form-group">
+                          <label for="new_model">รุ่น</label>
+                          <input type="text" class="form-control" id="new_model" formControlName="new_model"
+                            placeholder="รุ่น">
+                        </div>
+                        <div class="form-group">
+                          <label for="new_color">สี</label>
+                          <input type="text" class="form-control" id="new_color" formControlName="new_color"
+                            placeholder="สี">
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="new_brand">แบรนด์ *</label>
+                          <select class="form-control" id="new_brand" formControlName="new_brand">
+                            <option *ngFor="let brand of brands" [value]="brand">{{brand}}</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="new_year">ปี</label>
+                          <input type="text" class="form-control" id="new_year" formControlName="new_year"
+                            placeholder="ปี">
+                        </div>
+
+                      </div>
+
+                    </div>
+
+
+                  </div>
+
+
+                </div>
+
+                <div *ngIf="!showAddCarForm" class="form-group">
                   <label for="carId">ทะเบียน</label>
                   <select class="form-control" id="carId" formControlName="carId" placeholder="เลือก รถ">
                     <option *ngFor="let car of data.cars" [value]="car.id">{{ car.licensePlate }}</option>

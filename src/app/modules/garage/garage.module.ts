@@ -34,7 +34,7 @@ import { CustomerOrderCreateModalComponent } from './customer-order-create-modal
 import { CarOrderCreateModalComponent } from './car-order-create-modal/car-order-create-modal.component';
 import { OrderDetailEditStatusModalComponent } from './order-detail-edit-status-modal/order-detail-edit-status-modal.component';
 import { CustomerProfileComponent } from './customer-profile/customer-profile.component';
-import { UpdatePartModalComponent } from './update-part-modal/update-part-modal.component';
+import { OrderDetailEditPartModalComponent } from './order-detail-edit-part-modal/order-detail-edit-part-modal.component';
 
 
 // FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -74,7 +74,8 @@ import { UpdatePartModalComponent } from './update-part-modal/update-part-modal.
     CarOrderCreateModalComponent,
     OrderDetailEditStatusModalComponent,
     CustomerProfileComponent,
-    UpdatePartModalComponent
+ 
+    OrderDetailEditPartModalComponent
   ],
   imports: [
     CommonModule,

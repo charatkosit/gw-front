@@ -118,7 +118,7 @@ export class CarListComponent {
       $(document).on('click', '.btn-editCar', (event: any) => {
         var carId = $(event.target).data('id');
         console.log(`when editCar click: ${carId}`);
-        this.onEditCar(carId);
+        this.onShowEditCar(carId);
       });
       $(document).on('click', '.btn-deleteCar', (event: any) => {
         var carId = $(event.target).data('id');
@@ -251,13 +251,14 @@ export class CarListComponent {
 
   
 
-  onEditCar(carId: number) {
-    this.showCarEditModal = true;
+  onShowEditCar(carId: number) {
+   
     console.log(`@onEditCar sent showCarEditModal: ${this.showCarEditModal}`);
      this.car.findById(carId, this.memberId).subscribe({  
       next: (data) => {
         console.log(`data @onEditCar is ${JSON.stringify(data)}`);
         this.modalEditData = data;
+        this.showCarEditModal = true;
       },
       error: (error) => {
         console.log(error);
