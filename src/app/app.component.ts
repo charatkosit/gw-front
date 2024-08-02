@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'Garage Work';
   constructor(public auth: AuthService){
     //สมมุติให้มีการ login เข้ามา
-    this.auth.updateLoginStatus(false)
+    // this.auth.updateLoginStatus(false)
   }
   loginStatus = this.auth.loginStatus$;
 }

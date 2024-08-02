@@ -5,7 +5,9 @@
 export const environment = {
   production: false,
   memberId: 'A-004',
-  release:' 0.1.3'
+  release:' 0.1.3',
+  // loginResult: "loginResult",
+  // isLoggedIn: false,   // ตรวจสอบสถานะล็อกอินเริ่มต้นจาก localStorage ใน AuthService ใหม่
 };
 
 /*

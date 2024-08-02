@@ -16,6 +16,7 @@ export class LoginComponent {
     private router: Router,
     private fb: FormBuilder
   ) {
+    this.auth.updateLoginStatus(false);  //เมื่อใดที่มีการ back กลับมาที่ /login  ต้องเอา menu,header,footer ออก
     this.loginForm = this.fb.group({
       username: [''],
       password: ['']
