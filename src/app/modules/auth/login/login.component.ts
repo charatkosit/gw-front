@@ -27,7 +27,12 @@ export class LoginComponent {
 
 
   login() {
+    const memberProfile = {
+       memberId: 'A-004',
+       role: 'member'
+    }
     this.auth.updateLoginStatus(true)
+    this.auth.updateMemberProfile(memberProfile)
     this.router.navigate(['/garage/search']);
 
   }

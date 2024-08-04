@@ -1,7 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { MemberProfile } from 'src/app/interfaces/globalData';
 import { newOrderDto } from 'src/app/interfaces/newOrderDto';
+import { AuthService } from 'src/app/services/auth.service';
 import { OrderDetailTableService } from 'src/app/services/order-detail-table.service';
 import { OrderTableService } from 'src/app/services/order-table.service';
 import { ShareService } from 'src/app/services/share.service';
@@ -14,17 +17,22 @@ declare var $: any;
 })
 export class OrderListComponent {
 
+
+  memberProfile$: Observable<MemberProfile>;
+  memberId!: string;
+
   showOrderAddpartModal = false;
   showOrderStatusModal = false;
 
   orderForm!: FormGroup;
-  modalAddpartData:any;   //สำหรับส่งข้อมูลขาไป modal 
-  modalStatusData:any;   //สำหรับส่งข้อมูลขาไป modal
+  modalAddpartData: any;   //สำหรับส่งข้อมูลขาไป modal 
+  modalStatusData: any;   //สำหรับส่งข้อมูลขาไป modal
 
   data: any[] = [];       //สำหรับเก็บข้อมูลที่ได้จาก api
-  memberId = 'A-004';
+
 
   constructor(
+    private auth: AuthService,
     private order: OrderTableService,
     private share: ShareService,
     private orderdetail: OrderDetailTableService,
@@ -32,6 +40,7 @@ export class OrderListComponent {
     private fb: FormBuilder,
 
   ) {
+    this.memberProfile$ = this.auth.memberProfile$;
     this.orderForm = this.fb.group({
       memberId: this.memberId,
       name: ['', Validators.required],
@@ -45,14 +54,19 @@ export class OrderListComponent {
       sympthom: ['', Validators.required],
       description: [''],
       km: [''],
-      status:['']
+      status: ['']
     })
   }
 
   ngOnInit(): void {
-    // this.loadDataToday();
-    this.loadData();
-    this.initializeDataTable();
+   this.auth.memberProfile$.subscribe(
+    data =>{
+      this.memberId = data.memberId;
+      this.loadData();
+      this.initializeDataTable();
+    }
+   )
+
   }
 
 
@@ -89,9 +103,9 @@ export class OrderListComponent {
           { data: 'car.licensePlate', title: 'ทะเบียน', className: "text-center" },
           { data: 'customer.name', title: 'ลูกค้า', className: "text-center" },
           // { data: 'sympthom', title: 'อาการเสีย', className: "text-center" },
-          { 
-            data: 'sympthom', 
-            title: 'อาการเสีย', 
+          {
+            data: 'sympthom',
+            title: 'อาการเสีย',
             className: "text-left",
             render: function (data: any, type: any, row: any) {
               if (row.countOrderDetail > 0) {
@@ -100,7 +114,7 @@ export class OrderListComponent {
                 return `${data}`;
 
               }
-            } 
+            }
           },
           // { data: 'description', title: 'รายละเอียด', className: "text-center" },
           { data: 'km', title: 'รับบริการ (Km)', className: "text-center" },
@@ -143,9 +157,9 @@ export class OrderListComponent {
       $(document).on('click', '.btn-viewOrderDetail', (event: any) => {
         var orderId = $(event.target).data('id');
         console.log(`when viewOrderDetail click orderId is: ${orderId}`);
-        
+
         //ส่งค่าไปให้ orderDetail-list ผ่าน shareService
-        this.share.orderId  = orderId;
+        this.share.orderId = orderId;
         this.router.navigate(['/garage/order-detail-list'])
       });
 
@@ -202,11 +216,11 @@ export class OrderListComponent {
 
   //----------------ก่อนไป modal----------------
 
-  
+
 
   orderAddpart(orderId: number) {
     this.showOrderAddpartModal = true;
-    this.modalAddpartData = orderId;  
+    this.modalAddpartData = orderId;
     console.log(`orderAddpart orderId is: ${orderId}`);
   }
 
@@ -216,8 +230,8 @@ export class OrderListComponent {
     console.log(`orderStatus orderId is: ${orderId}`);
   }
 
-  orderDetail(orderId: number){
-      
+  orderDetail(orderId: number) {
+
     console.log(`orderDetail orderId is : ${orderId}`)
   }
   //---------------มาจาก modal----------------
@@ -267,13 +281,13 @@ export class OrderListComponent {
 
 
   onSubmitStatus(updateStatusForm: FormGroup) {
-    const updateStatusData ={
+    const updateStatusData = {
       status: updateStatusForm.value.status,
       solution: updateStatusForm.value.solution
-   
+
     }
-     const orderId = updateStatusForm.value.orderId;
-    this.order.update(+orderId,updateStatusData).subscribe({
+    const orderId = updateStatusForm.value.orderId;
+    this.order.update(+orderId, updateStatusData).subscribe({
       next: response => {
         console.log('order updated successfully', response);
         this.reloadDataTable();

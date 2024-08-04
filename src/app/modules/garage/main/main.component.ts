@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { Observable, switchMap } from 'rxjs';
+import { GlobalData, MemberProfile } from 'src/app/interfaces/globalData';
+import { AuthService } from 'src/app/services/auth.service';
+import { CarTableService } from 'src/app/services/car-table.service';
+import { ShareService } from 'src/app/services/share.service';
 
 @Component({
   selector: 'app-main',
@@ -6,5 +11,44 @@ import { Component } from '@angular/core';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent {
+
+
+  memberProfile$: Observable<MemberProfile>;
+  memberId!: string;
+
+  data$: Observable<GlobalData>;
+  carId!: number;
+  licensePlate!: string;
+
+  constructor( private auth: AuthService,
+               private share: ShareService,
+               private car: CarTableService
+  ) {
+    this.memberProfile$ = this.auth.memberProfile$;
+    this.data$ = this.share.globalData$;
+  }
+
+  ngOnInit(): void {
+    this.memberProfile$.pipe(
+      switchMap(data => {
+        this.memberId = data.memberId;
+        return this.data$;
+      })
+    ).subscribe(data => {
+      this.carId = data.carId;
+      this.loadData();
+    });
+  }
+
+
+
+  loadData() {
+    this.car.findById(this.carId, this.memberId).subscribe(
+      data => {
+        console.log(`data@header :${JSON.stringify(data)}`)
+        this.licensePlate = data.licensePlate;
+      }
+    )
+  }
 
 }

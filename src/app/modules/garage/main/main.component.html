@@ -1,82 +1,93 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container">
 
-            <div class="col-12">
-                <div class="card card-orange card-tabs">
-                    <div class="card-header p-0 pt-1">
-                        <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill"
-                                    href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home"
-                                    aria-selected="true">รับงานซ่อม</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
-                                    href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile"
-                                    aria-selected="false">สินค้าจัดรายการ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
-                                    href="#search-license-plate" role="tab" aria-controls="custom-tabs-one-messages"
-                                    aria-selected="false">ประวัติรถ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
-                                    href="#search-customer" role="tab" aria-controls="custom-tabs-one-messages"
-                                    aria-selected="false">ทะเบียนลูกค้า</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
-                                    href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings"
-                                    aria-selected="false">ตารางนัดหมาย</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
-                                    href="#invoice" role="tab" aria-controls="custom-tabs-one-settings"
-                                    aria-selected="false">ใบเสนอราคา</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <div class="tab-content" id="custom-tabs-one-tabContent">
-                            <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel"
-                                aria-labelledby="custom-tabs-one-home-tab">
-                                <app-pickup-car></app-pickup-car>
+      <div class="col-12">
+        <div class="card card-orange card-tabs">
+          <div class="card-header p-0 pt-1">
+            <div class="d-flex justify-content-between">
+              <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill"
+                    href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home"
+                    aria-selected="true">รับงานซ่อม</a>
+                </li>
+                <!-- <li class="nav-item">
+                      <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile"
+                        role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">สินค้าจัดรายการ</a>
+                    </li> -->
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill" href="#main-car" role="tab"
+                    aria-controls="custom-tabs-one-messages" aria-selected="false">ประวัติรถ</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill" href="#main-customer"
+                    role="tab" aria-controls="custom-tabs-one-messages" aria-selected="false">ทะเบียนลูกค้า</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill" href="#main-order" role="tab"
+                    aria-controls="custom-tabs-one-settings" aria-selected="false">ใบรับงาน</a>
+                </li>
+                <!-- <li class="nav-item">
+                      <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill"
+                        href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings"
+                        aria-selected="false">ตารางนัดหมาย</a>
+                    </li> -->
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill" href="#main-quotation"
+                    role="tab" aria-controls="custom-tabs-one-settings" aria-selected="false">ใบเสนอราคา</a>
+                </li>
 
-                            </div>
-                            <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
-                                aria-labelledby="custom-tabs-one-profile-tab">
-                                <app-promotion></app-promotion>
-                            </div>
-                            <div class="tab-pane fade" id="search-customer" role="tabpanel"
-                                aria-labelledby="custom-tabs-one-profile-tab">
-                               
-                            </div>
-                            <div class="tab-pane fade" id="search-license-plate" role="tabpanel"
-                                aria-labelledby="custom-tabs-one-messages-tab">
-                                <app-search-lp></app-search-lp>
-                            </div>
-                            <div class="tab-pane fade" id="custom-tabs-one-settings" role="tabpanel"
-                                aria-labelledby="custom-tabs-one-settings-tab">
-                               <app-customer-list></app-customer-list>
-                            </div>
-                            <div class="tab-pane fade" id="invoice" role="tabpanel"
-                            aria-labelledby="custom-tabs-one-settings-tab">
-                            <app-car-list></app-car-list>
-                        </div>
-                        </div>
-                    </div>
-                    <!-- /.card -->
-                </div>
+              </ul>
+              <div *ngIf="data$ | async as data">
+                <button class="btn btn-sm btn-warning mt-2 mr-3">{{licensePlate}}</button>
+              </div>
+
             </div>
 
 
-        </div><!-- /.container -->
+          </div>
+          <div class="card-body">
+            <div class="tab-content" id="custom-tabs-one-tabContent">
+              <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel"
+                aria-labelledby="custom-tabs-one-home-tab">
+                <app-pickup-car></app-pickup-car>
 
-    </section>
+              </div>
+              <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
+                aria-labelledby="custom-tabs-one-profile-tab">
+                <app-promotion></app-promotion>
+              </div>
+              <div class="tab-pane fade" id="main-customer" role="tabpanel"
+                aria-labelledby="custom-tabs-one-profile-tab">
+                <app-main-customer></app-main-customer>
+              </div>
+              <div class="tab-pane fade" id="main-car" role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
+                <app-main-car></app-main-car>
+              </div>
+              <div class="tab-pane fade" id="custom-tabs-one-settings" role="tabpanel"
+                aria-labelledby="custom-tabs-one-settings-tab">
+                <app-main-customer></app-main-customer>
+              </div>
+              <div class="tab-pane fade" id="main-quotation" role="tabpanel"
+                aria-labelledby="custom-tabs-one-settings-tab">
+                <app-main-quotation></app-main-quotation>
+              </div>
+              <div class="tab-pane fade" id="main-order" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
+                <app-main-order></app-main-order>
+              </div>
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+
+
+    </div><!-- /.container -->
+
+  </section>
 
 
 </div>

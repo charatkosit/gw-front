@@ -3,6 +3,9 @@ import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { render } from '@fullcalendar/core/preact';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs';
+import { MemberProfile } from 'src/app/interfaces/globalData';
+import { AuthService } from 'src/app/services/auth.service';
 import { CustomerTableService } from 'src/app/services/customer-table.service';
 import { OrderTableService } from 'src/app/services/order-table.service';
 import { ShareService } from 'src/app/services/share.service';
@@ -15,15 +18,21 @@ declare var $: any;
   styleUrls: ['./customer-list.component.css']
 })
 export class CustomerListComponent {
+  
+  memberProfile$: Observable<MemberProfile>;
+  memberId!: string;
 
   customerForm!: FormGroup;
   constructor(
+    private auth: AuthService,
     private customer: CustomerTableService,
     private modalService: NgbModal,
     private order: OrderTableService,
     private router: Router,
     private share: ShareService
-  ) { }
+  ) { 
+    this.memberProfile$ = this.auth.memberProfile$;
+  }
 
   data: any[] = [];
   customerId!:number;
@@ -36,12 +45,18 @@ export class CustomerListComponent {
   modalCreateOrderData: any;
   modalEditData: any;
   modalData: any;
-  memberId = 'A-004';
+
 
 
   ngOnInit(): void {
-    this.loadData();
-    this.initializeDataTable();
+    this.auth.memberProfile$.subscribe(
+      data =>{
+        this.memberId = data.memberId;
+        this.loadData();
+        this.initializeDataTable();
+      }
+    )
+   
 
   }
 

@@ -29,6 +29,14 @@ export class CustomerTableService {
    return this.http.get<any>('api/customer/findById',{ params });
  }
 
+ singleSearch(memberId:string,term:string){
+  const params = new HttpParams()
+     .set('memberId', memberId)
+     .set('term',term )
+   return this.http.get<any>('api/customer/singleSearch',{ params });
+ }
+
+
   update(id:number ,customerData:any):Observable<any> {
     const headers = new HttpHeaders( { 'Content-Type': 'application/json' } );
     return this.http.patch<any>(`/api/customer/${id}`,customerData, {headers : headers});

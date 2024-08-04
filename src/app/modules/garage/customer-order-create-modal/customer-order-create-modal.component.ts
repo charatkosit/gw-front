@@ -6,6 +6,7 @@ import { parseTwoDigitYear } from 'moment';
 import { Car, CustomerData } from 'src/app/interfaces/customerData';
 import { BrandService } from 'src/app/services/brand.service';
 import { OrderTableService } from 'src/app/services/order-table.service';
+import { ShareService } from 'src/app/services/share.service';
 
 @Component({
   selector: 'app-customer-order-create-modal',
@@ -27,6 +28,7 @@ export class CustomerOrderCreateModalComponent{
   constructor(private fb: FormBuilder,
     private order: OrderTableService,
     private brand:BrandService,
+    private share:ShareService,
     private router: Router
    
   ) {
@@ -68,6 +70,13 @@ submitOrderCreate(){
     this.order.createFast(this.data.memberId,prepOrderCreateForm).subscribe({
       next:(data)=>{
         console.log(`data success: ${JSON.stringify(data)}`);
+        //เก็บค่า carId,customerId ไว้ใน share.globalCarId, share.globalCustomerId 
+        //สำหรับวางไว้ที่ header
+        let objData = {customerId: this.data.id,
+                        carId: +this.orderCreateForm.value.carId
+                       }
+        this.share.updateGlobalData(objData);
+         
         this.onRefreshData();
         this.router.navigate(['/garage/order-list'])
       },
@@ -93,4 +102,6 @@ onRefreshData(){
   showToggleAddCar(){
     this.showAddCarForm = !this.showAddCarForm;
   }
+
+
 }

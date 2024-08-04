@@ -1,0 +1,56 @@
+<div class="card card-default">
+  <div class="card-header">
+  </div>
+  <div class="card-body">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th style="width: 10px">id</th>
+          <th>ทะเบียน</th>
+          <th>แบรนด์</th>
+          <th>รุ่น</th>
+          <th>ปี</th>
+          <th>สี</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{carData.id}}</td>
+          <td>{{carData.licensePlate}}</td>
+          <td>{{carData.brand}}</td>
+          <td>{{carData.model}}</td>
+          <td>{{carData.year}}</td>
+          <td>{{carData.color}}</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th style="width: 10px">#</th>
+          <th>อาการเสีย</th>
+          <th>รายละเอียด</th>
+          <th>Km.</th>
+          <th>สถานะ</th>
+          <th>CarId</th>
+          <th>จัดการ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of orderData">
+          <td>{{item.id}}</td>
+          <td>{{item.sympthom}}</td>
+          <td>{{item.description}}</td>
+          <td>{{item.km}}</td>
+          <td>{{item.status}}</td>
+          <td>{{item.carId}}</td>
+          <td><button class="btn btn-sm btn-warning">รายละเอียด</button></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>

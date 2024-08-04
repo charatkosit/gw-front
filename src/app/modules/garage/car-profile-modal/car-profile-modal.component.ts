@@ -1,4 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
+import { MemberProfile } from 'src/app/interfaces/globalData';
+import { AuthService } from 'src/app/services/auth.service';
 import { OrderTableService } from 'src/app/services/order-table.service';
 
 @Component({
@@ -6,7 +9,7 @@ import { OrderTableService } from 'src/app/services/order-table.service';
   templateUrl: './car-profile-modal.component.html',
   styleUrls: ['./car-profile-modal.component.css']
 })
-export class CarProfileModalComponent {
+export class CarProfileModalComponent  {
 
 
   @Input() data: any[]=[];
@@ -17,15 +20,28 @@ export class CarProfileModalComponent {
   
   @Output() refreshData = new EventEmitter<number>();  
 
+
+  memberProfile$: Observable<MemberProfile>;
+  memberId!: string;
+
   showCreateOrderModal = false;
-  memberId = 'A-004';
+
   
-   constructor(
-    private order: OrderTableService
+   constructor( private auth: AuthService,
+                private order: OrderTableService
    ) { 
+    this.memberProfile$ = this.auth.memberProfile$;
     console.log(`data @carProfileModal is ${JSON.stringify(this.data)}`);
    }
 
+
+  ngOnInit():void{
+    this.auth.memberProfile$.subscribe(
+      data =>{
+        this.memberId = data.memberId;
+      }
+    )
+  }
 
   closeModal() {
    this.close.emit();

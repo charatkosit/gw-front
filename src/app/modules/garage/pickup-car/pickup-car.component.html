@@ -1,171 +1,82 @@
 <!-- SELECT2 EXAMPLE -->
 <div class="card card-default">
-    <div class="card-header">
-        <div class="row justify-content-between">
-            <div>
-                <button type="button" class="btn btn-block btn-outline-primary">ลูกค้าเก่า ค้นหา</button>
-            </div>
-
-            <div class="row">
-                <div id="button">
-                    <button type="button" class="btn btn-block btn-primary disabled">บันทึก</button>
-                </div>
-                <div id="button">
-                    <button type="button"  class="btn btn-block btn-warning disabled">ล้างข้อมูล</button>
-                </div>
-
-                <div class="card-tools">
-
-                    <button type="button" class="btn btn-tool" disabled="true" data-card-widget="collapse"><i
-                            class="fas fa-minus"></i></button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i
-                            class="fas fa-times"></i></button>
-                </div>
-            </div>
-
+  <div class="card-header">
+    <div class="row d-flex justify-content-between">
+      <div>
+        <button type="button" (click)="orderCreate()" class="btn btn-block btn-outline-primary">ลูกค้าใหม่</button>
+      </div>
+      <form [formGroup]="searchForm">
+        <div class="form-group">
+          <input type="search" formControlName="searchTerm" class="form-control input-hover-blue" id="itemname-form"
+            placeholder="ทะเบียนรถ หรือ โทรศัพท์">
         </div>
-
-
+      </form>
     </div>
-    <!-- /.card-header -->
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">ทะเบียนรถ</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="เลขทะเบียนรถ">
-                </div>
-                <!-- /.form-group -->
-                <div class="form-group">
-                    <label>แบรนด์</label>
-                    <select class="form-control select2" style="width: 100%;">
-                        <option selected="selected"></option>
-                        <option>Toyota</option>
-                        <option>Honda</option>
-                        <option>Mazda</option>
-                        <option>Suzuki</option>
-                        <option>Mitsubishi</option>
-                        <option>Isuzu</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleInputEmail1">เลขเครื่อง</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="เลขเครื่อง">
-                </div>
-
-            </div>
-            <!-- /.col -->
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label>จังหวัด</label>
-                    <select class="form-control select2" style="width: 100%;">
-                        <option selected="selected"></option>
-                        <option>กรุงเทพฯ</option>
-                        <option>นนทบุรี</option>
-                        <option>สมุทรปราการ</option>
-                        <option>ปทุมธานี</option>
-                        <option>นครปฐม</option>
-                        <option>ชลบุรี</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleInputEmail1">รุ่น</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="รุ่น">
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleInputEmail1">เลขตัวถัง</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="เลขตัวถัง">
-                </div>
-
-            </div>
-            <!-- /.col -->
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label>ประเภทรถ</label>
-                    <select class="form-control select2" style="width: 100%;" data-placeholder="เลือกประเภทรถ">
-                        <option selected="selected"></option>
-                        <option>รถเก๋ง</option>
-                        <option>รถตู้</option>
-                        <option>รถ Taxi</option>
-                        <option>SUV</option>
-                        <option>กระบะ</option>
-                        <option>รถ Van</option>
-                    </select>
-                </div>
-
-                <!-- /.form-group -->
-                <div class="form-group">
-                    <label>สี</label>
-                    <select class="form-control select2" style="width: 100%;">
-                        <option selected="selected"></option>
-                        <option>ขาว</option>
-                        <option>ดำ</option>
-                        <option>บรอนด์ ทอง</option>
-                        <option>บรอนด์ เงิน</option>
-                        <option>แดง</option>
-                        <option>เขียว-เหลือง</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="distanceMeasure">เลขไมล์รถ</label>
-                    <input type="text" class="form-control is-invalid" id="distanceMeasure" placeholder="เลขไมล์รถ">
-                </div>
 
 
-            </div>
-        </div>
-        <!-- /.row -->
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body p-0">
+    <div>
+      <table *ngIf="carData && carData.length > 0" class="table table-striped">
+        <thead>
+          <tr>
+            <th style="width: 10px">id</th>
+            <th class="text-center">ทะเบียน</th>
+            <th class="text-center">แบรนด์</th>
+            <th class="text-center">รุ่น</th>
+            <th style="width: 200px">จัดการ</th>
 
-        <h5>ผู้นำรถมาส่ง</h5>
-        <div class="row">
-            <div class="col-12 col-sm-6">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">ชื่อ</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="ชื่อ">
-                </div>
-                <!-- /.form-group -->
-            </div>
-            <!-- /.col -->
-            <div class="col-12 col-sm-6">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">โทรศัพท์</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="โทรศัพท์">
-                </div>
-                <!-- /.form-group -->
-            </div>
-            <!-- /.col -->
-        </div>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let car of carData">
+            <td>{{car.id}}</td>
+            <td>{{car.licensePlate}}</td>
+            <td>{{car.brand}}</td>
+            <td>{{car.model}}</td>
+            <td><button class="btn btn-sm btn-success" (click)="orderByCarId(car.id)">รับงาน</button></td>
+          </tr>
 
-
-        <h5>อาการเสีย</h5>
-        <div class="row">
-            <div class="col-12 col-sm-6">
-                <div class="form-group">
-                    <label>อาการเสีย</label>
-                    <textarea class="form-control" rows="5" placeholder="อาการเสีย"></textarea>
-                </div>
-                <!-- /.form-group -->
-            </div>
-            <!-- /.col -->
-            <div class="col-12 col-sm-6">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">ตัวเลือก</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="ตัวเลือก">
-                </div>
-                <!-- /.form-group -->
-            </div>
-            <!-- /.col -->
-        </div>
-        <!-- /.row -->
+        </tbody>
+      </table>
     </div>
-    <!-- /.card-body -->
-    <!-- <div class="card-footer">
-        Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and information about
-        the plugin.
-    </div> -->
+    <div>
+      <table *ngIf="customerData && customerData.length > 0" class="table table-striped">
+        <thead>
+          <tr>
+            <th style="width: 10px">id</th>
+            <th class="text-center">ลูกค้า</th>
+            <th class="text-center">ที่อยู่</th>
+            <th class="text-center">โทรศัพท์</th>
+            <th style="width: 200px">จัดการ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let customer of customerData">
+            <td>{{customer.id}}</td>
+            <td>{{customer.name}}</td>
+            <td>{{customer.address}}</td>
+            <td>{{customer.phone}}</td>
+            <td><button class="btn btn-sm btn-success" (click)="orderByCustomerId(customer.id)">รับงาน</button></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
-<!-- /.card -->
 
+<!-- modal -->
+<app-order-create-modal (formSubmitted)="onSubmitCreate($event)"></app-order-create-modal>
+
+<app-customer-order-create-modal [data]="modalCustomerCreateOrderData" 
+                                 [showOrderCreateModal]="showCustomerOrderCreateModal"
+                                 (close)="closeCustomerOrderCreateModal()">
+</app-customer-order-create-modal>
+
+<app-car-order-create-modal [data]="modalCarCreateOrderData" 
+                            [showOrderCreateModal]="showCarOrderCreateModal"
+                            (close)="closeCarOrderCreateModal()">
+</app-car-order-create-modal>

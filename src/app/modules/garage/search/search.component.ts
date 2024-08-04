@@ -179,7 +179,7 @@ export class SearchComponent implements OnInit {
             data: 'แสดง', title: 'Action', className: "text-center",
             render: function (data: any, type: any, row: any) {
               return `<button class="btn btn-outline-success btn-block btn-select" data-id="${row.id}">
-                            <i class="fas fa-cart-plus"></i> <b>เพิ่มตะกร้า</b>
+                            <i class="fas fa-cart-plus"></i> <b>เพิ่มใน ใบเสนอราคา</b>
                       </button>`
             }
           }

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { OrderTableService } from 'src/app/services/order-table.service';
+import { ShareService } from 'src/app/services/share.service';
 
 @Component({
   selector: 'app-car-order-create-modal',
@@ -21,6 +22,7 @@ export class CarOrderCreateModalComponent {
 
   constructor(private fb: FormBuilder,
     private order: OrderTableService,
+    private share: ShareService,
     private router: Router
    
   ) {
@@ -53,6 +55,14 @@ submitOrderCreate(){
     this.order.createFast(this.data.memberId,prepOrderCreateForm).subscribe({
       next:(data)=>{
         console.log(`data success: ${JSON.stringify(data)}`);
+        
+        //เก็บค่า carId,customerId ไว้ใน share.globalCarId, share.globalCustomerId 
+        //สำหรับวางไว้ที่ header
+        let objData = {customerId: +this.data.customers[0].id,
+                       carId: +this.data.id
+         }
+        this.share.updateGlobalData(objData);
+
         this.onRefreshData();
         this.router.navigate(['/garage/order-list'])
       },
