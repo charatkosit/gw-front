@@ -62,6 +62,9 @@ export class CustomerListComponent {
 
   initializeDataTable() {
     $(document).ready(() => {
+      if ($.fn.DataTable.isDataTable('#example1')) {
+        $('#example1').DataTable().destroy();
+      }
       var table = $('#example1').DataTable({
         info: false,
 

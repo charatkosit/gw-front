@@ -53,18 +53,20 @@ submitOrderCreate(){
   if(this.orderCreateForm.valid){
     console.log(`orderCreateForm is valid ,memberId: ${this.data.memberId}`)
     this.order.createFast(this.data.memberId,prepOrderCreateForm).subscribe({
-      next:(data)=>{
-        console.log(`data success: ${JSON.stringify(data)}`);
+      next:(res)=>{
+        console.log(`data success createFast: ${JSON.stringify(res)}`);
         
         //เก็บค่า carId,customerId ไว้ใน share.globalCarId, share.globalCustomerId 
-        //สำหรับวางไว้ที่ header
+        //สำหรับวางไว้ที่ รับงาน
         let objData = {customerId: +this.data.customers[0].id,
-                       carId: +this.data.id
+                       carId: +this.data.id,
+                       orderId: res.id
          }
         this.share.updateGlobalData(objData);
 
         this.onRefreshData();
-        this.router.navigate(['/garage/order-list'])
+        this.closeModal();
+        // this.router.navigate(['/garage/main'])
       },
       error:(error)=>{
         console.log(`error: ${JSON.stringify(error)}`)

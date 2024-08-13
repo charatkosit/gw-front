@@ -33,6 +33,13 @@ export class CarTableService {
    return this.http.get<any>('api/car/findById',{ params });
  }
 
+ findByIdForHeader(carId:number, memberId:string):Observable<any> {
+  let params = new HttpParams()
+     .set('carId',carId.toString())
+    .set('memberId',memberId)
+   return this.http.get<any>('api/car/findByIdForHeader',{ params });
+ }
+
  findCarsBycustomerId(customerId:number,memberId:string):Observable<any[]>{
   const params = new HttpParams()
      .set('customerId',customerId.toString())

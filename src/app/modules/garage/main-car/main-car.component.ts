@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { forkJoin, Observable, switchMap } from 'rxjs';
-import { GlobalData, MemberProfile } from 'src/app/interfaces/globalData';
+import { finalize, forkJoin, Observable, switchMap, tap } from 'rxjs';
+import { ActiveProfile, MemberProfile } from 'src/app/interfaces/globalData';
 import { AuthService } from 'src/app/services/auth.service';
 import { CarTableService } from 'src/app/services/car-table.service';
 import { OrderTableService } from 'src/app/services/order-table.service';
@@ -16,9 +16,11 @@ export class MainCarComponent implements OnInit {
   carData: any;
   orderData!: any[];
 
-  data$: Observable<GlobalData>;
+  data$: Observable<ActiveProfile>;
   carId!: number;
   customerId!: number;
+
+  objData!: any;
 
   memberProfile$: Observable<MemberProfile>;
   memberId!: string;
@@ -29,7 +31,7 @@ export class MainCarComponent implements OnInit {
     private share: ShareService
   ) {
     this.memberProfile$ = this.auth.memberProfile$;
-    this.data$ = this.share.globalData$;
+    this.data$ = this.share.activeCar$;
   }
 
   ngOnInit(): void {
@@ -40,6 +42,7 @@ export class MainCarComponent implements OnInit {
       })
     ).subscribe(data1 => {
       this.carId = data1.carId;
+      this.customerId = data1.customerId;
       this.loadData();
     });
   }
@@ -60,5 +63,14 @@ export class MainCarComponent implements OnInit {
         console.error('Error loading data', error);
       }
     });
+  }
+
+  onSelect(orderId: number) {
+    this.objData = {  customerId: this.customerId,
+                      carId: this.carId,
+                      orderId: orderId
+    }
+    this.share.updateGlobalData(this.objData)
+
   }
 }

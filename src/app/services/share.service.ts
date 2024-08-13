@@ -7,8 +7,8 @@ import { isuzu } from './epcBrand/isuzu';
 import { crossRef} from './crossRef/crossRef';
 import { ApiEpcDetails } from '../interfaces/ApiEpcDetails';
 import { newOrderDto } from '../interfaces/newOrderDto';
-import { BehaviorSubject } from 'rxjs';
-import { GlobalData } from '../interfaces/globalData';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { ActiveProfile,GlobalProfile } from '../interfaces/globalData';
 
 @Injectable({
   providedIn: 'root'
@@ -29,14 +29,14 @@ export class ShareService {
    
   constructor() { }
 //************************************************ */
-  //สร้าง ตัวแปร globalData$ สำหรับ Header
-  private dataSubject = new BehaviorSubject<GlobalData>(this.checkInitialGlobalData());
-    globalData$ = this.dataSubject.asObservable();
+  //สร้าง ตัวแปร activeCar$ 
+  private dataSubject = new BehaviorSubject<ActiveProfile>(this.checkInitialGlobalData());
+    activeCar$ = this.dataSubject.asObservable();
 
 
   // ดึงค่าเก่า ใน localStorage
   private checkInitialGlobalData() {
-    const storedData= localStorage.getItem('globalData');
+    const storedData= localStorage.getItem('activeCar');
     if(storedData){
       const objData = JSON.parse(storedData);
       console.log(objData)
@@ -44,39 +44,56 @@ export class ShareService {
     }
   }
 
-  updateGlobalData( objData:GlobalData):void{
+  updateGlobalData( objData:ActiveProfile):Observable<void>{
     this.dataSubject.next(objData);
-    localStorage.setItem('globalData', JSON.stringify(objData));
+    localStorage.setItem('activeCar', JSON.stringify(objData));
+    return of(void 0)
   }
 
 //*************************************************** */
   //สร้าง ตัวแปร carsProfile$ สำหรับ Header
-  private arraySubject = new BehaviorSubject<GlobalData[]>([]);
-    carsProfile$ = this.arraySubject.asObservable();
 
- 
-  // ดึงค่าเก่า ใน localStorage
-  private checkInitialCarsProfile() {
-    const storedArrayData= localStorage.getItem('carsProfile');
-    if(storedArrayData){
-      const objData = JSON.parse(storedArrayData);
-      console.log(objData)
-      return objData;
-    }
+  preData: GlobalProfile[] =
+  [{customerId:4 , carId:5 , orderId:34, lp:'ABC-0005',status:'open'  },
+    {customerId:12 , carId:14 , orderId:40, lp:'AB-0014',status:'open'  },
+    {customerId:9 , carId:11 , orderId:33, lp:'กษ-0011',status:'open'  },
+    {customerId:14 , carId:16 , orderId:39, lp:'กก-0016',status:'open'  },
+    {customerId:17 , carId:26 , orderId:26, lp:'กษ-0027',status:'open'  },
+   ];
+
+   private carProfile$ = new BehaviorSubject<GlobalProfile[]>([]);
+
+    // Function to initialize the BehaviorSubject with preData
+  initialize(preData: GlobalProfile[]): void {
+    this.carProfile$.next(preData);
+  }
+  
+   // Function to update the BehaviorSubject with a new array
+   updateProfiles(newProfiles: GlobalProfile[]): void {
+    this.carProfile$.next(newProfiles);
   }
 
-  // update ค่าใน BehaviorSubject และ เก็บลงใน  localStorage
-  // โดยต้องแปลง object ให้อยู่ในรูป  json.stringify ก่อน
-  updateCarsProfile( carProfile:GlobalData):void{
-    const currentCarsProfile = this.arraySubject.getValue();
-    currentCarsProfile.push(carProfile);
-    this.arraySubject.next(currentCarsProfile);
-    localStorage.setItem('carsProfile',JSON.stringify(carProfile))
+  // Function to delete a profile by orderId
+  deleteProfileByOrderId(orderId: number): void {
+    const currentProfiles = this.carProfile$.value;
+    const updatedProfiles = currentProfiles.filter(profile => profile.orderId !== orderId);
+    this.carProfile$.next(updatedProfiles);
   }
 
-  //ล้าง array carsProfile
-  clearCarsProfile():void{
-    this.arraySubject.next([]);
+  // Function to add a new profile
+  addProfile(newProfile: GlobalProfile): void {
+    const currentProfiles = this.carProfile$.value;
+    this.carProfile$.next([...currentProfiles, newProfile]);
+  }
+
+  // Function to clear all profiles
+  clearProfiles(): void {
+    this.carProfile$.next([]);
+  }
+
+  // Optional: Getter to expose the BehaviorSubject as an Observable
+  get profiles$() {
+    return this.carProfile$.asObservable();
   }
 
 //*************************************************** */

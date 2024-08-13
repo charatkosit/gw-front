@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
-import { GlobalData, MemberProfile } from 'src/app/interfaces/globalData';
+import { ActiveProfile, GlobalProfile, MemberProfile } from 'src/app/interfaces/globalData';
 import { AuthService } from 'src/app/services/auth.service';
 import { CarTableService } from 'src/app/services/car-table.service';
+import { OrderTableService } from 'src/app/services/order-table.service';
 import { ShareService } from 'src/app/services/share.service';
 
 @Component({
@@ -19,7 +20,8 @@ export class HeaderComponent implements OnInit {
   permission = '';
   isSecondLogin = false;
 
-  data$: Observable<GlobalData>;
+  activeCar$: Observable<ActiveProfile>;
+  activeCar!: ActiveProfile;
   carId!: number;
   licensePlate!: string;
 
@@ -27,28 +29,56 @@ export class HeaderComponent implements OnInit {
   memberProfile$: Observable<MemberProfile>;
   memberId!: string;
 
+  carProfiles$: Observable<GlobalProfile[]>;
+  carsProfile!  : GlobalProfile[];
 
+
+
+  // arrayLp: any[] = [];
 
   constructor(private auth: AuthService,
     private car: CarTableService,
+    private order: OrderTableService,
     private share: ShareService,
+
     private router: Router
   ) {
     this.memberProfile$ = this.auth.memberProfile$;
-    this.data$ = this.share.globalData$;
+    this.carProfiles$ = this.share.profiles$;
+    this.activeCar$ = this.share.activeCar$;
+
 
   }
 
+  // ngOnInit(): void {
+  //   this.memberProfile$.pipe(
+  //     switchMap(data => {
+  //       this.memberId = data.memberId;
+  //       return this.activeCar$;
+  //     })
+  //   ).subscribe(data => {
+  //     this.carId = data.carId;
+  //     this.loadData();
+  //   });
+  // }
   ngOnInit(): void {
-    this.memberProfile$.pipe(
-      switchMap(data => {
-        this.memberId = data.memberId;
-        return this.data$;
-      })
-    ).subscribe(data => {
-      this.carId = data.carId;
-      this.loadData();
-    });
+
+
+    this.auth.memberProfile$.subscribe(
+      data =>{
+         this.memberId=  data.memberId
+         console.log(`memberId : ${this.memberId}`)
+      }
+    );
+    
+
+
+    this.share.activeCar$.subscribe(
+      data => {
+        this.activeCar = data
+        console.log(`activeCar : ${JSON.stringify(this.activeCar)}`)
+      }
+    )
   }
 
 
@@ -69,5 +99,17 @@ export class HeaderComponent implements OnInit {
 
   onClickToProfile() {
     this.router.navigate(['/garage/main'])
+  }
+
+  onClickLP(item: any) {
+    console.log(item)
+    let objData = {
+      customerId: item.customerId,
+      carId: item.carId,
+      orderId: item.orderId
+    }
+
+    this.share.updateGlobalData(objData);
+
   }
 }

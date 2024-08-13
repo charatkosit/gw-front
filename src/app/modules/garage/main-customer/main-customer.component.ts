@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
-import { GlobalData, MemberProfile } from 'src/app/interfaces/globalData';
+import { ActiveProfile, MemberProfile } from 'src/app/interfaces/globalData';
 import { AuthService } from 'src/app/services/auth.service';
 import { CustomerTableService } from 'src/app/services/customer-table.service';
 import { ShareService } from 'src/app/services/share.service';
@@ -15,7 +15,7 @@ export class MainCustomerComponent implements OnInit {
   customerData: any;
   carData: any[] = [];
 
-  data$: Observable<GlobalData>;
+  data$: Observable<ActiveProfile>;
   customerId!: number;
 
   memberProfile$: Observable<MemberProfile>;
@@ -26,7 +26,7 @@ export class MainCustomerComponent implements OnInit {
     private share: ShareService
   ) {
     this.memberProfile$ = this.auth.memberProfile$;
-    this.data$ = this.share.globalData$;
+    this.data$ = this.share.activeCar$;
   }
 
   ngOnInit(): void {
@@ -59,7 +59,8 @@ export class MainCustomerComponent implements OnInit {
   selectCarProfile(selectCarId: number) {
     let objData = {
       customerId: this.customerId,
-      carId: selectCarId
+      carId: selectCarId,
+      orderId: 0
     }
     this.share.updateGlobalData(objData)
   }

@@ -1,6 +1,15 @@
-export interface GlobalData {
+export interface ActiveProfile {
     customerId: number;
     carId:      number;
+    orderId:    number;
+}
+
+export interface GlobalProfile {
+    customerId: number;
+    carId:      number;
+    orderId:    number;
+    lp:         string;
+    status:     string;
 }
 
 export interface MemberProfile{

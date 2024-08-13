@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PartlistNew, goApiPartlistNew } from 'src/app/interfaces/goApiPartlist';
+import { PartlistNew, brandC, goApiPartlistNew } from 'src/app/interfaces/goApiPartlist';
 import { Router } from '@angular/router';
 
 import { ApiEpcDetails } from 'src/app/interfaces/ApiEpcDetails'
@@ -38,6 +38,11 @@ export class SearchComponent implements OnInit {
 
 
   totalFound: number = 0;
+  brandCounts: brandC[] = [];
+  numBrandCounts: number = 0;
+  arrayBrand: string[] = [];
+  brand_0: string = '';
+
 
   // customer_code = this.share.customer_code;
   // customer_code: any = localStorage.getItem(environment.user_code)
@@ -45,6 +50,9 @@ export class SearchComponent implements OnInit {
   netPricePerUnit: number = 0;
   billDiscount: number = 0;
   specialPrice: number = 0;
+  searchTermControl: any;
+  tempSearch: any;
+  toggle: boolean = true;
 
   searchQuery: string | null = '';
 
@@ -57,8 +65,8 @@ export class SearchComponent implements OnInit {
     private share: ShareService,
     private epc: EpcService,
     private router: Router,
-  
- 
+
+
   ) {
   }
 
@@ -70,21 +78,25 @@ export class SearchComponent implements OnInit {
     })
 
 
-    let searchTermControl = this.searchForm.get('searchTerm');
+    this.searchTermControl = this.searchForm.get('searchTerm');
 
-    if (searchTermControl) {
-      searchTermControl.valueChanges.pipe(
+    if (this.searchTermControl) {
+      this.searchTermControl.valueChanges.pipe(
         debounceTime(300), // รอ 300 มิลลิวินาทีก่อนเรียก API
-        switchMap(value => {   
+        switchMap((value: string) => {
           //   ตรวจสอบคำผิด และแก้ไข
           const correctedTerm = this.checkSpelling(value);
           console.log(`correctedTerm: ${correctedTerm}`);
-          return this.search.getPartlistBySingleSearch(`term=${correctedTerm}`)  } )
+
+          return this.search.getPartlistBySingleSearch(`term=${correctedTerm}`)
+        })
       ).subscribe((res: goApiPartlistNew) => {
 
         this.apiPartlistNew = res;
         this.partlistNew = this.apiPartlistNew.data
         this.totalFound = this.apiPartlistNew.resultFound
+        this.brandCounts = this.apiPartlistNew.brandCount;
+        this.numBrandCounts = this.brandCounts.length;
         // เอาค่า ItemCode มาเก็บไว้ในอาร์เรย์
         this.arrayItemCode = this.partlistNew.map(item => item.ItemCode);
 
@@ -92,6 +104,8 @@ export class SearchComponent implements OnInit {
         this.partlistNew = this.partlistNew.map(item => ({ ...item, count: 0 }));
         // const nCrf = this.getCrfTotal();
         // console.log(`nCrf =${nCrf}`)
+        console.log(`brandCounts = ${JSON.stringify(this.brandCounts)}`)
+        console.log(`brandCounts.lenght = ${JSON.stringify(this.brandCounts.length)}`)
         console.log(`partlistNew = ${JSON.stringify(this.partlistNew)}`)
 
         // อัปเดตตาราง DataTables
@@ -148,7 +162,7 @@ export class SearchComponent implements OnInit {
             data: 'ItemCode', title: 'บาร์โคด', className: "text-center",
             render: (data: any, type: any, row: any) => {
               //ตรวจสอบว่ามี รายชื่อภาพ อยู่ใน this.share.crossRef หรือไม่ 
-              const part = this.share.crossRef.find((p:any) => p.partId === row.ItemCode);
+              const part = this.share.crossRef.find((p: any) => p.partId === row.ItemCode);
               if (part) {
                 return `${data}  <span class="right badge badge-warning crossref-badge">${part.count}</span>`;
               } else {
@@ -234,7 +248,7 @@ export class SearchComponent implements OnInit {
   addToCartOrder(customer_code: string, selectedData: PartlistNew) {
 
     console.log('this is addToCartOrder')
-   
+
 
 
     let netPricePerUnit: number;
@@ -327,7 +341,7 @@ export class SearchComponent implements OnInit {
           console.log(`data ${JSON.stringify(data.resultFound)}`)
           return data.resultFound;
         },
-        error: (error:any) => {
+        error: (error: any) => {
           console.error('There was an error!', error);
         }
       }
@@ -337,11 +351,11 @@ export class SearchComponent implements OnInit {
 
   getEpcVersion() {
     this.epc.getVersion().subscribe({
-      next: (data:any) => {
+      next: (data: any) => {
         console.log(`data: ${JSON.stringify(data)}: ${data}`)
         return data;
       },
-      error: (error:any) => {
+      error: (error: any) => {
         console.error('There was an error!', error);
       }
     }
@@ -358,6 +372,52 @@ export class SearchComponent implements OnInit {
     })
   }
 
+
+
+  insertBrand(brand: string) {
+
+
+    // this.arrayBrand.push(brand);
+    // console.log(`arrayBrand: ${this.arrayBrand}`);
+    // let test = this.arrayBrand.join(' ');
+    // console.log(`test: ${test}`);
+
+    // console.log(`insertBrand: ${brand}`);
+
+    // console.log(`searchTermControl : ${this.searchTermControl.value}`)
+    // console.log(`tempSearch : ${this.tempSearch}`);
+
+  
+      if (this.toggle) {
+        this.brand_0 = brand;  //จำค่า brand ไว้ก่อน  
+        this.tempSearch = this.searchTermControl.value;
+        this.searchTermControl.setValue(`${this.searchTermControl.value} ${brand} `);
+        this.toggle = false;
+        this.arrayBrand = [];
+      } else {
+        this.searchTermControl.setValue(this.tempSearch);
+        this.toggle = true;
+        this.arrayBrand = [];
+      }
+
+
+  }
+
+
+  onInputChange(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const currentValue = inputElement.value;
+
+    if (currentValue === '') {
+      this.onClear();
+    }
+  }
+
+  onClear() {
+    console.log('Search input cleared');
+    this.toggle = true;
+    // ทำสิ่งที่คุณต้องการหลังจากการกด clear
+  }
 
 
 }

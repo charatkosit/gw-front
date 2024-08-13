@@ -60,6 +60,9 @@ export class CarListComponent {
 
   initializeDataTable() {
     $(document).ready(() => {
+      if ($.fn.DataTable.isDataTable('#example1')) {
+        $('#example1').DataTable().destroy();
+      }
       var table = $('#example1').DataTable({
         language: {
           lengthMenu: 'แสดง _MENU_ แถว',
@@ -230,23 +233,26 @@ export class CarListComponent {
     })
   }
   selectCarProfile(selectedCarId: number) {
-    this.car.findById(selectedCarId, this.memberId).subscribe(
+    this.car.findByIdForHeader(selectedCarId, this.memberId).subscribe(
       data => {
-        console.log(`car,customer: ${JSON.stringify(data)}`)
-        console.log(`car:${selectedCarId},customer: ${JSON.stringify(data.customers[0].id)}`)
+        console.log(`forHeader: ${JSON.stringify(data)}`)
+        this.share.addProfile(data);
+        
 
-        let objData = {
-          customerId: data.customers[0].id,
-          carId: selectedCarId
-        }
-        this.share.updateGlobalData(objData)
+        // let objData = {
+        //   customerId: data.customers[0].id,
+        //   carId: selectedCarId,
+        //   orderId: 0
+        // }
+        // this.share.updateGlobalData(objData)
       }
     )
     let objData = {
       customerId: 0,
-      carId: selectedCarId
+      carId: selectedCarId,
+      orderId: 0
     }
-    this.share.updateGlobalData(objData)
+    // this.share.updateGlobalData(objData)
   }
 
   //---------------ก่อนไป modal----------------

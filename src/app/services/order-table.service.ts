@@ -56,6 +56,11 @@ export class OrderTableService {
    return this.http.get<any>('api/order/findByCustomerId',{ params });
  }
 
+ statusOpen(memberId:string):Observable<any[]> {
+  const params = new HttpParams().set('memberId', memberId);
+   return this.http.get<any[]>('api/order/statusOpen',{params})
+ }
+
   update(id:number ,orderData:any):Observable<any> {
     const headers = new HttpHeaders( { 'Content-Type': 'application/json' } );
     return this.http.patch<any>(`/api/order/${id}`,orderData, {headers : headers});

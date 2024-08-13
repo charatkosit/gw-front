@@ -1,1 +1,139 @@
-<p>main-order works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+            <div class="d-flex">
+   <div>{{orderId}}</div>
+   <button class="btn btn-sm btn-primary mr-2">+ อะไหล่</button>
+   <button class="btn btn-sm btn-primary mr-2">ปิดงาน</button>
+   <button type="button" (click)="close()" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+            </div>
+      
+
+        </div>
+        <div class="card-body">
+
+          <div class="row invoice-info">
+            <div class="col-sm-4">
+              <div class="card">
+                <div class="d-flex justify-content-between mr-3 ml-3 mt-2"><strong>รหัสลูกค้า</strong>
+                  <div>{{orderData.customer.id}}</div>
+                </div>
+                <div class="d-flex justify-content-between mr-3 ml-3"><strong>ลูกค้า</strong>
+                  <div>{{orderData.customer.name}}</div>
+                </div>
+                <div class="d-flex justify-content-between mr-3 ml-3"><strong>ที่อยู่</strong>
+                  <div>{{orderData.customer.address}}</div>
+                </div>
+                <div class="d-flex justify-content-between mr-3 ml-3 mb-2"><strong>โทรศัพท์</strong>
+                  <div>{{orderData.customer.phone}}</div>
+                </div>
+
+              </div>
+
+            </div>
+            <div class="col-sm-4">
+              <div class="card">
+                <div class="d-flex justify-content-between mr-3 ml-3 mt-2"><strong>อาการเสีย</strong>
+                  <div>{{orderData.sympthom}}</div>
+                </div>
+                <div class="d-flex justify-content-between mr-3 ml-3"><strong>รายละเอียด</strong>
+                  <div>{{orderData.description}}</div>
+                </div>
+                <div class="d-flex justify-content-between mr-3 ml-3 mb-2"><strong>Km.เข้าบริการ</strong>
+                  <div>{{orderData.km}}</div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-sm-4">
+              <div class="card">
+                <div class="d-flex justify-content-between mr-3 ml-3 mt-2"><strong>รหัส</strong>
+                    <div>{{orderData.car.id}}</div>
+                  </div>
+                <div class="d-flex justify-content-between mr-3 ml-3"><strong>ทะเบียน</strong>
+                  <div>{{orderData.car.licensePlate}}</div>
+                </div>
+                <div class="d-flex justify-content-between mr-3 ml-3"><strong>แบรนด์</strong>
+                  <div>{{orderData.car.brand}}</div>
+                </div>
+                <div class="d-flex justify-content-between mr-3 ml-3"><strong>รุ่น</strong>
+                  <div>{{orderData.car.model}}</div>
+                </div>
+                <div class="d-flex justify-content-between mr-3 ml-3"><strong>ปี</strong>
+                  <div>{{orderData.car.year}}</div>
+                </div>
+                <div class="d-flex justify-content-between mr-3 ml-3 mb-2"><strong>สี</strong>
+                  <div>{{orderData.car.color}}</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <app-order-detail-edit-status-modal [showEditStatusModal]="showEditStatusModal"
+            (closeModal)="closeEditStatusModal()" [data]="modalEditStatusData"
+            (formEditSubmitted)="onSubmitEditStatus($event)">
+          </app-order-detail-edit-status-modal>
+
+          <app-order-detail-edit-part-modal [showEditPartModal]="showEditPartModal" (closeModal)="closeEditPartModal()"
+            [data]="modalEditPartData" (formEditSubmitted)="onSubmitEditPart($event)">
+          </app-order-detail-edit-part-modal>
+
+          <app-order-addpart-modal [showOrderAddpartModal]="showOrderAddpartModal"
+            (formSubmitted)="onSubmitAddPart($event)" [data]="modalAddpartData" (closeModal)="closeOrderAddpartModal()">
+          </app-order-addpart-modal>
+
+
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h6>สรุปการซ่อม</h6>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-between"><strong>วันที่เข้า</strong>
+            <div>{{orderData.dateIn}}</div>
+          </div>
+          <div class="d-flex justify-content-between"><strong>แก้ไข</strong>
+            <div>{{orderData.solution}}</div>
+          </div>
+          <div class="d-flex justify-content-between"><strong>สถานะ</strong>
+            <div>{{orderData.status}}</div>
+          </div>
+          <div class="d-flex justify-content-between"><strong>ปิดงานเมื่อ</strong>
+            <div>{{orderData.dateOut}}</div>
+          </div>
+          <div class="d-flex justify-content-between"><strong>ราคารวม</strong>
+            <div>{{sumTotal}}</div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-sm btn-warning" (click)="onEditStatus()">ปิดงาน</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <button class="circle-button" data-toggle="modal" (click)="onAddpart()"
+            data-target="#customerModal">+</button>
+        </div>
+
+
+        <div class="card-body">
+          <div class="table-responsive">
+            <table id="example1" class="table table-bordered table-striped"></table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

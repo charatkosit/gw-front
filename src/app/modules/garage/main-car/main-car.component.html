@@ -47,7 +47,7 @@
           <td>{{item.km}}</td>
           <td>{{item.status}}</td>
           <td>{{item.carId}}</td>
-          <td><button class="btn btn-sm btn-warning">รายละเอียด</button></td>
+          <td><button class="btn btn-sm btn-warning" (click)="onSelect(item.id)">รายละเอียด</button></td>
         </tr>
 
       </tbody>

@@ -1,0 +1,15 @@
+/* Default state for all buttons */
+.car-btn {
+    transition: opacity 0.6s ease;
+  }
+  
+  /* When any button is hovered */
+  .car-btn:hover {
+    opacity: 1;
+  }
+  
+  /* When a button is not hovered and any button is hovered */
+  .car-btn:not(:hover) {
+    opacity: 0.6;
+  }
+  

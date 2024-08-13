@@ -19,6 +19,7 @@ export interface goApiPartlistNew {
     code:        number;
     message:     string;
     resultFound: number;
+    brandCount:  brandC[];
     data:        PartlistNew[];
 }
 export interface PartlistNew {
@@ -34,7 +35,10 @@ export interface PartlistNew {
     TimeStamp:   string;
 }
 
-
+export interface brandC {
+    brand: string;
+    total: number;
+}
 
 export interface TablePartlist {
     Brand:       string;

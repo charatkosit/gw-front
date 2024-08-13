@@ -16,6 +16,9 @@
       <!-- <button *ngIf="data.customerId!=0 && data.carId!=0 " 
           class="btn btn-sm btn-warning" (click)="onClickToProfile()">{{licensePlate}}</button> -->
     <!-- </li> -->
+    <li *ngFor="let item of carProfiles$ | async; let i = index">
+      <button class="btn btn-sm btn-success mr-2 car-btn" (click)="onClickLP(item)">{{item.lp}}</button>
+    </li> 
     <li *ngIf="memberProfile$ | async as data">
        {{data.memberId}}
     </li>
