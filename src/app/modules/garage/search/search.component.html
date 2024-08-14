@@ -33,7 +33,7 @@
                                     <div class="col-lg-4">
                                         <!-- select -->
                                         <div class="form-group">
-                                            <label for="itemname-form">ค้นหาอะไหล่</label>
+                                            <label for="itemname-form">ค้นหาอะไหล่:</label>
                                             <input type="search" formControlName="searchTerm" class="form-control"
                                             (input)="onInputChange($event)"
                                                 id="itemname-form" placeholder="ตัวอย่าง..  ยาง ไส้ toy หลัง E12">
@@ -43,8 +43,11 @@
                                     </div>
                                     <div class="col-lg-8">
                                         <div class="button-container">
-                                            <button *ngFor="let brandCount of brandCounts" class="btn btn-sm btn-outline-secondary mr-2 mb-2" (click)="insertBrand(brandCount.brand)">{{ brandCount.brand }}</button>
+                                            <button *ngFor="let brandCount of brandCounts" 
+                                               class="btn btn-sm btn-outline-secondary mr-2 mb-2" 
+                                               (click)="onBrandClick(brandCount.brand)">{{ brandCount.brand }}-{{ brandCount.count}}</button>
                                           </div>
+                                          
                                     </div>
                                 </div>
                             </div>

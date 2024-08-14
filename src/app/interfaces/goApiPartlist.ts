@@ -37,7 +37,7 @@ export interface PartlistNew {
 
 export interface brandC {
     brand: string;
-    total: number;
+    count: number;
 }
 
 export interface TablePartlist {

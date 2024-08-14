@@ -39,9 +39,10 @@ export class SearchComponent implements OnInit {
 
   totalFound: number = 0;
   brandCounts: brandC[] = [];
-  numBrandCounts: number = 0;
-  arrayBrand: string[] = [];
-  brand_0: string = '';
+  selectedBrands: string[] = [];
+
+  firstSearchTerm: string = '';
+
 
 
   // customer_code = this.share.customer_code;
@@ -71,7 +72,7 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.partlist = this.recoverHistoryQuery(this.historyQuery);
+
     console.log()
     this.searchForm = this.fb.group({
       searchTerm: ['', Validators.maxLength(30)],
@@ -96,7 +97,7 @@ export class SearchComponent implements OnInit {
         this.partlistNew = this.apiPartlistNew.data
         this.totalFound = this.apiPartlistNew.resultFound
         this.brandCounts = this.apiPartlistNew.brandCount;
-        this.numBrandCounts = this.brandCounts.length;
+
         // เอาค่า ItemCode มาเก็บไว้ในอาร์เรย์
         this.arrayItemCode = this.partlistNew.map(item => item.ItemCode);
 
@@ -334,20 +335,7 @@ export class SearchComponent implements OnInit {
 
 
 
-  getCrfTotal(partid: string = 'TOY-042260L020'): any {
-    this.epc.getCrfTotal(partid).subscribe(
-      {
-        next: (data: any) => {
-          console.log(`data ${JSON.stringify(data.resultFound)}`)
-          return data.resultFound;
-        },
-        error: (error: any) => {
-          console.error('There was an error!', error);
-        }
-      }
 
-    )
-  }
 
   getEpcVersion() {
     this.epc.getVersion().subscribe({
@@ -374,35 +362,7 @@ export class SearchComponent implements OnInit {
 
 
 
-  insertBrand(brand: string) {
-
-
-    // this.arrayBrand.push(brand);
-    // console.log(`arrayBrand: ${this.arrayBrand}`);
-    // let test = this.arrayBrand.join(' ');
-    // console.log(`test: ${test}`);
-
-    // console.log(`insertBrand: ${brand}`);
-
-    // console.log(`searchTermControl : ${this.searchTermControl.value}`)
-    // console.log(`tempSearch : ${this.tempSearch}`);
-
-  
-      if (this.toggle) {
-        this.brand_0 = brand;  //จำค่า brand ไว้ก่อน  
-        this.tempSearch = this.searchTermControl.value;
-        this.searchTermControl.setValue(`${this.searchTermControl.value} ${brand} `);
-        this.toggle = false;
-        this.arrayBrand = [];
-      } else {
-        this.searchTermControl.setValue(this.tempSearch);
-        this.toggle = true;
-        this.arrayBrand = [];
-      }
-
-
-  }
-
+ 
 
   onInputChange(event: Event) {
     const inputElement = event.target as HTMLInputElement;
@@ -413,9 +373,24 @@ export class SearchComponent implements OnInit {
     }
   }
 
+  onBrandClick(brand: string) {
+    let currentSearchTerm = this.searchTermControl?.value || '';
+    const brandIncluded = currentSearchTerm.includes(brand);
+  
+    if (brandIncluded) {
+      currentSearchTerm = currentSearchTerm.replace(brand, '').trim();
+    } else {
+      currentSearchTerm = `${currentSearchTerm} ${brand}`.trim();
+    }
+  
+    this.searchForm.patchValue({ searchTerm: currentSearchTerm });
+  }
+
+
   onClear() {
     console.log('Search input cleared');
-    this.toggle = true;
+    this.selectedBrands = [];
+    this.searchForm.get('searchTerm')?.setValue('');
     // ทำสิ่งที่คุณต้องการหลังจากการกด clear
   }
 
