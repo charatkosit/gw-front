@@ -10,10 +10,11 @@ import { environment } from 'src/environments/environment';
 // import * as CryptoJS from 'crypto-js';
 import * as CryptoJS from 'crypto-js';
 import Swal from 'sweetalert2';
-import { debounceTime, switchMap } from 'rxjs';
+import { debounceTime, map, switchMap } from 'rxjs';
 import { DICTIONARY } from 'src/app/interfaces/Dictionary';
 import { ShareService } from 'src/app/services/share.service';
 import { SearchService } from 'src/app/services/search.service';
+import { co } from '@fullcalendar/core/internal-common';
 
 // import Swal from 'sweetalert2';
 declare var $: any;
@@ -78,9 +79,7 @@ export class SearchComponent implements OnInit {
       searchTerm: ['', Validators.maxLength(30)],
     })
 
-
     this.searchTermControl = this.searchForm.get('searchTerm');
-
     if (this.searchTermControl) {
       this.searchTermControl.valueChanges.pipe(
         debounceTime(300), // รอ 300 มิลลิวินาทีก่อนเรียก API
@@ -88,38 +87,35 @@ export class SearchComponent implements OnInit {
           //   ตรวจสอบคำผิด และแก้ไข
           const correctedTerm = this.checkSpelling(value);
           console.log(`correctedTerm: ${correctedTerm}`);
-
-          return this.search.getPartlistBySingleSearch(`term=${correctedTerm}`)
+          return this.search.getPartlistBySingleSearch(`term=${correctedTerm}`).pipe(
+            map( (res:goApiPartlistNew) => ({ res ,correctedTerm }))
+          );
+          
         })
-      ).subscribe((res: goApiPartlistNew) => {
+      ).subscribe(({res, correctedTerm}: { res: goApiPartlistNew, correctedTerm: string }) => {
 
         this.apiPartlistNew = res;
         this.partlistNew = this.apiPartlistNew.data
         this.totalFound = this.apiPartlistNew.resultFound
-        this.brandCounts = this.apiPartlistNew.brandCount;
 
         // เอาค่า ItemCode มาเก็บไว้ในอาร์เรย์
         this.arrayItemCode = this.partlistNew.map(item => item.ItemCode);
 
         // สร้างอาร์เรย์ใหม่ที่มีเฉพาะ ItemCode
         this.partlistNew = this.partlistNew.map(item => ({ ...item, count: 0 }));
-        // const nCrf = this.getCrfTotal();
-        // console.log(`nCrf =${nCrf}`)
-        console.log(`brandCounts = ${JSON.stringify(this.brandCounts)}`)
-        console.log(`brandCounts.lenght = ${JSON.stringify(this.brandCounts.length)}`)
-        console.log(`partlistNew = ${JSON.stringify(this.partlistNew)}`)
+        // console.log(`partlistNew = ${JSON.stringify(this.partlistNew)}`)
 
         // อัปเดตตาราง DataTables
         // Successfully deleted the officer, now update the table 
         this.updateDataTable();
 
-      }
-      )
+        console.log(`correctedTerm: ${correctedTerm}`);
+        this.searchBrandCount(correctedTerm);
 
-
+      });
     }
 
-
+    //-------------------
     // สร้างตาราง
     $(document).ready(() => {
       var table = $('#example1').DataTable({
@@ -232,6 +228,18 @@ export class SearchComponent implements OnInit {
 
 
   }
+
+
+  searchBrandCount(term: string) {
+
+    this.search.getPartlistBySearchBrandCount(`term=${term}`)
+      .subscribe((res: any) => {
+        console.log(`res = ${JSON.stringify(res)}`)
+        this.brandCounts = res.brandCount;
+      });
+  }
+
+
 
 
   checkSpelling(term: string): string {
@@ -362,7 +370,7 @@ export class SearchComponent implements OnInit {
 
 
 
- 
+
 
   onInputChange(event: Event) {
     const inputElement = event.target as HTMLInputElement;
@@ -376,13 +384,13 @@ export class SearchComponent implements OnInit {
   onBrandClick(brand: string) {
     let currentSearchTerm = this.searchTermControl?.value || '';
     const brandIncluded = currentSearchTerm.includes(brand);
-  
+
     if (brandIncluded) {
       currentSearchTerm = currentSearchTerm.replace(brand, '').trim();
     } else {
       currentSearchTerm = `${currentSearchTerm} ${brand}`.trim();
     }
-  
+
     this.searchForm.patchValue({ searchTerm: currentSearchTerm });
   }
 

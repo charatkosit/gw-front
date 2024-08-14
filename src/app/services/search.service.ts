@@ -31,7 +31,12 @@ export class SearchService {
     return this.http.get<any>(uri, { responseType: 'json' })
   }
 
+  getPartlistBySearchBrandCount(keyword: string) {
 
+    const uri = `api/v1/products/searchBrandCount?${keyword}`
+
+    return this.http.get<any>(uri, { responseType: 'json' })
+  }
 
 }
 
